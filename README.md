@@ -1,16 +1,22 @@
 # ⚡ PromithicAI
 
-[![Version](https://img.shields.io/badge/version-v1.0-cyan.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/index.html)
-[![License](https://img.shields.io/badge/license-MIT-purple.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/LICENSE)
-[![Tech Stack](https://img.shields.io/badge/tech--stack-Vanilla_JS_%7C_CSS3_%7C_HTML5-orange.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/index.html)
+[![Version](https://img.shields.io/badge/version-v1.0-cyan.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/index.html)
+[![License](https://img.shields.io/badge/license-MIT-purple.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/LICENSE)
+[![Tech Stack](https://img.shields.io/badge/tech--stack-Vanilla_JS_%7C_CSS3_%7C_HTML5-orange.svg)](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/index.html)
 
 An interactive, premium web console simulating a **Multi-Agent AI Pipeline** that transforms natural language prompts into working, single-page web applications. Drawing inspiration from industry leaders like *Lovable.dev*, *Emergent*, and *v0.dev*, this codebase presents a client-side environment for orchestrating code planning, compilation, verification, and sandboxed execution.
 
 ---
 
+##  🚀 Live Demo
+
+🔗 [Try PromithicAI](https://shashwatss10.github.io/PromithicAI/) 
+
+---
+
 ## 📖 About the Project
 
-The **PromithicAI** is a serverless, front-end heavy development console. When a user input is received (e.g., *"Build me a Pomodoro timer"*), the system initiates a structured multi-agent loop:
+The **PromithicAI** is a serverless, front-end-heavy development console. When a user input is received (e.g., *"Build me a Pomodoro timer"*), the system initiates a structured multi-agent loop:
 
 ```
 [User Prompt] ──> 👤 Planner Agent ──> 👤 Coder Agent ──> 👤 Reviewer Agent ──> 🖥️ Sandbox Preview
@@ -34,15 +40,15 @@ The app features full code streaming, live sandboxed previews, theme toggles, an
 Building a stateful agent system purely on the client-side using Vanilla JavaScript brought several complex implementation challenges:
 
 *   **Concurrency & Stream Cancellation:**
-    Handling stateful, asynchronous streaming loops inside the single-thread model of a browser meant that if a user canceled a build or submitted a new prompt mid-generation, overlapping text streams could corrupt the editor model. This was solved in [js/streaming.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/streaming.js) and [js/agent.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/agent.js) by implementing cancelable promise wrappers and an explicit external abort polling system (`getAbort()`).
+    Handling stateful, asynchronous streaming loops inside the single-thread model of a browser meant that if a user canceled a build or submitted a new prompt mid-generation, overlapping text streams could corrupt the editor model. This was solved in [js/streaming.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/streaming.js) and [js/agent.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/agent.js) by implementing cancelable promise wrappers and an explicit external abort polling system (`getAbort()`).
 *   **Resilient Monaco CDN Integration:**
-    Embedding a heavyweight code editor requires robust script loading. If the CDN load of Monaco fails (e.g., offline usage or blocked domains), the app's core feature breaks. To address this, [js/editor.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/editor.js) implements a self-healing fallback mechanism that automatically constructs a lightweight, customized `textarea` replicating Monaco's editor interfaces (`getValue`, `setValue`, `appendCode`) to ensure zero-downtime operation.
+    Embedding a heavyweight code editor requires robust script loading. If the CDN load of Monaco fails (e.g., offline usage or blocked domains), the app's core feature breaks. To address this, [js/editor.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/editor.js) implements a self-healing fallback mechanism that automatically constructs a lightweight, customized `textarea` replicating Monaco's editor interfaces (`getValue`, `setValue`, `appendCode`) to ensure zero-downtime operation.
 *   **Secure Sandboxing of Generated Code:**
-    Injecting arbitrary Javascript and CSS from AI outputs into the parent page's DOM would corrupt global styles, leak local storage credentials, and create cross-site script clashes. To guarantee safe execution, generated apps are injected dynamically using the `srcdoc` property of an `<iframe>` configured with a strict `sandbox="allow-scripts"` directive, completely isolating the generated workspace.
+    Injecting arbitrary JavaScript and CSS from AI outputs into the parent page's DOM would corrupt global styles, leak local storage credentials, and create cross-site script clashes. To guarantee safe execution, generated apps are injected dynamically using the `srcdoc` property of an `<iframe>` configured with a strict `sandbox="allow-scripts"` directive, completely isolating the generated workspace.
 *   **Storage Boundaries:**
-    Managing local history (up to 30 past builds containing full source code and prompts) in local storage pushes the limits of the browser's standard 5MB limit. Compact JSON serialization rules and try-catch storage managers in [js/history.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/history.js) were created to prevent site crashes and handle storage quota exceptions gracefully.
+    Managing local history (up to 30 past builds containing full source code and prompts) in local storage pushes the limits of the browser's standard 5MB limit. Compact JSON serialization rules and try-catch storage managers in [js/history.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/history.js) were created to prevent site crashes and handle storage quota exceptions gracefully.
 *   **Grid Layouts without UI Libraries:**
-    Structuring an IDE style interface (adjustable columns, sliding history drawers, terminal console logs, iframe previews, and modal popups) while maintaining a premium glassmorphic appearance required complex CSS variables and media query orchestration in [css/builder.css](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/css/builder.css) and [css/components.css](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/css/components.css) without relying on Tailwind or Bootstrap.
+    Structuring an IDE-style interface (adjustable columns, sliding history drawers, terminal console logs, iframe previews, and modal popups) while maintaining a premium glassmorphic appearance required complex CSS variables and media query orchestration in [css/builder.css](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/css/builder.css) and [css/components.css](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/css/components.css) without relying on Tailwind or Bootstrap.
 
 ---
 
@@ -50,12 +56,12 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 
 | Component | Description | Reference |
 | :--- | :--- | :--- |
-| **Multi-Agent Pipeline** | Simulates step-by-step progress logging for Planner, Coder, and Reviewer. | [js/agent.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/agent.js) |
-| **Monaco Editor** | Embedded Monaco instance supporting code syntax, layout resizing, and font scaling. | [js/editor.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/editor.js) |
-| **History Sidebar** | Local history drawer containing the last 30 builds with quick reload and delete options. | [js/history.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/history.js) |
-| **Theme Engine** | Light/dark mode controller synchronizing the page styles and Monaco theme instantly. | [js/theme.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/theme.js) |
-| **Agnostic Settings** | Form controls to configure LLM providers, store custom API keys, and tweak font settings. | [js/settings.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/settings.js) |
-| **Faded Transition Router** | Animates page transitions smoothly by fading out page wrappers before navigation. | [js/router.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/js/router.js) |
+| **Multi-Agent Pipeline** | Simulates step-by-step progress logging for Planner, Coder, and Reviewer. | [js/agent.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/agent.js) |
+| **Monaco Editor** | Embedded Monaco instance supporting code syntax, layout resizing, and font scaling. | [js/editor.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/editor.js) |
+| **History Sidebar** | Local history drawer containing the last 30 builds with quick reload and delete options. | [js/history.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/history.js) |
+| **Theme Engine** | Light/dark mode controller synchronizing the page styles and Monaco theme instantly. | [js/theme.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/theme.js) |
+| **Agnostic Settings** | Form controls to configure LLM providers, store custom API keys, and tweak font settings. | [js/settings.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/settings.js) |
+| **Faded Transition Router** | Animates page transitions smoothly by fading out page wrappers before navigation. | [js/router.js](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/js/router.js) |
 
 ---
 
@@ -64,7 +70,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 The project has a modular, clean structure divided between view layouts, custom stylesheets, and utility scripts:
 
 ```
-AI-Web-App-Builder/
+PromithicAI/
 ├── index.html                 # Main Landing Page with features, process & roadmap
 ├── builder.html               # Main Workspace Console (Prompter, Monaco Editor & Live Preview)
 ├── settings.html              # Configuration center for API keys, themes & editor layout
@@ -114,7 +120,7 @@ graph TD
 ```
 
 *   **`v1.1` - Cloud Database Sync & Auth:** Integrate Firebase Auth and a Supabase PostgreSQL backend for syncing user profiles and persistent, multi-device history logs.
-*   **`v1.2` - Live API Key Generations:** Enable users to store their own Claude or OpenAI API keys in the Settings Panel to query actual live LLM models and stream dynamically generated code.
+*   **`v1.2` - Live API Key Generation:** Enable users to store their own Claude or OpenAI API keys in the Settings Panel to query actual live LLM models and stream dynamically generated code.
 *   **`v2.0` - Python Backend (FastAPI + LangGraph):** Migrate from client-side simulation to a production-ready Python FastAPI server utilizing LangGraph for structured agent state machine loops.
 *   **`v2.1` - MCP Sandbox Execution:** Implement Model Context Protocol (MCP) servers to allow the AI to test code, check console errors, and read/write file systems in isolated containers.
 *   **`v2.2` - Git Push & Auto-Deploy:** Add button features to export code directly to GitHub repositories and deploy immediately to Vercel or Netlify.
@@ -126,10 +132,10 @@ graph TD
 
 1. Clone or download this repository locally:
    ```bash
-   git clone https://github.com/your-username/AI-Web-App-Builder.git
+   git clone https://github.com/your-username/PromithicAI.git
    ```
-2. Simply double-click [index.html](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/AI-Web-App-Builder/index.html) to open the landing page in your browser.
-3. For a fully responsive, smooth transition experience, serve the directory using a lightweight HTTP server (such as VS Code's Live Server, or Python's server command):
+2. Simply double-click [index.html](file:///c:/Users/acer/OneDrive/Desktop/Coding/Projects/PromithicAI/index.html) to open the landing page in your browser.
+3. For a fully responsive, smooth transition experience, serve the directory using a lightweight HTTP server (such as VS Code's Live Server or Python's server command):
    ```bash
    python -m http.server 8000
    ```
