@@ -2,9 +2,9 @@
 
 [![Version](https://img.shields.io/badge/version-v1.0-cyan.svg)](index.html)
 [![License](https://img.shields.io/badge/license-MIT-purple.svg)](LICENSE)
-[![Vanilla_JS](https://img.shields.io/badge/Vanilla_JS-yellow)](index.html)
-[![CSS3](https://img.shields.io/badge/CSS3-blue)](index.html)
-[![HTML5](https://img.shields.io/badge/HTML5-orange)](index.html)
+[![Vanilla_JS](https://img.shields.io/badge/Vanilla_JS-JS-yellow.svg)](index.html)
+[![CSS3](https://img.shields.io/badge/CSS3-3-blue.svg)](index.html)
+[![HTML5](https://img.shields.io/badge/HTML5-5-orange.svg)](index.html)
 
 
 An interactive, premium web console simulating a **Multi-Agent AI Pipeline** that transforms natural language prompts into working, single-page web applications. Drawing inspiration from industry leaders like *Lovable.dev*, *Emergent*, and *v0.dev*, this codebase presents a client-side environment for orchestrating code planning, compilation, verification, and sandboxed execution.
