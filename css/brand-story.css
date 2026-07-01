@@ -1,0 +1,225 @@
+/* ===================================================================
+   BRAND STORY STYLING — PromithicAI Brand Segment
+   AI Web App Builder  ·  Added v1.0-polish
+   =================================================================== */
+
+.brand-story-section {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 60%);
+}
+
+.brand-story-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  position: relative;
+  box-shadow: var(--shadow-xl);
+}
+
+.brand-story-inner::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-xl);
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent-cyan-dim), transparent 50%, var(--accent-violet-dim));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.brand-story-label {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-cyan);
+  background: var(--glow-cyan);
+  border: 1px solid var(--border-glow);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 20px;
+}
+
+.brand-story-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+}
+
+.brand-name-word {
+  display: inline-block;
+  font-weight: 800;
+  position: relative;
+}
+
+.bn-pro {
+  color: var(--accent-cyan);
+}
+
+.bn-mith {
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.bn-ai {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-story-intro {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 620px;
+  margin: 0 auto 36px;
+}
+
+.brand-story-intro strong {
+  color: var(--text-primary);
+}
+
+.brand-breakdown {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  text-align: left;
+  max-width: 660px;
+  margin: 0 auto 40px;
+}
+
+.brand-part {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  transition: all var(--transition-base);
+}
+
+.brand-part:hover {
+  transform: translateX(4px);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.bp-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  min-width: 72px;
+  text-align: center;
+}
+
+.bp-pro {
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.bp-prom {
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--accent-violet);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.bp-mith {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.bp-ic {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent-orange);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.bp-arrow {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.bp-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-tight);
+}
+
+.bp-desc em {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.brand-taglines {
+  border-top: 1px dashed var(--border);
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.brand-taglines-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.brand-quote {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bq-name {
+  font-weight: 800;
+  color: var(--accent-cyan);
+}
+
+.bq-eq {
+  color: var(--text-muted);
+}
+
+.bq-line {
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .brand-part {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .bp-arrow {
+    display: none;
+  }
+  .brand-quote {
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--text-base);
+  }
+  .bq-eq {
+    display: none;
+  }
+}

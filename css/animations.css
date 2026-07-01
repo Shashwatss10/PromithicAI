@@ -1,0 +1,270 @@
+/* ===================================================================
+   ANIMATIONS — AI Web App Builder v1.0
+   =================================================================== */
+
+/* ── Core Keyframes ── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.88); }
+}
+
+/* ── Page Transition ── */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Glow Pulse ── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 15px var(--glow-cyan); }
+  50%       { box-shadow: 0 0 40px var(--glow-cyan), 0 0 80px var(--glow-cyan); }
+}
+
+@keyframes glowPulseViolet {
+  0%, 100% { box-shadow: 0 0 15px var(--glow-violet); }
+  50%       { box-shadow: 0 0 40px var(--glow-violet), 0 0 80px var(--glow-violet); }
+}
+
+@keyframes glowPulseGreen {
+  0%, 100% { box-shadow: 0 0 15px var(--glow-green); }
+  50%       { box-shadow: 0 0 40px var(--glow-green), 0 0 80px var(--glow-green); }
+}
+
+/* ── Text Glow ── */
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 10px var(--glow-cyan); }
+  50%       { text-shadow: 0 0 30px var(--glow-cyan), 0 0 60px var(--glow-cyan); }
+}
+
+/* ── Gradient Shift ── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Float ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-8px) rotate(3deg); }
+}
+
+/* ── Cursor Blink ── */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Spin ── */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+/* ── Progress Fill ── */
+@keyframes progressFill {
+  from { width: 0%; }
+  to   { width: var(--target-width, 100%); }
+}
+
+/* ── Shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Bounce In ── */
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.3) translateY(40px); }
+  60%  { opacity: 1; transform: scale(1.05) translateY(-8px); }
+  80%  { transform: scale(0.97) translateY(4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Pipeline Flow ── */
+@keyframes pipelineFlow {
+  0%   { width: 0; opacity: 0.5; }
+  100% { width: 100%; opacity: 1; }
+}
+
+/* ── Step Complete Check ── */
+@keyframes stepCheck {
+  0%   { transform: scale(0) rotate(-20deg); opacity: 0; }
+  60%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ── Typing Effect ── */
+@keyframes typing {
+  from { max-width: 0; }
+  to   { max-width: 100%; }
+}
+
+/* ── Toast Slide ── */
+@keyframes toastSlideIn {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes toastSlideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to   { transform: translateX(110%); opacity: 0; }
+}
+
+/* ── Mesh Background Orbs ── */
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -60px) scale(1.1); }
+  66%       { transform: translate(-30px, 30px) scale(0.95); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 40px) scale(0.9); }
+  66%       { transform: translate(60px, -20px) scale(1.05); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, 50px) scale(1.08); }
+}
+
+/* ── Code Line Stream ── */
+@keyframes codeLineSlide {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Status Dot ── */
+@keyframes statusPing {
+  0%   { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Card Hover Reveal ── */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Number Count ── */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Border Rotate ── */
+@keyframes borderRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Utility Classes ── */
+.anim-fade-in      { animation: fadeIn var(--transition-base) both; }
+.anim-fade-in-up   { animation: fadeInUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-fade-in-down { animation: fadeInDown 0.4s ease both; }
+.anim-fade-in-left { animation: fadeInLeft 0.5s ease both; }
+.anim-fade-in-right{ animation: fadeInRight 0.5s ease both; }
+.anim-scale-in     { animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
+.anim-float        { animation: float 4s ease-in-out infinite; }
+.anim-float-slow   { animation: floatSlow 6s ease-in-out infinite; }
+.anim-spin         { animation: spin 1s linear infinite; }
+.anim-pulse-glow   { animation: glowPulse 2.5s ease-in-out infinite; }
+.anim-glow-violet  { animation: glowPulseViolet 2.5s ease-in-out infinite; }
+.anim-shimmer {
+  background: linear-gradient(90deg,
+    var(--bg-card) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-card) 75%);
+  background-size: 400% 100%;
+  animation: shimmer 2s infinite;
+}
+.anim-page-enter   { animation: pageEnter 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-bounce-in    { animation: bounceIn 0.6s both; }
+
+/* ── Stagger Delays ── */
+.delay-0   { animation-delay: 0ms; }
+.delay-50  { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+.delay-900 { animation-delay: 900ms; }
+.delay-1000{ animation-delay: 1000ms; }
+
+/* ── Shake Error ── */
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  30%       { transform: translateX(7px); }
+  45%       { transform: translateX(-6px); }
+  60%       { transform: translateX(5px); }
+  75%       { transform: translateX(-4px); }
+  90%       { transform: translateX(3px); }
+}
+
+.shake-error {
+  animation: shakeError 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

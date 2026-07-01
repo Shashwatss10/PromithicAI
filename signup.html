@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PromithicAI — Sign up for a free account." />
+  <title>PromithicAI — Create Account</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+
+  <!-- Theme: apply early to prevent flash -->
+  <script>
+    (function(){var t=localStorage.getItem('aiwab-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
+  </script>
+</head>
+<body class="auth-page">
+
+  <!-- ── Left Branding Panel ── -->
+  <aside class="auth-brand" aria-label="Branding Info">
+    <div class="auth-brand-orb auth-brand-orb-1" aria-hidden="true"></div>
+    <div class="auth-brand-orb auth-brand-orb-2" aria-hidden="true"></div>
+
+    <div class="auth-brand-top">
+      <a href="index.html" class="auth-brand-logo">
+        <div class="auth-brand-logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="auth-brand-logo-name">Promithic<span>AI</span></span>
+      </a>
+
+      <h1 class="auth-brand-headline">Generate Web Apps Token-by-Token</h1>
+      <p class="auth-brand-sub">Build, view, and deploy custom web applications in seconds using a Planner → Coder → Reviewer pipeline.</p>
+
+      <div class="auth-features">
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </div>
+          <span class="auth-feature-text">Live iframe Sandbox Previews</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <span class="auth-feature-text">Monaco Editor Integrations</span>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="auth-feature-text">Persistent Build History</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-brand-bottom">
+      <span>PromithicAI Engine v1.0.0</span>
+    </div>
+  </aside>
+
+  <!-- ── Right Form Panel ── -->
+  <main class="auth-form-panel">
+    <div class="auth-form-wrapper">
+      <div class="auth-form-header">
+        <div class="auth-form-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+        </div>
+        <h2 class="auth-form-title">Create Account</h2>
+        <p class="auth-form-subtitle">Already have an account? <a href="login.html">Sign in here</a></p>
+      </div>
+
+      <form class="auth-form" id="signup-form" novalidate>
+        <div class="form-row">
+          <div class="input-group">
+            <label class="input-label required" for="first-name">First Name</label>
+            <input type="text" id="first-name" class="input" placeholder="John" required>
+          </div>
+          <div class="input-group">
+            <label class="input-label required" for="last-name">Last Name</label>
+            <input type="text" id="last-name" class="input" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label required" for="email">Email Address</label>
+          <div class="input-icon-wrapper">
+            <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"/></svg>
+            <input type="email" id="email" class="input" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label required" for="password">Password</label>
+          <div class="input-password-wrapper">
+            <input type="password" id="password" class="input" placeholder="Min. 8 characters" required minlength="8">
+            <button type="button" class="password-toggle" data-target="password" aria-label="Toggle password visibility">
+              <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+            </button>
+          </div>
+
+          <!-- Password strength helper -->
+          <div class="password-strength">
+            <div class="strength-bars">
+              <span class="strength-bar" id="strength-1"></span>
+              <span class="strength-bar" id="strength-2"></span>
+              <span class="strength-bar" id="strength-3"></span>
+            </div>
+            <span class="strength-label" id="strength-label">Password strength</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-submit" id="signup-submit-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+          Create Account
+        </button>
+
+        <div class="auth-divider">
+          <div class="auth-divider-line"></div>
+          <span class="auth-divider-text">or sign up with</span>
+          <div class="auth-divider-line"></div>
+        </div>
+
+        <button type="button" class="social-btn" id="google-signup-btn">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
+          Google Account
+        </button>
+
+        <p class="auth-terms">By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+      </form>
+    </div>
+  </main>
+
+  <!-- Javascript -->
+  <script src="js/theme.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // ── Password visibility toggles ──
+      document.querySelectorAll('.password-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var targetId = btn.dataset.target;
+          var input = document.getElementById(targetId);
+          if (!input) return;
+          var isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          var eyeIcon = btn.querySelector('.eye-icon');
+          var eyeOffIcon = btn.querySelector('.eye-off-icon');
+          if (eyeIcon) eyeIcon.style.display = isHidden ? 'none' : '';
+          if (eyeOffIcon) eyeOffIcon.style.display = isHidden ? '' : 'none';
+        });
+      });
+
+      // ── Password strength checker ──
+      var passwordInput = document.getElementById('password');
+      var strength1 = document.getElementById('strength-1');
+      var strength2 = document.getElementById('strength-2');
+      var strength3 = document.getElementById('strength-3');
+      var label = document.getElementById('strength-label');
+
+      passwordInput.addEventListener('input', function () {
+        var val = passwordInput.value;
+        var score = 0;
+        if (val.length >= 8) score++;
+        if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+        if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score++;
+
+        strength1.className = 'strength-bar';
+        strength2.className = 'strength-bar';
+        strength3.className = 'strength-bar';
+        label.className = 'strength-label';
+
+        if (val.length === 0) { label.textContent = 'Password strength'; return; }
+
+        if (score === 1) {
+          strength1.classList.add('active', 'weak');
+          label.textContent = 'Weak password';
+          label.classList.add('weak');
+        } else if (score === 2) {
+          strength1.classList.add('active', 'medium');
+          strength2.classList.add('active', 'medium');
+          label.textContent = 'Medium password';
+          label.classList.add('medium');
+        } else if (score >= 3) {
+          strength1.classList.add('active', 'strong');
+          strength2.classList.add('active', 'strong');
+          strength3.classList.add('active', 'strong');
+          label.textContent = 'Strong password';
+          label.classList.add('strong');
+        }
+      });
+
+      // ── Signup form submission (mock session) ──
+      var signupForm = document.getElementById('signup-form');
+      var submitBtn = document.getElementById('signup-submit-btn');
+
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var firstName = document.getElementById('first-name').value.trim();
+        var lastName = document.getElementById('last-name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var password = passwordInput.value;
+
+        // Basic client-side validation
+        if (!firstName) {
+          document.getElementById('first-name').focus();
+          document.getElementById('first-name').style.borderColor = 'var(--accent-red, #ef4444)';
+          setTimeout(function () { document.getElementById('first-name').style.borderColor = ''; }, 2000);
+          return;
+        }
+        if (!email || !email.includes('@')) {
+          document.getElementById('email').focus();
+          document.getElementById('email').style.borderColor = 'var(--accent-red, #ef4444)';
+          setTimeout(function () { document.getElementById('email').style.borderColor = ''; }, 2000);
+          return;
+        }
+        if (!password || password.length < 8) {
+          passwordInput.focus();
+          passwordInput.style.borderColor = 'var(--accent-red, #ef4444)';
+          setTimeout(function () { passwordInput.style.borderColor = ''; }, 2000);
+          return;
+        }
+
+        // Set loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating account…';
+
+        // Write mock session
+        try {
+          localStorage.setItem('aiwab-logged-in', 'true');
+          localStorage.setItem('aiwab-user-email', email);
+          localStorage.setItem('aiwab-user-name', firstName + (lastName ? ' ' + lastName : ''));
+        } catch (err) { /* ignore storage errors */ }
+
+        setTimeout(function () {
+          window.AppRouter.navigateTo('builder.html');
+        }, 600);
+      });
+
+      // ── Google signup (mock) ──
+      var googleBtn = document.getElementById('google-signup-btn');
+      if (googleBtn) {
+        googleBtn.addEventListener('click', function () {
+          googleBtn.disabled = true;
+          googleBtn.textContent = 'Connecting…';
+          try {
+            localStorage.setItem('aiwab-logged-in', 'true');
+            localStorage.setItem('aiwab-user-email', 'demo@gmail.com');
+            localStorage.setItem('aiwab-user-name', 'Demo User');
+          } catch (err) { /* ignore */ }
+          setTimeout(function () {
+            window.AppRouter.navigateTo('builder.html');
+          }, 600);
+        });
+      }
+
+    });
+  </script>
+  <script src="js/fx.js"></script>
+</body>
+</html>
