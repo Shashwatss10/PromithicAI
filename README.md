@@ -8,9 +8,15 @@ An interactive, premium web console simulating a **Multi-Agent AI Pipeline** tha
 
 ---
 
+##  🚀 Live Demo
+
+🔗 [Try PromithicAI](https://shashwatss10.github.io/PromithicAI/) 
+
+---
+
 ## 📖 About the Project
 
-**PromithicAI** is a serverless, front-end heavy development console. When a user input is received (e.g., *"Build me a Pomodoro timer"*), the system initiates a structured multi-agent loop:
+**PromithicAI** is a serverless, front-end-heavy development console. When a user input is received (e.g., *"Build me a Pomodoro timer"*), the system initiates a structured multi-agent loop:
 
 ```
 [User Prompt] ──> 👤 Planner Agent ──> 👤 Coder Agent ──> 👤 Reviewer Agent ──> 🖥️ Sandbox Preview
@@ -38,7 +44,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 *   **Resilient Monaco CDN Integration:**
     Embedding a heavyweight code editor requires robust script loading. If the CDN load of Monaco fails (e.g., offline usage or blocked domains), the app's core feature breaks. To address this, `js/editor.js` implements a self-healing fallback mechanism that automatically constructs a lightweight, customized `textarea` replicating Monaco's editor interfaces (`getValue`, `setValue`, `appendCode`) to ensure zero-downtime operation.
 *   **Secure Sandboxing of Generated Code:**
-    Injecting arbitrary Javascript and CSS from AI outputs into the parent page's DOM would corrupt global styles, leak local storage credentials, and create cross-site script clashes. To guarantee safe execution, generated apps are injected dynamically using the `srcdoc` property of an `<iframe>` configured with a strict `sandbox="allow-scripts"` directive, completely isolating the generated workspace.
+    Injecting arbitrary JavaScript and CSS from AI outputs into the parent page's DOM would corrupt global styles, leak local storage credentials, and trigger cross-site scripting conflicts. To ensure safe execution, generated apps are dynamically injected via the `srcdoc` property of an `<iframe>` configured with a strict `sandbox="allow-scripts"` directive, thereby completely isolating the generated workspace.
 *   **Storage Boundaries:**
     Managing local history (up to 30 past builds containing full source code and prompts) in local storage pushes the limits of the browser's standard 5MB limit. Compact JSON serialization rules and try-catch storage managers in `js/history.js` were created to prevent site crashes and handle storage quota exceptions gracefully.
 *   **Grid Layouts without UI Libraries:**
@@ -103,6 +109,4 @@ PromithicAI/
 | **v2.0** | Image to App (Vision capabilities) | *Planned* |
 | **v2.2** | GitHub Sync & Vercel Deployments | *Planned* |
 
----
 
-*Designed and developed for high-end AI prototyping.*
