@@ -17,6 +17,12 @@ An interactive, premium web console simulating a **Multi-Agent AI Pipeline** tha
 
 ---
 
+## Preview
+
+___UPCOMING___
+
+---
+
 ## 📖 About the Project
 
 **PromithicAI** is a serverless, front-end-heavy development console. When a user input is received (e.g., *"Build me a Pomodoro timer"*), the system initiates a structured multi-agent loop:
