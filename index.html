@@ -24,11 +24,16 @@
   <link rel="stylesheet" href="css/landing.css" />
   <link rel="stylesheet" href="css/brand-story.css" />
   <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
     (function () { var t = localStorage.getItem('aiwab-theme'); if (t === 'light') document.documentElement.setAttribute('data-theme', 'light'); })();
   </script>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -51,7 +56,7 @@
         </div>
         <span class="navbar-logo-text">Promithic<span>AI</span></span>
       </a>
-      <span class="version-badge" aria-label="Version 1.0">v1.0</span>
+      <span class="version-badge" aria-label="Version 1.1">v1.1</span>
 
       <!-- Nav links -->
       <nav class="navbar-nav" aria-label="Page sections">
@@ -197,7 +202,7 @@
                 <div class="hero-stat-label">AI Agents</div>
               </div>
               <div>
-                <div class="hero-stat-num">v1.0</div>
+                <div class="hero-stat-num">v1.1</div>
                 <div class="hero-stat-label">Current Release</div>
               </div>
             </div>
@@ -424,7 +429,7 @@
               <div class="card" style="text-align:center;padding:20px;">
                 <div
                   style="font-size:2rem;font-weight:800;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
-                  v1.0</div>
+                  v1.1</div>
                 <div style="font-size:.8rem;color:var(--text-secondary);margin-top:4px;">Current</div>
               </div>
             </div>
@@ -694,7 +699,7 @@
         <div class="section-header">
           <div class="section-tag">Roadmap</div>
           <h2 class="section-title" id="upcoming-title">Future Upgrades</h2>
-          <p class="section-subtitle">v1.0 is just the beginning. Here's what's coming next.</p>
+          <p class="section-subtitle">v1.1 is just the beginning. Here's what's coming next.</p>
         </div>
 
         <div class="upgrade-cards">
@@ -806,7 +811,7 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-copyright">© 2026 PromithicAI · <span class="version-badge"
-            style="display:inline-flex;vertical-align:middle;">v1.0</span></div>
+            style="display:inline-flex;vertical-align:middle;">v1.1</span></div>
         <div class="footer-links">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
@@ -822,6 +827,7 @@
   <!-- JS -->
   <script src="js/theme.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
   <script src="js/auth.js"></script>
   <script>
     // Navbar scroll shadow

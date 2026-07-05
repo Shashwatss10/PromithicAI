@@ -1,6 +1,6 @@
 /* ===================================================================
    SETTINGS.JS — Settings & Configuration Manager
-   AI Web App Builder v1.0
+   PromithicAI v1.1
    =================================================================== */
 
 (function () {

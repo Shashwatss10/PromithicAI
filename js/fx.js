@@ -1,6 +1,6 @@
 /* ===================================================================
    FX.JS — Cursor, Tilt, Ripple & Scroll-Assemble Engine
-   AI Web App Builder  ·  Added v1.0-polish
+   PromithicAI v1.1
    
    STYLE CONTRACT (preserve in all future updates):
    ─────────────────────────────────────────────────

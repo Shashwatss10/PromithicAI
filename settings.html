@@ -18,11 +18,16 @@
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/settings.css" />
   <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
     (function(){var t=localStorage.getItem('aiwab-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
   </script>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -35,7 +40,7 @@
         </div>
         <span class="navbar-logo-text">Promithic<span>AI</span></span>
       </a>
-      <span class="version-badge">v1.0</span>
+      <span class="version-badge">v1.1</span>
 
       <nav class="navbar-nav">
         <a href="index.html" class="nav-link">
@@ -278,28 +283,28 @@
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-roadmap">Development Roadmap</h2>
-                  <p class="settings-card-desc">Check out the planned upgrades and feature releases for the AI Web App Builder engine.</p>
+                  <p class="settings-card-desc">Check out the planned upgrades and feature releases for the PromithicAI engine.</p>
                 </div>
               </div>
               <div class="settings-card-body">
                 <div class="roadmap-list" role="list" aria-label="Development Roadmap items">
                   <!-- Upgrade items -->
-                  <div class="roadmap-item current" role="listitem">
+                  <div class="roadmap-item" role="listitem">
                     <span class="roadmap-ver">v1.0</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">First Stable Release</div>
                       <div class="roadmap-desc">Multi-agent simulation pipeline, code viewer (Monaco), theme toggle, and localStorage history.</div>
                     </div>
-                    <span class="roadmap-status done">Active</span>
+                    <span class="roadmap-status done">Completed</span>
                   </div>
 
-                  <div class="roadmap-item upcoming" role="listitem">
+                  <div class="roadmap-item current" role="listitem">
                     <span class="roadmap-ver">v1.1</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">Supabase Database & Firebase Auth</div>
                       <div class="roadmap-desc">Integrate database persistence for history sync, user login credentials, and user profiles.</div>
                     </div>
-                    <span class="roadmap-status next">Next Up</span>
+                    <span class="roadmap-status done">Active</span>
                   </div>
 
                   <div class="roadmap-item upcoming" role="listitem">
@@ -308,7 +313,7 @@
                       <div class="roadmap-title">Custom LLM Keys Integration</div>
                       <div class="roadmap-desc">Allows sending API queries directly using user API keys for Claude and OpenAI engines.</div>
                     </div>
-                    <span class="roadmap-status soon">Planned</span>
+                    <span class="roadmap-status next">Next Up</span>
                   </div>
 
                   <div class="roadmap-item planned" role="listitem">
@@ -358,8 +363,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                   </div>
                   <div class="version-info-text">
-                    <h3>Engine version 1.0.0</h3>
-                    <p>Designed by the Development Team as an intermediate project demo.</p>
+                    <h3>Engine version 1.1.0</h3>
+                    <p>Firebase Auth + Supabase cloud DB integration. Production-ready authentication.</p>
                   </div>
                   <div class="version-info-badge">
                     <span class="badge badge-green"><span class="dot"></span>Stable</span>
@@ -381,6 +386,7 @@
   <!-- Javascript -->
   <script src="js/theme.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/settings.js"></script>
   <script>

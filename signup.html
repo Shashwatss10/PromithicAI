@@ -18,11 +18,16 @@
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/auth.css" />
   <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
     (function(){var t=localStorage.getItem('aiwab-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
   </script>
+
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 <body class="auth-page">
 
@@ -65,7 +70,7 @@
     </div>
 
     <div class="auth-brand-bottom">
-      <span>PromithicAI Engine v1.0.0</span>
+      <span>PromithicAI Engine v1.1.0</span>
     </div>
   </aside>
 
@@ -121,6 +126,9 @@
           </div>
         </div>
 
+        <!-- Error banner -->
+        <div id="signup-error" role="alert" style="display:none;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);border-radius:10px;padding:10px 14px;font-size:.83rem;color:#f87171;margin-bottom:4px;"></div>
+
         <button type="submit" class="btn btn-primary auth-submit" id="signup-submit-btn">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
           Create Account
@@ -145,31 +153,54 @@
   <!-- Javascript -->
   <script src="js/theme.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
   <script src="js/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
+      // ── Redirect if already logged in ──
+      FirebaseAuth.onAuthStateChanged(function (user) {
+        if (user) { window.location.replace('builder.html'); }
+      });
+
+      var signupForm   = document.getElementById('signup-form');
+      var submitBtn    = document.getElementById('signup-submit-btn');
+      var passwordInput = document.getElementById('password');
+      var errorBanner  = document.getElementById('signup-error');
+
+      function showError(msg) {
+        errorBanner.textContent = msg;
+        errorBanner.style.display = 'block';
+      }
+      function clearError() {
+        errorBanner.style.display = 'none';
+        errorBanner.textContent = '';
+      }
+      function setLoading(on) {
+        submitBtn.disabled = on;
+        submitBtn.textContent = on ? 'Creating account…' : '';
+        if (!on) {
+          submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg> Create Account';
+        }
+      }
+
       // ── Password visibility toggles ──
       document.querySelectorAll('.password-toggle').forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var targetId = btn.dataset.target;
-          var input = document.getElementById(targetId);
+          var input = document.getElementById(btn.dataset.target);
           if (!input) return;
-          var isHidden = input.type === 'password';
-          input.type = isHidden ? 'text' : 'password';
-          var eyeIcon = btn.querySelector('.eye-icon');
-          var eyeOffIcon = btn.querySelector('.eye-off-icon');
-          if (eyeIcon) eyeIcon.style.display = isHidden ? 'none' : '';
-          if (eyeOffIcon) eyeOffIcon.style.display = isHidden ? '' : 'none';
+          var hidden = input.type === 'password';
+          input.type = hidden ? 'text' : 'password';
+          btn.querySelector('.eye-icon').style.display     = hidden ? 'none' : '';
+          btn.querySelector('.eye-off-icon').style.display  = hidden ? '' : 'none';
         });
       });
 
       // ── Password strength checker ──
-      var passwordInput = document.getElementById('password');
       var strength1 = document.getElementById('strength-1');
       var strength2 = document.getElementById('strength-2');
       var strength3 = document.getElementById('strength-3');
-      var label = document.getElementById('strength-label');
+      var label     = document.getElementById('strength-label');
 
       passwordInput.addEventListener('input', function () {
         var val = passwordInput.value;
@@ -178,92 +209,77 @@
         if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
         if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score++;
 
-        strength1.className = 'strength-bar';
-        strength2.className = 'strength-bar';
-        strength3.className = 'strength-bar';
+        [strength1, strength2, strength3].forEach(function (b) { b.className = 'strength-bar'; });
         label.className = 'strength-label';
-
         if (val.length === 0) { label.textContent = 'Password strength'; return; }
-
         if (score === 1) {
           strength1.classList.add('active', 'weak');
-          label.textContent = 'Weak password';
-          label.classList.add('weak');
+          label.textContent = 'Weak password'; label.classList.add('weak');
         } else if (score === 2) {
           strength1.classList.add('active', 'medium');
           strength2.classList.add('active', 'medium');
-          label.textContent = 'Medium password';
-          label.classList.add('medium');
+          label.textContent = 'Medium password'; label.classList.add('medium');
         } else if (score >= 3) {
-          strength1.classList.add('active', 'strong');
-          strength2.classList.add('active', 'strong');
-          strength3.classList.add('active', 'strong');
-          label.textContent = 'Strong password';
-          label.classList.add('strong');
+          [strength1, strength2, strength3].forEach(function (b) { b.classList.add('active', 'strong'); });
+          label.textContent = 'Strong password'; label.classList.add('strong');
         }
       });
 
-      // ── Signup form submission (mock session) ──
-      var signupForm = document.getElementById('signup-form');
-      var submitBtn = document.getElementById('signup-submit-btn');
-
+      // ── Signup form submission ──
       signupForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        clearError();
         var firstName = document.getElementById('first-name').value.trim();
-        var lastName = document.getElementById('last-name').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var password = passwordInput.value;
+        var lastName  = document.getElementById('last-name').value.trim();
+        var email     = document.getElementById('email').value.trim();
+        var password  = passwordInput.value;
 
-        // Basic client-side validation
         if (!firstName) {
+          showError('Please enter your first name.');
           document.getElementById('first-name').focus();
-          document.getElementById('first-name').style.borderColor = 'var(--accent-red, #ef4444)';
-          setTimeout(function () { document.getElementById('first-name').style.borderColor = ''; }, 2000);
           return;
         }
         if (!email || !email.includes('@')) {
+          showError('Please enter a valid email address.');
           document.getElementById('email').focus();
-          document.getElementById('email').style.borderColor = 'var(--accent-red, #ef4444)';
-          setTimeout(function () { document.getElementById('email').style.borderColor = ''; }, 2000);
           return;
         }
         if (!password || password.length < 8) {
+          showError('Password must be at least 8 characters.');
           passwordInput.focus();
-          passwordInput.style.borderColor = 'var(--accent-red, #ef4444)';
-          setTimeout(function () { passwordInput.style.borderColor = ''; }, 2000);
           return;
         }
 
-        // Set loading state
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Creating account…';
+        var displayName = firstName + (lastName ? ' ' + lastName : '');
+        setLoading(true);
 
-        // Write mock session
-        try {
-          localStorage.setItem('aiwab-logged-in', 'true');
-          localStorage.setItem('aiwab-user-email', email);
-          localStorage.setItem('aiwab-user-name', firstName + (lastName ? ' ' + lastName : ''));
-        } catch (err) { /* ignore storage errors */ }
-
-        setTimeout(function () {
-          window.AppRouter.navigateTo('builder.html');
-        }, 600);
+        FirebaseAuth.signUp(email, password, displayName)
+          .then(function () {
+            window.location.href = 'builder.html';
+          })
+          .catch(function (err) {
+            setLoading(false);
+            showError(FirebaseAuth.getErrorMessage(err.code));
+          });
       });
 
-      // ── Google signup (mock) ──
+      // ── Google signup ──
       var googleBtn = document.getElementById('google-signup-btn');
       if (googleBtn) {
         googleBtn.addEventListener('click', function () {
+          clearError();
           googleBtn.disabled = true;
-          googleBtn.textContent = 'Connecting…';
-          try {
-            localStorage.setItem('aiwab-logged-in', 'true');
-            localStorage.setItem('aiwab-user-email', 'demo@gmail.com');
-            localStorage.setItem('aiwab-user-name', 'Demo User');
-          } catch (err) { /* ignore */ }
-          setTimeout(function () {
-            window.AppRouter.navigateTo('builder.html');
-          }, 600);
+          googleBtn.innerHTML = '<span style="opacity:.6;">Connecting to Google…</span>';
+
+          FirebaseAuth.signInWithGoogle()
+            .then(function () {
+              window.location.href = 'builder.html';
+            })
+            .catch(function (err) {
+              googleBtn.disabled = false;
+              googleBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg> Google Account';
+              showError(FirebaseAuth.getErrorMessage(err.code));
+            });
         });
       }
 
