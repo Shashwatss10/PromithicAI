@@ -6,8 +6,13 @@
 [![CSS3](https://img.shields.io/badge/CSS3-3-blue.svg)](index.html)
 [![HTML5](https://img.shields.io/badge/HTML5-5-orange.svg)](index.html)
 
+<p align="center">
+  <img src="assets/Banner.png" alt="PromithicAI Banner" width="100%">
+</p>
 
-An interactive, premium web console simulating a **Multi-Agent AI Pipeline** that transforms natural language prompts into working, single-page web applications. Drawing inspiration from industry leaders like *Lovable.dev*, *Emergent*, and *v0.dev*, this codebase presents a client-side environment for orchestrating code planning, compilation, verification, and sandboxed execution.
+Build production-ready web applications using a multi-agent workflow inspired by modern AI development platforms.
+
+Planner → Coder → Reviewer
 
 ---
 
@@ -20,7 +25,27 @@ An interactive, premium web console simulating a **Multi-Agent AI Pipeline** tha
 
 ## Preview
 
-___UPCOMING___
+### Landing Page
+
+![Landing](screenshots/Landing.png)
+
+---
+
+### Builder Console
+
+![Builder](screenshots/Builder.png)
+
+---
+
+### Authentication
+
+![Login](screenshots/Login.png)
+
+---
+
+### Settings
+
+![Settings](screenshots/Settings.png)
 
 ---
 
