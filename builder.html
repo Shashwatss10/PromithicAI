@@ -222,7 +222,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18"/></svg>
               </button>
             </div>
-            <div class="w-full h-full" style="background:#fff;position:relative;flex:1;">
+            <div style="background:#fff;position:relative;flex:1;display:flex;flex-direction:column;min-height:0;">
               <iframe class="preview-iframe" id="sandbox-iframe" sandbox="allow-scripts" title="Sandbox Live Preview"></iframe>
               <div class="preview-empty" id="preview-empty-state">
                 <div class="preview-empty-icon">
@@ -231,6 +231,10 @@
                 <h3>Live App Preview</h3>
                 <p>Describe your app in the box above and hit generate to watch it run live here.</p>
               </div>
+            </div>
+            <!-- Agent Log Console -->
+            <div class="streaming-console" id="agent-console" aria-label="Agent Logs Console">
+              <!-- Rendered by streaming.js / agent.js -->
             </div>
           </div>
         </div>
@@ -257,11 +261,6 @@
           </div>
         </div>
 
-      </div>
-
-      <!-- Agent Log Console -->
-      <div class="streaming-console" id="agent-console" aria-label="Agent Logs Console">
-        <!-- Rendered by streaming.js / agent.js -->
       </div>
 
       <!-- Status Bar -->
