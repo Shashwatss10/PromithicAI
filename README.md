@@ -13,7 +13,8 @@ An interactive, premium web console simulating a **Multi-Agent AI Pipeline** tha
 
 ##  🚀 Live Demo
 
-🔗 [Try PromithicAI](https://shashwatss10.github.io/PromithicAI/) 
+🔗 [Live Deployment (Vercel)](https://promithic-ai.vercel.app)
+🔗 [Alternative Mirror (GitHub Pages)](https://shashwatss10.github.io/PromithicAI/)
 
 ---
 
@@ -126,6 +127,40 @@ PromithicAI/
 | **v2.1** | MCP Sandboxed local execution capabilities | *Planned* |
 | **v2.2** | Push to GitHub & deploy directly from the IDE | *Planned* |
 | **v3.0** | Voice-to-App live streaming | *Planned* |
+
+---
+
+## ⚙️ Deployment Guide
+
+### Step 1: Deploy to Vercel
+1. Log in to [Vercel](https://vercel.com) using your GitHub account.
+2. Select **"Import Project"** and choose the `PromithicAI` repository.
+3. Keep the framework preset as **Other** and the root directory as `./`.
+4. Click **Deploy**. Vercel will build the project using the static configuration in `vercel.json` for clean URL routing.
+
+### Step 2: Configure Firebase Authentication
+1. Go to the [Firebase Console](https://console.firebase.google.com/).
+2. Select your project and navigate to **Authentication** -> **Settings**.
+3. Under **Authorized domains**, click **"Add domain"** and add your Vercel deployment URL (e.g., `promithic-ai.vercel.app`).
+4. Ensure **Email/Password** and **Google** are enabled under the **Sign-in method** tab.
+
+### Step 3: Setup Supabase Database Schema
+Run the following query in the **SQL Editor** of your Supabase dashboard to create the synced builds table:
+
+```sql
+CREATE TABLE IF NOT EXISTS public.builds (
+  id          TEXT PRIMARY KEY,
+  user_id     TEXT NOT NULL,
+  prompt      TEXT NOT NULL,
+  code        TEXT NOT NULL,
+  template    TEXT DEFAULT 'custom',
+  provider    TEXT DEFAULT 'claude',
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_builds_user_id ON public.builds(user_id);
+CREATE INDEX IF NOT EXISTS idx_builds_created_at ON public.builds(created_at DESC);
+ALTER TABLE public.builds DISABLE ROW LEVEL SECURITY;
+```
 
 
 
