@@ -150,49 +150,49 @@ PromithicAI/
 PromithicAI follows a client-side multi-agent workflow that transforms natural language prompts into production-ready web applications through planning, code generation, review, sandbox execution, and export.
 
 ```text
-                         User Prompt
-                              │
-                              ▼
-                        Planner Agent
-                   (Requirement Analysis)
-                              │
-                              ▼
-                         Coder Agent
-                 (HTML • CSS • JS Generation)
-                              │
-                              ▼
-                        Reviewer Agent
-                  (Validation & Optimization)
-                              │
-                              ▼
-                      Monaco Code Editor
-                  (Live Source Code Editing)
-                              │
-                              ▼
-                        Sandbox Preview
-                   (Secure iframe Execution)
-                              │
-                 ┌────────────┴────────────┐
-                 ▼                         ▼
-           Download HTML           Deploy Application
+                                                       User Prompt
+                                                            │
+                                                            ▼
+                                                      Planner Agent
+                                                 (Requirement Analysis)
+                                                            │
+                                                            ▼
+                                                       Coder Agent
+                                               (HTML • CSS • JS Generation)
+                                                            │
+                                                            ▼
+                                                      Reviewer Agent
+                                                (Validation & Optimization)
+                                                            │
+                                                            ▼
+                                                    Monaco Code Editor
+                                                (Live Source Code Editing)
+                                                            │
+                                                            ▼
+                                                     Sandbox Preview
+                                                (Secure iframe Execution)
+                                                            │
+                                               ┌────────────┴────────────┐
+                                               ▼                         ▼
+                                         Download HTML           Deploy Application
 ```
 
 ### Authentication & Cloud Sync
 
 ```text
-                             User
-                               │
-                               ▼
-                     Firebase Authentication
-                               │
-                               ▼
-                      Authenticated Session
-                               │
-                               ▼
-                       Supabase Database
-                               │
-                               ▼
-                   Build History Synchronization
+                                                         User
+                                                           │
+                                                           ▼
+                                                 Firebase Authentication
+                                                           │
+                                                           ▼
+                                                  Authenticated Session
+                                                           │
+                                                           ▼
+                                                   Supabase Database
+                                                           │
+                                                           ▼
+                                               Build History Synchronization
 ```
 
 ### Workflow Overview
