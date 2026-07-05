@@ -269,7 +269,11 @@
         <div class="status-bar-left">
           <div class="status-bar-item">
             <span class="status-dot online pulse"></span>
-            Agent Status: <span id="status-mode-label" class="text-cyan">Idle</span>
+            Agent Status: <span id="status-mode-label" class="text-cyan" style="margin-right: 12px;">Idle</span>
+            <button class="btn btn-ghost btn-sm" id="toggle-console-btn" style="padding: 2px 8px; font-size: 11px; height: auto; display: inline-flex; align-items: center; gap: 4px;" title="Toggle logs terminal visibility">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 12px; height: 12px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <span id="toggle-console-text">Hide Logs</span>
+            </button>
           </div>
         </div>
         <div class="status-bar-right">
@@ -548,6 +552,8 @@
         // Reset Pipeline Stepper UI
         progressContainer.style.display = 'block';
         agentConsole.style.display = 'block';
+        if (toggleConsoleText) toggleConsoleText.textContent = 'Hide Logs';
+        if (toggleConsoleBtn) toggleConsoleBtn.classList.remove('active');
         agentConsole.innerHTML = '';
         agentStatusText.textContent = 'Planner initializing...';
         statusModeLabel.textContent = 'Planner Active';
@@ -691,6 +697,29 @@
           toast.classList.add('removing');
           setTimeout(function () { toast.remove(); }, 300);
         }, 4000);
+      }
+
+      // Console Visibility Toggle
+      var toggleConsoleBtn = document.getElementById('toggle-console-btn');
+      var toggleConsoleText = document.getElementById('toggle-console-text');
+
+      function setConsoleVisibility(visible) {
+        if (visible) {
+          agentConsole.style.display = 'block';
+          if (toggleConsoleText) toggleConsoleText.textContent = 'Hide Logs';
+          if (toggleConsoleBtn) toggleConsoleBtn.classList.remove('active');
+        } else {
+          agentConsole.style.display = 'none';
+          if (toggleConsoleText) toggleConsoleText.textContent = 'Show Logs';
+          if (toggleConsoleBtn) toggleConsoleBtn.classList.add('active');
+        }
+      }
+
+      if (toggleConsoleBtn) {
+        toggleConsoleBtn.addEventListener('click', function () {
+          var isVisible = (agentConsole.style.display !== 'none');
+          setConsoleVisibility(!isVisible);
+        });
       }
     });
   </script>
