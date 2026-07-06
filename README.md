@@ -338,6 +338,6 @@ See the [LICENSE](LICENSE) file for complete details.
 Computer Science Engineering Student
 
 - 💼 GitHub: https://github.com/Shashwatss10
-- 🚀 Live Demo: https://promithic-ai.vercel.app\
+- 🚀 Live Demo: https://promithic-ai.vercel.app/
 
 Made with ❤️ using **HTML, CSS, JavaScript, Firebase, Supabase & Monaco Editor**.
