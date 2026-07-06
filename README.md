@@ -48,7 +48,7 @@ Planner → Coder → Reviewer
 
 ---
 
-## Preview
+## 📷 Project Preview
 
 ### Landing Page
 
@@ -303,5 +303,41 @@ CREATE INDEX IF NOT EXISTS idx_builds_created_at ON public.builds(created_at DES
 ALTER TABLE public.builds DISABLE ROW LEVEL SECURITY;
 ```
 
+---
 
+## ⭐ Support the Project
 
+If you found **PromithicAI** useful or interesting, you can support the project by:
+
+- ⭐ Starring the repository
+- 🍴 Forking the repository
+- 🐞 Reporting bugs by opening an Issue
+- 💡 Suggesting new features or improvements
+- 📢 Sharing the project with fellow developers
+
+Every contribution, suggestion, and star helps make **PromithicAI** better and motivates future development.
+
+I appreciate your support! ❤️
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this software in accordance with the terms of the license.
+
+See the [LICENSE](LICENSE) file for complete details.
+
+---
+
+## ❤️ Built By
+
+### Shashwat Sharma
+
+Computer Science Engineering Student
+
+- 💼 GitHub: https://github.com/Shashwatss10
+- 🚀 Live Demo: https://promithic-ai.vercel.app\
+
+Made with ❤️ using **HTML, CSS, JavaScript, Firebase, Supabase & Monaco Editor**.
