@@ -335,7 +335,7 @@ See the [LICENSE](LICENSE) file for complete details.
 
 ### Shashwat Sharma
 
-Computer Science Engineering Student
+Computer Science & Engineering Student
 
 - 💼 GitHub: https://github.com/Shashwatss10
 - 🚀 Live Demo: https://promithic-ai.vercel.app/
