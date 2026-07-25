@@ -2,6 +2,56 @@
    POLISH.CSS — PromithicAI v1.1 Micro-Interaction & Visual Upgrades
    =================================================================== */
 
+/* ── Global Theme Polish Variables ── */
+:root {
+  --glass-bg: rgba(26, 34, 53, 0.45);
+  --glass-border: rgba(30, 45, 69, 0.55);
+  --glow-cyan-soft: rgba(0, 212, 255, 0.08);
+  --glow-violet-soft: rgba(124, 58, 237, 0.08);
+}
+
+[data-theme="light"] {
+  --glass-bg: rgba(243, 244, 246, 0.6);
+  --glass-border: rgba(229, 231, 235, 0.8);
+  --glow-cyan-soft: rgba(0, 168, 204, 0.05);
+  --glow-violet-soft: rgba(124, 58, 237, 0.05);
+}
+
+/* ── Scrollbars & Scroll Containers ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 45, 69, 0.4);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan-dim);
+}
+
+/* Keep scrollbar hidden on panels unless hovered */
+.sidebar-content,
+.monaco-wrapper,
+.streaming-console,
+.prompt-textarea {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+.sidebar-content:hover,
+.monaco-wrapper:hover,
+.streaming-console:hover,
+.prompt-textarea:hover {
+  scrollbar-color: rgba(30, 45, 69, 0.6) transparent;
+}
+
 /* ── Navbar logo: glow pulse on hover ── */
 .navbar-logo:hover .navbar-logo-icon {
   animation: logoPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
@@ -38,46 +88,80 @@
   50%, 100% { transform: translateX(100%); }
 }
 
-/* ── Buttons: press feedback ── */
-.btn:active:not(:disabled) {
-  transform: scale(0.97) translateY(1px);
-  transition: transform 80ms ease;
+/* ── Visual Section Separations & Glassmorphism ── */
+.prompt-area {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border) !important;
 }
 
-/* ── Primary button: gradient shift on hover ── */
+.builder-sidebar {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--glass-border) !important;
+}
+
+.output-tabs-bar {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+.agent-progress-area {
+  background: var(--bg-primary) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  padding: 14px 24px !important;
+}
+
+/* ── Buttons press feedback & animations ── */
+.btn {
+  transition: transform var(--transition-fast) ease, background var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.96) translateY(1px);
+}
+
 .btn-primary {
   background-size: 200% 100%;
   background-position: 0% 50%;
-  transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.1s ease;
 }
 .btn-primary:hover:not(:disabled) {
   background-position: 100% 50%;
-  box-shadow: 0 4px 20px rgba(0, 196, 238, 0.35), 0 2px 8px rgba(109, 40, 217, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 196, 238, 0.3), 0 2px 8px rgba(109, 40, 217, 0.2);
 }
 
-/* ── Cards: lift on hover ── */
+/* ── Cards & Panel Elevations ── */
 .settings-card,
 .provider-card,
 .feature-card {
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  transition: transform var(--transition-spring), box-shadow var(--transition-spring), border-color var(--transition-fast);
+  border: 1px solid var(--glass-border);
 }
 .settings-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), 0 0 20px var(--glow-cyan-soft);
+  border-color: var(--accent-cyan);
 }
 .provider-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md), 0 0 16px var(--glow-violet-soft);
+  border-color: var(--accent-violet);
 }
 
-/* ── Input fields: glowing focus ring ── */
-.input:focus {
+/* ── Input fields glowing focus ring ── */
+.input:focus,
+.prompt-input-wrapper:focus-within {
   outline: none;
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15), 0 0 12px rgba(0, 212, 255, 0.1);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12), 0 0 12px rgba(0, 212, 255, 0.08) !important;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/* ── Auth error banner: slide in ── */
+/* ── Auth error banner: slide down ── */
 #login-error,
 #signup-error {
   animation: errorSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -87,7 +171,7 @@
   to   { opacity: 1; transform: translateY(0); max-height: 80px; }
 }
 
-/* ── Nav user badge: slide in from right ── */
+/* ── Nav user badge ── */
 .nav-user-badge {
   animation: badgeSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -99,6 +183,7 @@
 /* ── History sidebar items: stagger reveal ── */
 .history-item {
   animation: histItemIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 .history-item:nth-child(1) { animation-delay: 0ms; }
 .history-item:nth-child(2) { animation-delay: 40ms; }
@@ -111,12 +196,8 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 
-/* ── History item hover: smooth glow border ── */
-.history-item {
-  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
-}
 .history-item:hover {
-  transform: translateX(3px);
+  transform: translateX(4px);
   border-left: 2px solid var(--accent-cyan);
   box-shadow: inset 0 0 12px rgba(0, 212, 255, 0.05);
 }
@@ -126,38 +207,98 @@
   transition: transform var(--transition-spring), background var(--transition-fast), border-color var(--transition-fast);
 }
 .template-chip:hover {
-  transform: translateY(-2px) scale(1.04);
+  transform: translateY(-2px) scale(1.03);
 }
 .template-chip:active {
   transform: translateY(0) scale(0.97);
 }
 
-/* ── Agent pipeline steps: active glow ── */
+/* ── Multi-Agent Workflow Pipeline Visual Upgrades ── */
+.agent-pipeline {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.agent-step-bubble {
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 .agent-step.active .agent-step-bubble {
-  animation: stepActiveGlow 1.5s ease-in-out infinite;
+  animation: stepActiveGlow 2s ease-in-out infinite;
+  transform: scale(1.08);
 }
+
 @keyframes stepActiveGlow {
-  0%, 100% { box-shadow: 0 0 12px var(--glow-cyan); }
-  50%       { box-shadow: 0 0 28px var(--glow-cyan), 0 0 56px var(--glow-cyan); }
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 212, 255, 0.25), 0 0 24px rgba(0, 212, 255, 0.15); border-color: var(--accent-cyan); }
+  50%       { box-shadow: 0 0 20px rgba(0, 212, 255, 0.55), 0 0 40px rgba(0, 212, 255, 0.3); border-color: #ffffff; }
 }
 
-/* ── Prompt textarea: focus glow ── */
-.prompt-textarea:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12), 0 4px 20px rgba(0, 212, 255, 0.08);
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+.agent-step.done .agent-step-bubble {
+  transform: scale(1.02);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
 }
 
-/* ── Send button: ripple ── */
-.prompt-send:hover {
-  transform: scale(1.08) rotate(8deg);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.prompt-send:active {
-  transform: scale(0.95) rotate(0deg);
+.agent-connector {
+  position: relative;
 }
 
-/* ── Toast: improved entrance ── */
+.agent-connector::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  opacity: 0.3;
+}
+
+/* Linear-style flowing dash loader inside connectors when active */
+.agent-connector.flowing::after {
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+  animation: flowingLine 1.5s infinite linear;
+  background-size: 200% 100%;
+}
+
+@keyframes flowingLine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+/* ── Preview Framesurrounding container ── */
+.preview-panel {
+  border-radius: var(--radius-md);
+  background: var(--bg-tertiary);
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.preview-toolbar {
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* Premium Code Editor Container */
+.code-panel {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border-left: 1px solid var(--glass-border);
+}
+
+.code-panel-toolbar {
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* Tactile Tab Compression scales */
+.output-tab {
+  transition: all var(--transition-fast);
+}
+.output-tab:active {
+  transform: scale(0.96);
+}
+
+.output-tab.active {
+  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.15);
+}
+
+/* ── Toast improved entrance ── */
 .toast {
   animation: toastPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -165,16 +306,6 @@
   from { opacity: 0; transform: translateX(100%) scale(0.85); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
-
-/* ── Scrollbar polish ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb {
-  background: var(--border-hover);
-  border-radius: var(--radius-full);
-  transition: background 0.2s;
-}
-::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan-dim); }
 
 /* ── Social button hover glow ── */
 .social-btn {
@@ -222,10 +353,23 @@
   to   { transform: scaleY(1); }
 }
 
-/* ── Roadmap items: stagger on scroll ── */
-.roadmap-item {
-  transition: transform var(--transition-base), opacity var(--transition-base);
+/* ── Accessibility: keyboard focus visibility ── */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent-cyan) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-xs) !important;
 }
-.roadmap-item:hover {
-  transform: translateX(4px);
+
+/* Reduced-motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
 }
