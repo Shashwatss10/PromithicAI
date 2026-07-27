@@ -136,6 +136,9 @@
         <div class="agent-progress-header">
           <span class="agent-progress-title">Multi-Agent Workflow</span>
           <span class="agent-current-msg" id="agent-status-text">Ready to launch...</span>
+          <button class="workflow-minimize-btn" id="workflow-minimize-btn" title="Toggle workflow panel" aria-label="Minimize workflow panel" aria-expanded="true">
+            <svg id="workflow-chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
         </div>
 
         <div class="agent-pipeline">
@@ -353,6 +356,17 @@
       var isGenerating = false;
       var activePipeline = null;
       var currentCode = '';
+
+      // ── Workflow Minimize Toggle ──
+      (function () {
+        var minimizeBtn = document.getElementById('workflow-minimize-btn');
+        if (minimizeBtn) {
+          minimizeBtn.addEventListener('click', function () {
+            var isMinimized = progressContainer.classList.toggle('minimized');
+            minimizeBtn.setAttribute('aria-expanded', String(!isMinimized));
+          });
+        }
+      })();
 
       // Initialize Monaco Editor
       window.EditorManager.init('monaco-editor-container', {

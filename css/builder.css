@@ -290,7 +290,7 @@
 .agent-progress-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
@@ -300,12 +300,61 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 .agent-current-msg {
   font-size: var(--text-xs);
   color: var(--accent-cyan);
   font-family: var(--font-mono);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Minimize button */
+.workflow-minimize-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  padding: 0;
+}
+.workflow-minimize-btn:hover {
+  color: var(--accent-cyan);
+  background: var(--glow-cyan);
+  border-color: var(--border-glow);
+}
+.workflow-minimize-btn svg {
+  transition: transform 0.25s ease;
+}
+.agent-progress-area.minimized .workflow-minimize-btn svg {
+  transform: rotate(180deg);
+}
+
+/* Pipeline collapse animation */
+.agent-pipeline {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  max-height: 200px;
+  opacity: 1;
+}
+.agent-progress-area.minimized .agent-pipeline {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.agent-progress-area.minimized .agent-progress-header {
+  margin-bottom: 0;
 }
 
 /* ── Output Tabs ── */
