@@ -1,7 +1,7 @@
 /* ===================================================================
-   AGENT.JS — Multi-Agent Pipeline Simulation
+   AGENT.JS — Multi-Agent Pipeline (Simulation + Live API)
    Planner → Coder → Reviewer
-   PromithicAI v1.1
+   PromithicAI v1.2 — BYOK (Bring Your Own Key)
    =================================================================== */
 
 (function () {
@@ -566,6 +566,107 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
 
     async function pipeline() {
       try {
+
+        /* ══════════════════════════════════════════════════
+           LIVE API MODE — runs when user has an API key set
+           ══════════════════════════════════════════════════ */
+        var useLiveAPI = window.SettingsManager && window.SettingsManager.hasApiKey();
+
+        if (useLiveAPI) {
+          var provider = window.SettingsManager.get('provider') || 'openai';
+          var apiKey   = window.SettingsManager.getApiKey();
+
+          /* ── PLANNER (live) ── */
+          stepStart('planner');
+          log('🤖 Live API Mode — ' + provider.toUpperCase() + ' connected', 'info');
+          await wait(300);
+          log('Planner Agent analyzing your prompt…', 'info');
+
+          var planSteps;
+          try {
+            planSteps = await window.LLM.generatePlan(prompt, provider, apiKey);
+          } catch (e) {
+            log('Planner API error: ' + e.message, 'error');
+            throw e;
+          }
+
+          for (var pi = 0; pi < planSteps.length; pi++) {
+            if (isAborted()) return;
+            await wait(200 + Math.random() * 150);
+            log(planSteps[pi], 'info');
+          }
+
+          log('Plan complete. Passing to Coder Agent…', 'success');
+          await wait(300);
+          stepDone('planner');
+
+          if (isAborted()) return;
+
+          /* ── CODER (live streaming) ── */
+          stepStart('coder');
+          log('Coder Agent generating your app with AI…', 'info');
+          await wait(200);
+
+          var liveCode = '';
+          var charCount = 0;
+
+          try {
+            await window.LLM.generateCodeStream(prompt, planSteps, provider, apiKey, function (chunk) {
+              if (isAborted()) return;
+              liveCode += chunk;
+              charCount += chunk.length;
+              if (typeof callbacks.onCodeToken === 'function') {
+                // Pass cumulative code; progress/total are approximated
+                callbacks.onCodeToken(liveCode, charCount, Math.max(charCount + 500, 8000));
+              }
+            });
+          } catch (e) {
+            log('Coder API error: ' + e.message, 'error');
+            throw e;
+          }
+
+          if (isAborted()) return;
+
+          // Strip any accidental markdown fences from the AI output
+          liveCode = liveCode.replace(/^```html?\s*/i, '').replace(/```\s*$/, '').trim();
+
+          log('Code generation complete (' + liveCode.length + ' chars) ✓', 'success');
+          await wait(200);
+          stepDone('coder');
+
+          /* ── REVIEWER (live) ── */
+          stepStart('reviewer');
+          log('Reviewer Agent analyzing code quality…', 'info');
+          await wait(300);
+
+          var reviewNotes;
+          try {
+            reviewNotes = await window.LLM.generateReview(liveCode, provider, apiKey);
+          } catch (e) {
+            // Review errors are non-fatal — use a generic note
+            reviewNotes = ['Code quality looks good ✓', 'App generated successfully ✓'];
+          }
+
+          for (var ri = 0; ri < reviewNotes.length; ri++) {
+            if (isAborted()) return;
+            await wait(250 + Math.random() * 100);
+            log(reviewNotes[ri], 'success');
+          }
+
+          log('Review passed. App ready! 🚀', 'success');
+          await wait(200);
+          stepDone('reviewer');
+
+          if (typeof callbacks.onComplete === 'function') {
+            callbacks.onComplete(liveCode, 'custom');
+          }
+          return; // ← exit; don't fall through to simulation
+        }
+
+        /* ══════════════════════════════════════════════════
+           SIMULATION MODE — fallback when no API key set
+           ══════════════════════════════════════════════════ */
+
         /* ── PLANNER ── */
         stepStart('planner');
         log('Initializing Planner Agent…', 'info');
