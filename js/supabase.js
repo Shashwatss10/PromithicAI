@@ -1,6 +1,6 @@
 /* ===================================================================
    SUPABASE.JS — Supabase Cloud DB Client
-   PromithicAI v1.1
+   PromithicAI v1.2
    Uses direct REST API — no extra library needed.
    =================================================================== */
 

@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/version-v1.1-cyan.svg">
+<img src="https://img.shields.io/badge/version-v1.2-cyan.svg">
 <img src="https://img.shields.io/badge/license-MIT-purple.svg">
 <img src="https://img.shields.io/badge/JavaScript-ES6-yellow">
 <img src="https://img.shields.io/badge/HTML5-5-orange.svg" alt="HTML5">
@@ -126,7 +126,7 @@ PromithicAI/
 │   ├── builder.css
 │   ├── brand-story.css # PromithicAI Brand Segment Styling
 │   ├── fx.css          # Cursor spotlight, magnetic, and dynamic glows
-│   └── polish.css      # v1.1 Micro-Interaction Polish (logo pulse, shimmers, active glows)
+│   └── polish.css      # v1.2 Micro-Interaction Polish (logo pulse, shimmers, active glows)
 │
 └── js/                 # Vanilla JS Logic Components
     ├── theme.js        # Light/Dark Mode Persistence
@@ -245,7 +245,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 ---
 
 
-## 🚀 Upgrades in v1.1 Release
+## ?? What's New in v1.2 Release
 
 - **Firebase Authentication Integration:** Integrated native authentication flows supporting traditional Email/Password credentials and Google OAuth Single-Sign-On (SSO) popup windows.
 - **Supabase Cloud Sync DB:** Engineered a lightweight REST-based database synchronization protocol sending and loading builds directly using Supabase PostgreSQL databases, resolving the single-device 5MB local limits.
@@ -263,7 +263,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 
 | Version | Planned Feature | Status |
 |:---|:---|:---|
-| **v1.2** | Custom API Keys (Send queries directly using user key) | *Next Up* |
+| **v1.2** | Custom API Keys � BYOK (Claude + OpenAI), Connect/Disconnect toggle per provider, live streaming code generation with simulation fallback | ? Released |
 | **v2.0** | LangGraph Orchestration & Python FastAPI Backend | *Planned* |
 | **v2.1** | MCP Sandboxed local execution capabilities | *Planned* |
 | **v2.2** | Push to GitHub & deploy directly from the IDE | *Planned* |

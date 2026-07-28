@@ -1,6 +1,6 @@
 /* ===================================================================
    AUTH.JS — Firebase Auth State Manager & Navbar Updater
-   PromithicAI v1.1
+   PromithicAI v1.2
    =================================================================== */
 
 (function () {

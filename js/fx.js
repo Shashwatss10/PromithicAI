@@ -1,6 +1,6 @@
 /* ===================================================================
    FX.JS — Cursor, Tilt, Ripple & Scroll-Assemble Engine
-   PromithicAI v1.1
+   PromithicAI v1.2
    
    STYLE CONTRACT (preserve in all future updates):
    ─────────────────────────────────────────────────

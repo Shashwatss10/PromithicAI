@@ -1,6 +1,6 @@
 /* ===================================================================
    HISTORY.JS — Build History Manager (localStorage + Supabase sync)
-   PromithicAI v1.1
+   PromithicAI v1.2
    =================================================================== */
 
 (function () {

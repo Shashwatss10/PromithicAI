@@ -1,6 +1,6 @@
 /* ===================================================================
    ROUTER.JS — Navigation Helper & Link State Manager
-   PromithicAI v1.1
+   PromithicAI v1.2
    =================================================================== */
 
 (function () {
