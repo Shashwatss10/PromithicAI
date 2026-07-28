@@ -12,6 +12,8 @@
     provider: 'claude',
     claudeKey: '',
     openaiKey: '',
+    claudeConnected: false,    // explicit connect/disconnect per provider
+    openaiConnected: false,
     theme: 'dark',
     agentMode: 'full',        // 'full' | 'simple'
     streamingEnabled: true,
@@ -74,10 +76,39 @@
       return '';
     },
 
+    /** Returns true ONLY if the current provider has both a key saved AND is connected */
     hasApiKey: function () {
-      return this.getApiKey().length > 10;
+      var settings = safeGet();
+      var provider = settings.provider;
+      if (provider === 'claude')  return (settings.claudeKey  || '').length > 10 && !!settings.claudeConnected;
+      if (provider === 'openai')  return (settings.openaiKey  || '').length > 10 && !!settings.openaiConnected;
+      return false;
+    },
+
+    /** Connect a specific provider (marks it active for live API use) */
+    connectProvider: function (provider) {
+      var key = provider === 'claude' ? 'claudeConnected' : 'openaiConnected';
+      this.set(key, true);
+      // Also switch the active provider to the one being connected
+      this.set('provider', provider);
+    },
+
+    /** Disconnect a specific provider (keeps key saved, just disables live mode) */
+    disconnectProvider: function (provider) {
+      var key = provider === 'claude' ? 'claudeConnected' : 'openaiConnected';
+      this.set(key, false);
+    },
+
+    /** Returns 'connected' | 'disconnected' | 'no-key' for a given provider */
+    getConnectionStatus: function (provider) {
+      var settings = safeGet();
+      var key = provider === 'claude' ? settings.claudeKey : settings.openaiKey;
+      var connected = provider === 'claude' ? settings.claudeConnected : settings.openaiConnected;
+      if (!key || key.length <= 10) return 'no-key';
+      return connected ? 'connected' : 'disconnected';
     },
   };
+
 
   // ── Init settings UI on the settings page ──
   function initSettingsPage() {

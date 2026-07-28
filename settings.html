@@ -143,25 +143,51 @@
                 <div class="divider"></div>
 
                 <!-- API Key fields -->
-                <div class="input-group" style="margin-bottom: 16px;">
-                  <label class="input-label" for="claude-key-input">Anthropic Claude API Key</label>
-                  <div class="input-password-wrapper">
-                    <input type="password" id="claude-key-input" class="input" placeholder="sk-ant-...">
-                    <button type="button" class="password-toggle" data-target="claude-key-input" aria-label="Toggle password visibility">
-                      <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                      <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                <!-- ── Anthropic Claude API Key ── -->
+                <div class="api-key-block" id="claude-key-block">
+                  <div class="api-key-block-header">
+                    <label class="input-label" for="claude-key-input">Anthropic Claude API Key</label>
+                    <div class="api-connection-status" id="claude-status">
+                      <span class="api-status-dot" id="claude-status-dot"></span>
+                      <span class="api-status-text" id="claude-status-text">No key saved</span>
+                    </div>
+                  </div>
+                  <div class="api-key-input-row">
+                    <div class="input-password-wrapper" style="flex:1;">
+                      <input type="password" id="claude-key-input" class="input" placeholder="sk-ant-...">
+                      <button type="button" class="password-toggle" data-target="claude-key-input" aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      </button>
+                    </div>
+                    <button type="button" id="claude-connect-btn" class="api-connect-btn" data-provider="claude" disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                      <span id="claude-connect-btn-text">Connect</span>
                     </button>
                   </div>
                   <p id="claude-key-hint" style="font-size:.72rem;margin-top:5px;min-height:16px;"></p>
                 </div>
 
-                <div class="input-group">
-                  <label class="input-label" for="openai-key-input">OpenAI API Key</label>
-                  <div class="input-password-wrapper">
-                    <input type="password" id="openai-key-input" class="input" placeholder="sk-proj-...">
-                    <button type="button" class="password-toggle" data-target="openai-key-input" aria-label="Toggle password visibility">
-                      <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                      <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                <!-- ── OpenAI API Key ── -->
+                <div class="api-key-block" id="openai-key-block">
+                  <div class="api-key-block-header">
+                    <label class="input-label" for="openai-key-input">OpenAI API Key</label>
+                    <div class="api-connection-status" id="openai-status">
+                      <span class="api-status-dot" id="openai-status-dot"></span>
+                      <span class="api-status-text" id="openai-status-text">No key saved</span>
+                    </div>
+                  </div>
+                  <div class="api-key-input-row">
+                    <div class="input-password-wrapper" style="flex:1;">
+                      <input type="password" id="openai-key-input" class="input" placeholder="sk-proj-...">
+                      <button type="button" class="password-toggle" data-target="openai-key-input" aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      </button>
+                    </div>
+                    <button type="button" id="openai-connect-btn" class="api-connect-btn" data-provider="openai" disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                      <span id="openai-connect-btn-text">Connect</span>
                     </button>
                   </div>
                   <p id="openai-key-hint" style="font-size:.72rem;margin-top:5px;min-height:16px;"></p>
@@ -307,13 +333,13 @@
                     <span class="roadmap-status done">Active</span>
                   </div>
 
-                  <div class="roadmap-item upcoming" role="listitem">
+                  <div class="roadmap-item current" role="listitem">
                     <span class="roadmap-ver">v1.2</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">Custom LLM Keys Integration</div>
-                      <div class="roadmap-desc">Allows sending API queries directly using user API keys for Claude and OpenAI engines.</div>
+                      <div class="roadmap-desc">Allows sending API queries directly using user API keys for Claude and OpenAI engines. Includes Connect/Disconnect toggle per provider.</div>
                     </div>
-                    <span class="roadmap-status next">Next Up</span>
+                    <span class="roadmap-status done">Active</span>
                   </div>
 
                   <div class="roadmap-item planned" role="listitem">
@@ -363,8 +389,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                   </div>
                   <div class="version-info-text">
-                    <h3>Engine version 1.1.0</h3>
-                    <p>Firebase Auth + Supabase cloud DB integration. Production-ready authentication.</p>
+                    <h3>Engine version 1.2.0</h3>
+                    <p>Live LLM API integration (BYOK). Connect/Disconnect per provider. Simulation fallback when no key active.</p>
                   </div>
                   <div class="version-info-badge">
                     <span class="badge badge-green"><span class="dot"></span>Stable</span>
@@ -433,6 +459,93 @@
 
       validateKey(claudeInput, claudeHint, 'sk-ant-', 'Claude');
       validateKey(openaiInput, openaiHint, 'sk-',     'OpenAI');
+
+      // ── Connect / Disconnect logic ──
+      function refreshConnectionUI(provider) {
+        var status = window.SettingsManager ? window.SettingsManager.getConnectionStatus(provider) : 'no-key';
+        var dot     = document.getElementById(provider + '-status-dot');
+        var text    = document.getElementById(provider + '-status-text');
+        var btn     = document.getElementById(provider + '-connect-btn');
+        var btnText = document.getElementById(provider + '-connect-btn-text');
+        var block   = document.getElementById(provider + '-key-block');
+        if (!dot || !btn) return;
+
+        // Remove all state classes
+        dot.className   = 'api-status-dot';
+        block.className = 'api-key-block';
+        btn.className   = 'api-connect-btn';
+
+        if (status === 'no-key') {
+          dot.classList.add('no-key');
+          text.textContent   = 'No key saved';
+          btnText.textContent = 'Connect';
+          btn.disabled = true;
+        } else if (status === 'connected') {
+          dot.classList.add('connected');
+          text.textContent   = 'Connected';
+          btnText.textContent = 'Disconnect';
+          btn.classList.add('disconnect');
+          block.classList.add('is-connected');
+          btn.disabled = false;
+        } else {
+          dot.classList.add('disconnected');
+          text.textContent   = 'Saved · Disconnected';
+          btnText.textContent = 'Connect';
+          btn.classList.add('connect');
+          btn.disabled = false;
+        }
+      }
+
+      function initConnectBtn(provider) {
+        var btn = document.getElementById(provider + '-connect-btn');
+        var input = document.getElementById(provider + '-key-input');
+        if (!btn || !input) return;
+
+        // Enable button as soon as key has enough chars
+        input.addEventListener('input', function () {
+          refreshConnectionUI(provider);
+          // If key is being cleared, auto-disconnect
+          if (input.value.trim().length <= 10 && window.SettingsManager) {
+            window.SettingsManager.disconnectProvider(provider);
+          }
+          // Re-evaluate button enable state
+          var val = input.value.trim();
+          btn.disabled = val.length <= 10;
+        });
+
+        btn.addEventListener('click', function () {
+          if (!window.SettingsManager) return;
+          var currentStatus = window.SettingsManager.getConnectionStatus(provider);
+          if (currentStatus === 'connected') {
+            window.SettingsManager.disconnectProvider(provider);
+            showToast('\u26a0\ufe0f ' + (provider === 'claude' ? 'Claude' : 'OpenAI') + ' disconnected — simulation mode active', 'warn');
+          } else {
+            window.SettingsManager.connectProvider(provider);
+            showToast('\u26a1 ' + (provider === 'claude' ? 'Claude' : 'OpenAI') + ' connected — Live API mode active!', 'success');
+          }
+          refreshConnectionUI(provider);
+        });
+
+        // Init state on load
+        refreshConnectionUI(provider);
+        // Enable btn if key already saved
+        var savedKey = window.SettingsManager ? window.SettingsManager.get(provider + 'Key') : '';
+        btn.disabled = !savedKey || savedKey.length <= 10;
+      }
+
+      function showToast(msg, type) {
+        var tc = document.getElementById('toast-container');
+        if (!tc) return;
+        var t = document.createElement('div');
+        t.className = 'toast toast-' + (type || 'info');
+        t.textContent = msg;
+        tc.appendChild(t);
+        setTimeout(function () { t.classList.add('show'); }, 10);
+        setTimeout(function () { t.classList.remove('show'); setTimeout(function(){ tc.removeChild(t); }, 400); }, 3200);
+      }
+
+      initConnectBtn('claude');
+      initConnectBtn('openai');
     });
   </script>
   <script src="js/fx.js"></script>
