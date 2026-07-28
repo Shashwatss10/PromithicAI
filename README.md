@@ -21,12 +21,12 @@ AI-Powered Web Application Builder inspired by modern AI development platforms.
 </p>
 
 <p align="center">
-Planner → Coder → Reviewer
+Planner ➔ Coder ➔ Reviewer
 </p>
 
 <p align="center">
-<a href="https://promithic-ai.vercel.app">🌐 Try PromithicAI</a> •
-<a href="https://github.com/Shashwatss10/PromithicAI">⭐ GitHub</a>
+<a href="https://promithic-ai.vercel.app">🚀 Try PromithicAI</a> | 
+<a href="https://github.com/Shashwatss10/PromithicAI">💻 GitHub</a>
 </p>
 
 ---
@@ -35,82 +35,43 @@ Planner → Coder → Reviewer
 
 | Feature | Description |
 |---------|-------------|
-| 🤖 Multi-Agent Workflow | Planner → Coder → Reviewer pipeline |
+| 🤖 Multi-Agent Workflow | Planner ➔ Coder ➔ Reviewer pipeline |
 | ⚡ Live Code Streaming | Real-time AI generation simulation |
-| 💻 Monaco Editor | VS Code-like editing experience |
-| 🔥 Firebase Authentication | Email & Google Sign-in |
+| 📝 Monaco Editor | VS Code-like editing experience |
+| 🔐 Firebase Authentication | Email & Google Sign-in |
 | ☁️ Supabase Sync | Cross-device project history |
-| 🌙 Dark / Light Theme | Persistent theme switching |
-| 🧩 Live Sandbox Preview | Execute generated apps safely |
+| 🌓 Dark / Light Theme | Persistent theme switching |
+| 🖥️ Live Sandbox Preview | Execute generated apps safely |
 | 📥 HTML Export | Download production-ready HTML |
 | 🚀 One-click Deployment | Deploy generated applications |
 | 📱 Responsive Design | Desktop & mobile optimized |
 
 ---
 
-## 📷 Project Preview
+## 🛠️ Tech Stack
 
-### Landing Page
-
-![Landing](screenshots/Landing.png)
-
----
-
-### Builder Console
-
-![Builder](screenshots/Builder.png)
-
----
-
-### Authentication
-
-![Login](screenshots/Login.png)
-
----
-
-### Settings
-
-![Settings](screenshots/Settings.png)
-
----
-
-## 🛠 Tech Stack
-
-| Category | Technologies |
-|----------|--------------|
-| **Frontend** | HTML5, CSS3, Vanilla JavaScript (ES6+) |
-| **Editor** | Monaco Editor |
-| **Authentication** | Firebase Authentication (Email/Password, Google OAuth) |
-| **Database** | Supabase PostgreSQL (REST Client) |
-| **Deployment** | Vercel, GitHub Pages |
-| **Architecture** | Multi-Agent Workflow, Client-Side Rendering |
-| **Styling** | CSS Variables, Flexbox, Grid, Glassmorphism |
-
-<p align="center">
-<img src="https://skillicons.dev/icons?i=html,css,js,firebase,supabase,vercel,git,github" />
-</p>
+| Category | Technology |
+|----------|------------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript (ES6) |
+| Editor | Monaco Editor (VS Code core) via CDN |
+| Authentication | Firebase Auth (Email/Password, Google OAuth) |
+| Database | Supabase PostgreSQL REST API |
+| Deployment | Vercel, GitHub Actions |
+| Architecture | Multi-Agent Pipeline Simulation |
+| Styling | CSS Variables, Glassmorphism, Custom Animations (`fx.css`) |
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 PromithicAI/
-├── assets/
-│   └── banner.png                # Repository Banner
-│
-├── screenshots/
-│   ├── landing.png
-│   ├── builder.png
-│   ├── login.png
-│   └── settings.png
-│
 ├── index.html          # Marketing / Landing Page
 ├── builder.html        # Main IDE Console Workspace
 ├── settings.html       # API Configuration & Engine State
-├── login.html          # Firebase Authentication
-├── signup.html         # User Onboarding & Signup
-├── vercel.json         # Vercel Clean URL Redirects
+├── login.html          # Firebase Authentication Flow
+├── signup.html         # User Onboarding & Signup Flow
+├── vercel.json         # Vercel Clean URL Redirects & Headers
 ├── README.md           # Project Specification
 ├── LICENSE             # MIT License
 ├── .gitignore          # Version Control Filters
@@ -126,73 +87,20 @@ PromithicAI/
 │   ├── builder.css
 │   ├── brand-story.css # PromithicAI Brand Segment Styling
 │   ├── fx.css          # Cursor spotlight, magnetic, and dynamic glows
-│   └── polish.css      # v1.2 Micro-Interaction Polish (logo pulse, shimmers, active glows)
+│   └── polish.css      # v1.1 Micro-Interaction Polish
 │
 └── js/                 # Vanilla JS Logic Components
     ├── theme.js        # Light/Dark Mode Persistence
     ├── router.js       # Fade-In Client-Side Routing
-    ├── firebase.js     # Firebase SDK Wrapper (Email/Password, Google OAuth)
+    ├── firebase.js     # Firebase SDK Wrapper
     ├── supabase.js     # Supabase REST Client
     ├── auth.js         # Session Detection & Navbar Badge Render
+    ├── llm.js          # API Client for OpenAI & Anthropic (BYOK)
     ├── editor.js       # Monaco Editor & Fallback API
     ├── streaming.js    # AI Token Output Simulation
     ├── history.js      # Hybrid Local/Supabase Persistence Sync
     ├── agent.js        # Multi-Agent Workflow Logic
     └── fx.js           # Intersection Observers & Mouse FX
-
-> 📁 The project follows a modular architecture, separating UI, styling, business logic, authentication, and deployment configuration for better maintainability and scalability.
-```
-
----
-
-## 🏗 System Architecture
-
-PromithicAI follows a client-side multi-agent workflow that transforms natural language prompts into production-ready web applications through planning, code generation, review, sandbox execution, and export.
-
-```text
-                                                       User Prompt
-                                                            │
-                                                            ▼
-                                                      Planner Agent
-                                                 (Requirement Analysis)
-                                                            │
-                                                            ▼
-                                                       Coder Agent
-                                               (HTML • CSS • JS Generation)
-                                                            │
-                                                            ▼
-                                                      Reviewer Agent
-                                                (Validation & Optimization)
-                                                            │
-                                                            ▼
-                                                    Monaco Code Editor
-                                                (Live Source Code Editing)
-                                                            │
-                                                            ▼
-                                                     Sandbox Preview
-                                                (Secure iframe Execution)
-                                                            │
-                                               ┌────────────┴────────────┐
-                                               ▼                         ▼
-                                         Download HTML           Deploy Application
-```
-
-### Authentication & Cloud Sync
-
-```text
-                                                         User
-                                                           │
-                                                           ▼
-                                                 Firebase Authentication
-                                                           │
-                                                           ▼
-                                                  Authenticated Session
-                                                           │
-                                                           ▼
-                                                   Supabase Database
-                                                           │
-                                                           ▼
-                                               Build History Synchronization
 ```
 
 ### Workflow Overview
@@ -244,8 +152,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 
 ---
 
-
-## ?? What's New in v1.2 Release
+## 🚀 What's New in v1.2 Release
 
 - **Firebase Authentication Integration:** Integrated native authentication flows supporting traditional Email/Password credentials and Google OAuth Single-Sign-On (SSO) popup windows.
 - **Supabase Cloud Sync DB:** Engineered a lightweight REST-based database synchronization protocol sending and loading builds directly using Supabase PostgreSQL databases, resolving the single-device 5MB local limits.
@@ -263,7 +170,7 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 
 | Version | Planned Feature | Status |
 |:---|:---|:---|
-| **v1.2** | Custom API Keys � BYOK (Claude + OpenAI), Connect/Disconnect toggle per provider, live streaming code generation with simulation fallback | ? Released |
+| **v1.2** | Custom API Keys - BYOK (Claude + OpenAI), Connect/Disconnect toggle per provider, live streaming code generation with simulation fallback | ✅ Released |
 | **v2.0** | LangGraph Orchestration & Python FastAPI Backend | *Planned* |
 | **v2.1** | MCP Sandboxed local execution capabilities | *Planned* |
 | **v2.2** | Push to GitHub & deploy directly from the IDE | *Planned* |
@@ -305,19 +212,19 @@ ALTER TABLE public.builds DISABLE ROW LEVEL SECURITY;
 
 ---
 
-## ⭐ Support the Project
+## 💖 Support the Project
 
 If you found **PromithicAI** useful or interesting, you can support the project by:
 
 - ⭐ Starring the repository
 - 🍴 Forking the repository
-- 🐞 Reporting bugs by opening an Issue
+- 🐛 Reporting bugs by opening an Issue
 - 💡 Suggesting new features or improvements
-- 📢 Sharing the project with fellow developers
+- 🔗 Sharing the project with fellow developers
 
 Every contribution, suggestion, and star helps make **PromithicAI** better and motivates future development.
 
-I appreciate your support! ❤️
+I appreciate your support! 🙏
 
 ---
 
@@ -331,13 +238,13 @@ See the [LICENSE](LICENSE) file for complete details.
 
 ---
 
-## ❤️ Built By
+## 👨‍💻 Built By
 
 ### Shashwat Sharma
 
 Computer Science & Engineering Student
 
-- 💼 GitHub: https://github.com/Shashwatss10
-- 🚀 Live Demo: https://promithic-ai.vercel.app/
+- 🌐 GitHub: https://github.com/Shashwatss10
+- 🔗 Live Demo: https://promithic-ai.vercel.app/
 
 Made with ❤️ using **HTML, CSS, JavaScript, Firebase, Supabase & Monaco Editor**.
