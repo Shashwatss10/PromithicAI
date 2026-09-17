@@ -46,7 +46,7 @@
   --border-focus:     rgba(0, 212, 255, 0.5);
   --border-glow:      rgba(0, 212, 255, 0.35);
 
-  /* ── Shadows ── */
+/* ── Shadows ── */
   --shadow-xs:        0 1px 4px rgba(0,0,0,0.3);
   --shadow-sm:        0 2px 8px rgba(0,0,0,0.35);
   --shadow-md:        0 4px 20px rgba(0,0,0,0.45);
@@ -54,6 +54,8 @@
   --shadow-xl:        0 16px 64px rgba(0,0,0,0.6);
   --shadow-glow-cyan: 0 0 24px rgba(0, 212, 255, 0.25), 0 0 48px rgba(0, 212, 255, 0.1);
   --shadow-glow-violet:0 0 24px rgba(124, 58, 237, 0.25), 0 0 48px rgba(124, 58, 237, 0.1);
+  --shadow-glow-green: 0 0 24px rgba(16, 185, 129, 0.25), 0 0 48px rgba(16, 185, 129, 0.1);
+  --shadow-glow-orange: 0 0 24px rgba(245, 158, 11, 0.25), 0 0 48px rgba(245, 158, 11, 0.1);
 
   /* ── Gradients ── */
   --gradient-accent:  linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
@@ -62,10 +64,13 @@
   --gradient-btn-hover:linear-gradient(135deg, #00b0d4 0%, #5b21b6 100%);
   --gradient-card:    linear-gradient(145deg, #1a2235 0%, #1c2640 100%);
   --gradient-hero:    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(0,212,255,0.06) 0%, transparent 70%),
-                      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(124,58,237,0.07) 0%, transparent 70%),
-                      radial-gradient(ellipse 40% 40% at 60% 80%, rgba(16,185,129,0.04) 0%, transparent 60%);
+                       radial-gradient(ellipse 60% 50% at 80% 20%, rgba(124,58,237,0.07) 0%, transparent 70%),
+                       radial-gradient(ellipse 40% 40% at 60% 80%, rgba(16,185,129,0.04) 0%, transparent 60%);
   --gradient-sidebar: linear-gradient(180deg, #0d1520 0%, #0a0e1a 100%);
   --gradient-text:    linear-gradient(135deg, #00d4ff, #7c3aed);
+  --gradient-cyan-green: linear-gradient(135deg, #00d4ff 0%, #10b981 100%);
+  --gradient-violet-cyan: linear-gradient(135deg, #7c3aed 0%, #00d4ff 100%);
+  --gradient-green-cyan: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
 
   /* ── Border Radii ── */
   --radius-xs:    4px;
@@ -164,6 +169,8 @@
   --shadow-xl:        0 16px 64px rgba(0,0,0,0.12);
   --shadow-glow-cyan: 0 0 24px rgba(0, 119, 230, 0.15);
   --shadow-glow-violet:0 0 24px rgba(109, 40, 217, 0.15);
+  --shadow-glow-green: 0 0 24px rgba(5, 150, 105, 0.15);
+  --shadow-glow-orange: 0 0 24px rgba(245, 158, 11, 0.15);
 
   --gradient-card:    linear-gradient(145deg, #ffffff 0%, #f4f7ff 100%);
   --gradient-hero:    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(0,119,230,0.05) 0%, transparent 70%),

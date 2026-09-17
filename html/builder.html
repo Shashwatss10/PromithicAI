@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/variables.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/builder.css" />
-  <link rel="stylesheet" href="css/fx.css" />
-  <link rel="stylesheet" href="css/polish.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/builder.css" />
+  <link rel="stylesheet" href="../css/fx.css" />
+  <link rel="stylesheet" href="../css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
@@ -302,17 +302,17 @@
   <div id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- Javascript -->
-  <script src="js/theme.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/supabase.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/settings.js"></script>
-  <script src="js/history.js"></script>
-  <script src="js/streaming.js"></script>
-  <script src="js/editor.js"></script>
-  <script src="js/llm.js"></script>
-  <script src="js/agent.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/router.js"></script>
+  <script src="../js/firebase.js"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/settings.js"></script>
+  <script src="../js/history.js"></script>
+  <script src="../js/streaming.js"></script>
+  <script src="../js/editor.js"></script>
+  <script src="../js/llm.js"></script>
+  <script src="../js/agent.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -388,9 +388,15 @@
       function updateProviderBadge() {
         var p = window.SettingsManager.get('provider') || 'claude';
         providerBadge.textContent = p.toUpperCase();
-        providerBadge.className = p === 'openai'
-          ? 'badge badge-violet chat-provider-badge'
-          : 'badge badge-cyan chat-provider-badge';
+        if (p === 'openai') {
+          providerBadge.className = 'badge badge-violet chat-provider-badge';
+        } else if (p === 'nvidia') {
+          providerBadge.className = 'badge badge-green chat-provider-badge';
+        } else if (p === 'none') {
+          providerBadge.className = 'badge badge-muted chat-provider-badge';
+        } else {
+          providerBadge.className = 'badge badge-cyan chat-provider-badge';
+        }
       }
       updateProviderBadge();
       window.addEventListener('settingsChanged', updateProviderBadge);
@@ -613,6 +619,8 @@
             });
 
             showToast('App build complete!', 'success');
+            promptInput.value = '';
+            promptInput.style.height = 'auto';
             resetGeneratorUI();
           },
           onError: function (err) {
@@ -696,6 +704,6 @@
       }
     });
   </script>
-  <script src="js/fx.js"></script>
+  <script src="../js/fx.js"></script>
 </body>
 </html>

@@ -140,26 +140,53 @@
 
 .provider-card:hover { border-color: var(--border-hover); }
 
+/* Provider-specific selected states */
+.provider-card[data-provider="claude"].selected {
+  border-color: var(--accent-cyan);
+  background: var(--glow-cyan);
+  box-shadow: var(--shadow-glow-cyan);
+}
+.provider-card[data-provider="claude"].selected .provider-card-check {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan);
+}
+
+.provider-card[data-provider="openai"].selected {
+  border-color: var(--accent-violet);
+  background: var(--glow-violet);
+  box-shadow: var(--shadow-glow-violet);
+}
+.provider-card[data-provider="openai"].selected .provider-card-check {
+  border-color: var(--accent-violet);
+  background: var(--accent-violet);
+}
+
+.provider-card[data-provider="nvidia"].selected {
+  border-color: var(--accent-green);
+  background: var(--glow-green);
+  box-shadow: var(--shadow-glow-green);
+}
+.provider-card[data-provider="nvidia"].selected .provider-card-check {
+  border-color: var(--accent-green);
+  background: var(--accent-green);
+}
+
+.provider-card[data-provider="none"].selected {
+  border-color: var(--border-hover);
+  background: var(--bg-tertiary);
+  box-shadow: var(--shadow-sm);
+}
+.provider-card[data-provider="none"].selected .provider-card-check {
+  border-color: var(--text-muted);
+  background: var(--text-muted);
+}
+
+/* Fallback for backward compatibility */
 .provider-card.selected {
   border-color: var(--accent-cyan);
   background: var(--glow-cyan);
   box-shadow: var(--shadow-glow-cyan);
 }
-
-.provider-card-check {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-fast);
-}
-
 .provider-card.selected .provider-card-check {
   border-color: var(--accent-cyan);
   background: var(--accent-cyan);

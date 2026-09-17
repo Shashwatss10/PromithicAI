@@ -93,9 +93,9 @@
     });
   }
 
-  /* ════════════════════════════════════════
-     3D CARD TILT
-     ════════════════════════════════════════ */
+/* ════════════════════════════════════════
+   3D CARD TILT
+   ════════════════════════════════════════ */
   var TILT_SELECTORS = [
     '.feature-card',
     '.upgrade-card',
@@ -105,7 +105,9 @@
     '.roadmap-item',
     '.hero-demo',
     '.version-info-box',
-    '.settings-card'
+    '.settings-card',
+    '.template-card',
+    '.pipeline-stage'
   ].join(',');
 
   function bindTilt(root) {
@@ -182,17 +184,21 @@
 
     /* Hero columns */
     { sel: '.hero-copy',               fx: 'left'  },
-    { sel: '.hero-demo',               fx: 'right' },
+    { sel: '.hero-visual',             fx: 'right' },
 
     /* Cards — single element reveals */
     { sel: '.feature-card',            fx: 'up'    },
     { sel: '.upgrade-card',            fx: 'up'    },
     { sel: '.how-step',                fx: 'scale' },
+    { sel: '.process-card',            fx: 'left'  },
     { sel: '.provider-card',           fx: 'scale' },
     { sel: '.roadmap-item',            fx: 'left'  },
     { sel: '.settings-card',           fx: 'up'    },
     { sel: '.pipeline-node',           fx: 'scale' },
     { sel: '.version-info-box',        fx: 'scale' },
+    { sel: '.template-card',           fx: 'up'    },
+    { sel: '.pipeline-stage',          fx: 'scale' },
+    { sel: '.workflow-panel',          fx: 'right' },
 
     /* Auth page split panels */
     { sel: '.auth-brand',              fx: 'left'  },
@@ -208,8 +214,9 @@
     '.features-grid',
     '.upgrade-cards',
     '.how-steps',
-    '.provider-cards',
-    '.roadmap-list',
+    '.providers-grid',
+    '.templates-grid',
+    '.roadmap-timeline',
     '.settings-nav-list',
     '.auth-features',
   ].join(',');

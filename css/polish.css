@@ -1,259 +1,279 @@
 /* ===================================================================
-   POLISH.CSS — PromithicAI v1.2 Micro-Interaction & Visual Upgrades
+   POLISH.CSS — PromithicAI v2.0 Micro-Interaction & Visual Upgrades
+   Refined for Premium Design System
    =================================================================== */
 
-/* ── Global Theme Polish Variables ── */
-:root {
-  --glass-bg: rgba(26, 34, 53, 0.45);
-  --glass-border: rgba(30, 45, 69, 0.55);
-  --glow-cyan-soft: rgba(0, 212, 255, 0.08);
-  --glow-violet-soft: rgba(124, 58, 237, 0.08);
+/* ═══════════════════════════════════════════════════════════════════
+   1. GLASSMORPHISM UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
 }
 
-[data-theme="light"] {
-  --glass-bg: rgba(243, 244, 246, 0.6);
-  --glass-border: rgba(229, 231, 235, 0.8);
-  --glow-cyan-soft: rgba(0, 168, 204, 0.05);
-  --glow-violet-soft: rgba(124, 58, 237, 0.05);
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border-strong);
 }
 
-/* ── Scrollbars & Scroll Containers ── */
+.glass-hover:hover {
+  background: var(--glass-bg-strong);
+  border-color: var(--border-glow);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. SCROLLBARS (Refined)
+   ═══════════════════════════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
   background: transparent;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+
+::-webkit-scrollbar-track { background: transparent; }
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(30, 45, 69, 0.4);
+  background: var(--border);
   border-radius: var(--radius-full);
-  transition: background var(--transition-fast);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan-dim);
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--glow-primary);
 }
 
-/* Keep scrollbar hidden on panels unless hovered */
-.sidebar-content,
-.monaco-wrapper,
-.streaming-console,
-.prompt-textarea {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  transition: scrollbar-color 0.3s ease;
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+/* Hide scrollbar unless hovered */
+.scroll-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.sidebar-content:hover,
-.monaco-wrapper:hover,
-.streaming-console:hover,
-.prompt-textarea:hover {
-  scrollbar-color: rgba(30, 45, 69, 0.6) transparent;
+.scroll-hidden::-webkit-scrollbar { display: none; }
+
+.scroll-hidden:hover { scrollbar-width: thin; }
+
+.scroll-hidden:hover::-webkit-scrollbar { display: block; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. FOCUS STATES (Accessible)
+   ═══════════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--accent-primary) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--radius-xs) !important;
 }
 
-/* ── Navbar logo: glow pulse on hover ── */
-.navbar-logo:hover .navbar-logo-icon {
-  animation: logoPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-@keyframes logoPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.12); box-shadow: 0 0 20px rgba(0,212,255,0.5), 0 0 40px rgba(124,58,237,0.3); }
-  100% { transform: scale(1); }
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) { outline: none; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. TEXT SELECTION
+   ═══════════════════════════════════════════════════════════════════ */
+::selection {
+  background: var(--glow-primary);
+  color: var(--text-inverse);
 }
 
-/* ── Navbar logo text: subtle gradient shimmer on hover ── */
-.navbar-logo:hover .navbar-logo-text {
-  background: var(--gradient-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* ═══════════════════════════════════════════════════════════════════
+   5. IMAGE RENDERING
+   ═══════════════════════════════════════════════════════════════════ */
+img, video, canvas { image-rendering: auto; }
 
-/* ── Version badge: animated gradient border ── */
-.version-badge {
-  position: relative;
-  overflow: hidden;
-}
-.version-badge::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent);
-  transform: translateX(-100%);
-  animation: badgeShimmer 3s ease-in-out infinite;
-}
-@keyframes badgeShimmer {
-  0%   { transform: translateX(-100%); }
-  50%, 100% { transform: translateX(100%); }
-}
+.pixelated { image-rendering: pixelated; }
+.crisp-edges { image-rendering: crisp-edges; }
 
-/* ── Visual Section Separations & Glassmorphism ── */
-.prompt-area {
-  background: var(--glass-bg) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--glass-border) !important;
-}
-
-.builder-sidebar {
-  background: var(--glass-bg) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-right: 1px solid var(--glass-border) !important;
-}
-
-.output-tabs-bar {
-  background: var(--glass-bg) !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--glass-border) !important;
-}
-
-.agent-progress-area {
-  background: var(--bg-primary) !important;
-  border-bottom: 1px solid var(--glass-border) !important;
-  padding: 14px 24px !important;
-}
-
-/* ── Buttons press feedback & animations ── */
+/* ═══════════════════════════════════════════════════════════════════
+   6. BUTTON REFINEMENTS
+   ═══════════════════════════════════════════════════════════════════ */
 .btn {
-  transition: transform var(--transition-fast) ease, background var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+  transition:
+    transform var(--transition-spring) var(--ease-out-back),
+    box-shadow var(--transition-fast) var(--ease-out-quart),
+    background var(--transition-smooth) var(--ease-out-quart);
 }
 
-.btn:active:not(:disabled) {
-  transform: scale(0.96) translateY(1px);
-}
+.btn:active:not(:disabled) { transform: scale(0.97); }
 
+/* Primary button gradient animation */
 .btn-primary {
   background-size: 200% 100%;
   background-position: 0% 50%;
 }
-.btn-primary:hover:not(:disabled) {
-  background-position: 100% 50%;
-  box-shadow: 0 4px 16px rgba(0, 196, 238, 0.3), 0 2px 8px rgba(109, 40, 217, 0.2);
-}
 
-/* ── Cards & Panel Elevations ── */
+.btn-primary:hover:not(:disabled) { background-position: 100% 50%; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. CARD ELEVATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+.card,
+.feature-card,
 .settings-card,
 .provider-card,
-.feature-card {
-  transition: transform var(--transition-spring), box-shadow var(--transition-spring), border-color var(--transition-fast);
-  border: 1px solid var(--glass-border);
+.history-item {
+  transition:
+    transform var(--transition-spring) var(--ease-out-back),
+    box-shadow var(--transition-smooth) var(--ease-out-quart),
+    border-color var(--transition-fast) var(--ease-out-quart);
 }
-.settings-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg), 0 0 20px var(--glow-cyan-soft);
-  border-color: var(--accent-cyan);
-}
+
+/* Hover lift */
+.card:hover,
+.feature-card:hover,
+.settings-card:hover,
 .provider-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md), 0 0 16px var(--glow-violet-soft);
-  border-color: var(--accent-violet);
+  box-shadow: var(--shadow-xl), 0 0 32px var(--glow-primary);
+  border-color: var(--border-glow);
 }
 
-/* ── Input fields glowing focus ring ── */
+/* Active press */
+.card:active,
+.feature-card:active { transform: translateY(-2px) scale(0.99); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. INPUT FOCUS RINGS
+   ═══════════════════════════════════════════════════════════════════ */
 .input:focus,
+.textarea:focus,
+.select:focus,
+.prompt-textarea:focus,
 .prompt-input-wrapper:focus-within {
   outline: none;
-  border-color: var(--accent-cyan) !important;
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12), 0 0 12px rgba(0, 212, 255, 0.08) !important;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  border-color: var(--border-focus) !important;
+  box-shadow:
+    0 0 0 3px var(--glow-primary),
+    0 0 20px var(--glow-primary) !important;
+  transition:
+    border-color var(--transition-fast) var(--ease-out-quart),
+    box-shadow var(--transition-fast);
 }
 
-/* ── Auth error banner: slide down ── */
+/* ═══════════════════════════════════════════════════════════════════
+   9. ERROR SLIDE ANIMATION
+   ═══════════════════════════════════════════════════════════════════ */
 #login-error,
-#signup-error {
-  animation: errorSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes errorSlideIn {
-  from { opacity: 0; transform: translateY(-8px); max-height: 0; }
-  to   { opacity: 1; transform: translateY(0); max-height: 80px; }
+#signup-error,
+.input-error-msg {
+  animation: errorSlideIn var(--transition-smooth) var(--ease-out-back) both;
 }
 
-/* ── Nav user badge ── */
-.nav-user-badge {
-  animation: badgeSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+@keyframes errorSlideIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); max-height: 0; }
+  to   { opacity: 1; transform: translateY(0) scale(1); max-height: 100px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   10. NAV USER BADGE
+   ═══════════════════════════════════════════════════════════════════ */
+.nav-user-badge {
+  animation: badgeSlideIn var(--transition-spring) var(--ease-out-back) both;
+}
+
 @keyframes badgeSlideIn {
-  from { opacity: 0; transform: translateX(16px) scale(0.9); }
+  from { opacity: 0; transform: translateX(20px) scale(0.9); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* ── History sidebar items: stagger reveal ── */
+/* ═══════════════════════════════════════════════════════════════════
+   11. HISTORY SIDEBAR ITEMS (Stagger Reveal)
+   ═══════════════════════════════════════════════════════════════════ */
 .history-item {
-  animation: histItemIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
-  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  animation: histItemIn var(--transition-smooth) var(--ease-out-expo) both;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
-.history-item:nth-child(1) { animation-delay: 0ms; }
-.history-item:nth-child(2) { animation-delay: 40ms; }
-.history-item:nth-child(3) { animation-delay: 80ms; }
-.history-item:nth-child(4) { animation-delay: 120ms; }
-.history-item:nth-child(5) { animation-delay: 160ms; }
+
+.history-item:nth-child(1)  { animation-delay: 0ms; }
+.history-item:nth-child(2)  { animation-delay: 40ms; }
+.history-item:nth-child(3)  { animation-delay: 80ms; }
+.history-item:nth-child(4)  { animation-delay: 120ms; }
+.history-item:nth-child(5)  { animation-delay: 160ms; }
 .history-item:nth-child(n+6) { animation-delay: 200ms; }
+
 @keyframes histItemIn {
-  from { opacity: 0; transform: translateX(-12px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateX(-16px) scale(0.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
 .history-item:hover {
-  transform: translateX(4px);
-  border-left: 2px solid var(--accent-cyan);
-  box-shadow: inset 0 0 12px rgba(0, 212, 255, 0.05);
+  transform: translateX(6px);
+  border-left: 3px solid var(--accent-primary);
+  box-shadow:
+    inset 0 0 16px var(--glow-primary),
+    var(--shadow-md);
 }
 
-/* ── Template chips: springy pop ── */
+/* ═══════════════════════════════════════════════════════════════════
+   12. TEMPLATE CHIPS (Springy Pop)
+   ═══════════════════════════════════════════════════════════════════ */
 .template-chip {
-  transition: transform var(--transition-spring), background var(--transition-fast), border-color var(--transition-fast);
-}
-.template-chip:hover {
-  transform: translateY(-2px) scale(1.03);
-}
-.template-chip:active {
-  transform: translateY(0) scale(0.97);
+  transition:
+    transform var(--transition-spring) var(--ease-out-back),
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
-/* ── Multi-Agent Workflow Pipeline Visual Upgrades ── */
-.agent-pipeline {
-  max-width: 680px;
-  margin: 0 auto;
+.template-chip:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: var(--shadow-md), 0 0 20px var(--glow-primary);
 }
+
+.template-chip:active { transform: translateY(0) scale(0.96); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   13. MULTI-AGENT WORKFLOW PIPELINE (Premium)
+   ═══════════════════════════════════════════════════════════════════ */
+.agent-pipeline { max-width: 100%; margin: 0 auto; }
 
 .agent-step-bubble {
   box-shadow: var(--shadow-sm);
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all var(--transition-smooth) var(--ease-out-back);
 }
 
 .agent-step.active .agent-step-bubble {
-  animation: stepActiveGlow 2s ease-in-out infinite;
-  transform: scale(1.08);
+  animation: agentPulse 2s ease-in-out infinite;
+  transform: scale(1.15);
 }
 
-@keyframes stepActiveGlow {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 212, 255, 0.25), 0 0 24px rgba(0, 212, 255, 0.15); border-color: var(--accent-cyan); }
-  50%       { box-shadow: 0 0 20px rgba(0, 212, 255, 0.55), 0 0 40px rgba(0, 212, 255, 0.3); border-color: #ffffff; }
+@keyframes agentPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 12px var(--glow-primary),
+      0 0 24px var(--glow-primary);
+    border-color: var(--border-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 28px var(--glow-primary-strong),
+      0 0 56px var(--glow-primary-strong);
+    border-color: #fff;
+  }
 }
 
 .agent-step.done .agent-step-bubble {
-  transform: scale(1.02);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-glow-success);
 }
 
-.agent-connector {
-  position: relative;
-}
-
-.agent-connector::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--border);
-  opacity: 0.3;
-}
-
-/* Linear-style flowing dash loader inside connectors when active */
 .agent-connector.flowing::after {
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   animation: flowingLine 1.5s infinite linear;
   background-size: 200% 100%;
 }
@@ -263,113 +283,231 @@
   100% { background-position: -200% 50%; }
 }
 
-/* ── Preview Framesurrounding container ── */
-.preview-panel {
-  border-radius: var(--radius-md);
-  background: var(--bg-tertiary);
-  overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.preview-toolbar {
-  border-bottom: 1px solid var(--glass-border) !important;
-}
-
-/* Premium Code Editor Container */
+/* ═══════════════════════════════════════════════════════════════════
+   14. PREVIEW & CODE PANELS
+   ═══════════════════════════════════════════════════════════════════ */
+.preview-panel,
 .code-panel {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  border-left: 1px solid var(--glass-border);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.3);
 }
 
+.preview-toolbar,
 .code-panel-toolbar {
   border-bottom: 1px solid var(--glass-border) !important;
 }
 
-/* Tactile Tab Compression scales */
-.output-tab {
-  transition: all var(--transition-fast);
-}
-.output-tab:active {
-  transform: scale(0.96);
-}
+/* Monaco editor wrapper */
+.monaco-wrapper { border-radius: var(--radius-lg); }
 
-.output-tab.active {
-  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.15);
-}
+/* Tactile Tab Compression */
+.output-tab { transition: all var(--transition-fast) var(--ease-out-quart); }
+.output-tab:active { transform: scale(0.96); }
+.output-tab.active { box-shadow: 0 2px 12px var(--glow-primary); }
 
-/* ── Toast improved entrance ── */
-.toast {
-  animation: toastPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
+/* ═══════════════════════════════════════════════════════════════════
+   15. TOAST IMPROVED ENTRANCE
+   ═══════════════════════════════════════════════════════════════════ */
+.toast { animation: toastPop var(--transition-spring) var(--ease-out-back) both; }
+
 @keyframes toastPop {
-  from { opacity: 0; transform: translateX(100%) scale(0.85); }
+  from { opacity: 0; transform: translateX(120%) scale(0.85); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* ── Social button hover glow ── */
+/* ═══════════════════════════════════════════════════════════════════
+   16. SOCIAL BUTTONS
+   ═══════════════════════════════════════════════════════════════════ */
 .social-btn {
-  transition: background var(--transition-base), border-color var(--transition-base),
-              transform var(--transition-spring), box-shadow var(--transition-base);
-}
-.social-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-}
-.social-btn:active {
-  transform: translateY(0);
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-spring),
+    box-shadow var(--transition-base);
 }
 
-/* ── Footer links hover underline slide ── */
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.social-btn:active { transform: translateY(0) scale(0.98); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   17. FOOTER LINKS HOVER
+   ═══════════════════════════════════════════════════════════════════ */
 .footer-link {
   position: relative;
 }
+
 .footer-link::after {
   content: '';
   position: absolute;
   left: 0; bottom: -2px;
-  width: 0; height: 1px;
-  background: var(--accent-cyan);
-  transition: width var(--transition-base);
+  width: 0; height: 2px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-smooth) var(--ease-out-expo);
 }
+
 .footer-link:hover::after { width: 100%; }
 
-/* ── Settings sidenav item: active indicator bar ── */
+/* ═══════════════════════════════════════════════════════════════════
+   18. SETTINGS SIDENAV ACTIVE INDICATOR
+   ═══════════════════════════════════════════════════════════════════ */
 .settings-nav-item {
   position: relative;
   overflow: hidden;
 }
+
 .settings-nav-item.active::before {
   content: '';
   position: absolute;
   left: 0; top: 25%; bottom: 25%;
-  width: 3px;
-  background: var(--gradient-btn);
-  border-radius: 0 3px 3px 0;
-  animation: navIndicator 0.3s ease both;
+  width: 4px;
+  background: var(--gradient-primary);
+  border-radius: 0 4px 4px 0;
+  animation: navIndicator var(--transition-smooth) var(--ease-out-back) both;
 }
+
 @keyframes navIndicator {
-  from { transform: scaleY(0); }
-  to   { transform: scaleY(1); }
+  from { transform: scaleY(0); transform-origin: center; }
+  to   { transform: scaleY(1); transform-origin: center; }
 }
 
-/* ── Accessibility: keyboard focus visibility ── */
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--accent-cyan) !important;
-  outline-offset: 2px !important;
-  border-radius: var(--radius-xs) !important;
+/* ═══════════════════════════════════════════════════════════════════
+   19. PAGE ENTRANCE
+   ═══════════════════════════════════════════════════════════════════ */
+.anim-page-enter {
+  animation: pageEnter var(--transition-smooth) var(--ease-out-expo) both;
 }
 
-/* Reduced-motion support */
+/* ═══════════════════════════════════════════════════════════════════
+   20. AURORA BACKGROUND ACCENT (Hero sections)
+   ═══════════════════════════════════════════════════════════════════ */
+.hero::before,
+.section-header::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(0, 212, 255, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+  animation: auroraShift 15s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   21. AGENT TOOLTIP (Hero Orbit)
+   ═══════════════════════════════════════════════════════════════════ */
+.agent-tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl), var(--shadow-glow-primary);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  pointer-events: none;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+.agent-tooltip.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.agent-tooltip strong {
+  display: block;
+  color: var(--accent-primary);
+  margin-bottom: var(--space-1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   22. REDUCED MOTION SUPPORT
+   ═══════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-delay: -1ms !important;
-    animation-duration: 1ms !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
     background-attachment: initial !important;
     scroll-behavior: auto !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
   }
+
+  /* Keep essential state changes instant */
+  [data-fx],
+  [data-fx-group] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .fx-spotlight,
+  .fx-ripple,
+  .fx-orb,
+  #neural-canvas,
+  #particle-canvas {
+    display: none !important;
+  }
+
+  .btn:hover { transform: none; }
+  .card:hover,
+  .feature-card:hover,
+  .settings-card:hover,
+  .provider-card:hover { transform: none; box-shadow: none; }
+  .history-item:hover { transform: none; }
+  .template-chip:hover { transform: none; }
+  .social-btn:hover { transform: none; }
+  .agent-step.active .agent-step-bubble { animation: none; transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   22. HIGH CONTRAST MODE
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-contrast: high) {
+  :root {
+    --border: currentColor;
+    --border-hover: currentColor;
+    --text-tertiary: var(--text-secondary);
+    --glass-bg: var(--bg-card);
+    --glass-border: var(--border);
+    --glow-primary: transparent;
+    --glow-secondary: transparent;
+  }
+
+  .btn-primary { background: var(--accent-primary); }
+  .btn-secondary { background: transparent; border-width: 2px; }
+  .btn-ghost { border: 1px solid currentColor; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   23. PRINT STYLES
+   ═══════════════════════════════════════════════════════════════════ */
+@media print {
+  .navbar,
+  .sidebar-toggle,
+  .output-tabs-bar,
+  .builder-status-bar,
+  .chat-input-footer,
+  .streaming-console,
+  .agent-progress-area,
+  .footer,
+  .btn,
+  .toast { display: none !important; }
+
+  .builder-page { padding-top: 0; }
+  .builder-layout { display: block; }
+  .builder-sidebar { display: none; }
+  .builder-main { flex: none; }
+  .output-pane { display: block !important; }
+  .output-content { display: block; }
 }

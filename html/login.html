@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PromithicAI — Sign up for a free account." />
-  <title>PromithicAI — Create Account</title>
+  <meta name="description" content="PromithicAI — Log in to your account." />
+  <title>PromithicAI — Log In</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/variables.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/auth.css" />
-  <link rel="stylesheet" href="css/fx.css" />
-  <link rel="stylesheet" href="css/polish.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+  <link rel="stylesheet" href="../css/fx.css" />
+  <link rel="stylesheet" href="../css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
@@ -44,7 +44,7 @@
         <span class="auth-brand-logo-name">Promithic<span>AI</span></span>
       </a>
 
-      <h1 class="auth-brand-headline">Generate Web Apps Token-by-Token</h1>
+      <h1 class="auth-brand-headline">Unlock the Power of Multi-Agent AI</h1>
       <p class="auth-brand-sub">Build, view, and deploy custom web applications in seconds using a Planner → Coder → Reviewer pipeline.</p>
 
       <div class="auth-features">
@@ -79,24 +79,13 @@
     <div class="auth-form-wrapper">
       <div class="auth-form-header">
         <div class="auth-form-icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 00-2 2zM9 11V7a3 3 0 016 0v4"/></svg>
         </div>
-        <h2 class="auth-form-title">Create Account</h2>
-        <p class="auth-form-subtitle">Already have an account? <a href="login.html">Sign in here</a></p>
+        <h2 class="auth-form-title">Welcome Back</h2>
+        <p class="auth-form-subtitle">Don't have an account? <a href="signup.html">Create one here</a></p>
       </div>
 
-      <form class="auth-form" id="signup-form" novalidate>
-        <div class="form-row">
-          <div class="input-group">
-            <label class="input-label required" for="first-name">First Name</label>
-            <input type="text" id="first-name" class="input" placeholder="John" required>
-          </div>
-          <div class="input-group">
-            <label class="input-label required" for="last-name">Last Name</label>
-            <input type="text" id="last-name" class="input" placeholder="Doe" required>
-          </div>
-        </div>
-
+      <form class="auth-form" id="login-form" novalidate>
         <div class="input-group">
           <label class="input-label required" for="email">Email Address</label>
           <div class="input-icon-wrapper">
@@ -106,67 +95,63 @@
         </div>
 
         <div class="input-group">
-          <label class="input-label required" for="password">Password</label>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <label class="input-label required" for="password">Password</label>
+            <a href="#" class="text-xs text-cyan" style="margin-left:auto;margin-bottom:6px;">Forgot Password?</a>
+          </div>
           <div class="input-password-wrapper">
-            <input type="password" id="password" class="input" placeholder="Min. 8 characters" required minlength="8">
+            <input type="password" id="password" class="input" placeholder="••••••••" required minlength="6">
             <button type="button" class="password-toggle" data-target="password" aria-label="Toggle password visibility">
               <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
               <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
             </button>
           </div>
-
-          <!-- Password strength helper -->
-          <div class="password-strength">
-            <div class="strength-bars">
-              <span class="strength-bar" id="strength-1"></span>
-              <span class="strength-bar" id="strength-2"></span>
-              <span class="strength-bar" id="strength-3"></span>
-            </div>
-            <span class="strength-label" id="strength-label">Password strength</span>
-          </div>
         </div>
 
         <!-- Error banner -->
-        <div id="signup-error" role="alert" style="display:none;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);border-radius:10px;padding:10px 14px;font-size:.83rem;color:#f87171;margin-bottom:4px;"></div>
+        <div id="login-error" role="alert" style="display:none;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);border-radius:10px;padding:10px 14px;font-size:.83rem;color:#f87171;margin-bottom:4px;"></div>
 
-        <button type="submit" class="btn btn-primary auth-submit" id="signup-submit-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
-          Create Account
+        <button type="submit" class="btn btn-primary auth-submit" id="login-submit-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+          Sign In
         </button>
 
         <div class="auth-divider">
           <div class="auth-divider-line"></div>
-          <span class="auth-divider-text">or sign up with</span>
+          <span class="auth-divider-text">or continue with</span>
           <div class="auth-divider-line"></div>
         </div>
 
-        <button type="button" class="social-btn" id="google-signup-btn">
+        <button type="button" class="social-btn" id="google-login-btn">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/></svg>
           Google Account
         </button>
 
-        <p class="auth-terms">By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+        <p class="auth-terms">By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
       </form>
     </div>
   </main>
 
   <!-- Javascript -->
-  <script src="js/theme.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/router.js"></script>
+  <script src="../js/firebase.js"></script>
+  <script src="../js/auth.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
-      // ── Redirect if already logged in ──
+      // ── If already logged in, skip to builder ──
       FirebaseAuth.onAuthStateChanged(function (user) {
-        if (user) { window.location.replace('builder.html'); }
+        if (user) {
+          window.location.replace('builder.html');
+        }
       });
 
-      var signupForm   = document.getElementById('signup-form');
-      var submitBtn    = document.getElementById('signup-submit-btn');
-      var passwordInput = document.getElementById('password');
-      var errorBanner  = document.getElementById('signup-error');
+      var loginForm    = document.getElementById('login-form');
+      var submitBtn    = document.getElementById('login-submit-btn');
+      var emailInput   = document.getElementById('email');
+      var pwdInput     = document.getElementById('password');
+      var errorBanner  = document.getElementById('login-error');
 
       function showError(msg) {
         errorBanner.textContent = msg;
@@ -176,11 +161,11 @@
         errorBanner.style.display = 'none';
         errorBanner.textContent = '';
       }
-      function setLoading(on) {
+      function setLoading(on, label) {
         submitBtn.disabled = on;
-        submitBtn.textContent = on ? 'Creating account…' : '';
+        submitBtn.textContent = on ? label : 'Sign In';
         if (!on) {
-          submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg> Create Account';
+          submitBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg> Sign In';
         }
       }
 
@@ -191,69 +176,31 @@
           if (!input) return;
           var hidden = input.type === 'password';
           input.type = hidden ? 'text' : 'password';
-          btn.querySelector('.eye-icon').style.display     = hidden ? 'none' : '';
-          btn.querySelector('.eye-off-icon').style.display  = hidden ? '' : 'none';
+          btn.querySelector('.eye-icon').style.display    = hidden ? 'none' : '';
+          btn.querySelector('.eye-off-icon').style.display = hidden ? '' : 'none';
         });
       });
 
-      // ── Password strength checker ──
-      var strength1 = document.getElementById('strength-1');
-      var strength2 = document.getElementById('strength-2');
-      var strength3 = document.getElementById('strength-3');
-      var label     = document.getElementById('strength-label');
-
-      passwordInput.addEventListener('input', function () {
-        var val = passwordInput.value;
-        var score = 0;
-        if (val.length >= 8) score++;
-        if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
-        if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score++;
-
-        [strength1, strength2, strength3].forEach(function (b) { b.className = 'strength-bar'; });
-        label.className = 'strength-label';
-        if (val.length === 0) { label.textContent = 'Password strength'; return; }
-        if (score === 1) {
-          strength1.classList.add('active', 'weak');
-          label.textContent = 'Weak password'; label.classList.add('weak');
-        } else if (score === 2) {
-          strength1.classList.add('active', 'medium');
-          strength2.classList.add('active', 'medium');
-          label.textContent = 'Medium password'; label.classList.add('medium');
-        } else if (score >= 3) {
-          [strength1, strength2, strength3].forEach(function (b) { b.classList.add('active', 'strong'); });
-          label.textContent = 'Strong password'; label.classList.add('strong');
-        }
-      });
-
-      // ── Signup form submission ──
-      signupForm.addEventListener('submit', function (e) {
+      // ── Email / Password login ──
+      loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         clearError();
-        var firstName = document.getElementById('first-name').value.trim();
-        var lastName  = document.getElementById('last-name').value.trim();
-        var email     = document.getElementById('email').value.trim();
-        var password  = passwordInput.value;
+        var email    = emailInput.value.trim();
+        var password = pwdInput.value;
 
-        if (!firstName) {
-          showError('Please enter your first name.');
-          document.getElementById('first-name').focus();
-          return;
-        }
         if (!email || !email.includes('@')) {
           showError('Please enter a valid email address.');
-          document.getElementById('email').focus();
+          emailInput.focus();
           return;
         }
-        if (!password || password.length < 8) {
-          showError('Password must be at least 8 characters.');
-          passwordInput.focus();
+        if (!password || password.length < 6) {
+          showError('Password must be at least 6 characters.');
+          pwdInput.focus();
           return;
         }
 
-        var displayName = firstName + (lastName ? ' ' + lastName : '');
-        setLoading(true);
-
-        FirebaseAuth.signUp(email, password, displayName)
+        setLoading(true, 'Signing in…');
+        FirebaseAuth.signIn(email, password)
           .then(function () {
             window.location.href = 'builder.html';
           })
@@ -263,8 +210,8 @@
           });
       });
 
-      // ── Google signup ──
-      var googleBtn = document.getElementById('google-signup-btn');
+      // ── Google login ──
+      var googleBtn = document.getElementById('google-login-btn');
       if (googleBtn) {
         googleBtn.addEventListener('click', function () {
           clearError();
@@ -285,6 +232,6 @@
 
     });
   </script>
-  <script src="js/fx.js"></script>
+  <script src="../js/fx.js"></script>
 </body>
 </html>

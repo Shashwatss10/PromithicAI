@@ -532,55 +532,66 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
      Agent Pipeline
      ───────────────────────────────────────── */
 
-  /**
-   * Run the full multi-agent pipeline
-   * @param {string} prompt
-   * @param {object} callbacks
-   *   @param {Function} callbacks.onStepStart(stepName) - called when a step starts
-   *   @param {Function} callbacks.onStepLog(msg, type) - called for log messages
-   *   @param {Function} callbacks.onStepDone(stepName) - called when a step completes
-   *   @param {Function} callbacks.onCodeToken(cumulative, progress, total) - streaming code
-   *   @param {Function} callbacks.onComplete(code, template) - called when all done
-   *   @param {Function} callbacks.onError(err) - called on failure
-   *   @param {Function} callbacks.getAborted - returns true if user cancelled
-   * @returns {{ abort: Function }}
-   */
-  function run(prompt, callbacks) {
-    callbacks = callbacks || {};
-    var aborted = false;
+/**
+       * Run the full multi-agent pipeline
+       * @param {string} prompt
+       * @param {object} callbacks
+       *   @param {Function} callbacks.onStepStart(stepName) - called when a step starts
+       *   @param {Function} callbacks.onStepLog(msg, type) - called for log messages
+       *   @param {Function} callbacks.onStepDone(stepName) - called when a step completes
+       *   @param {Function} callbacks.onCodeToken(cumulative, progress, total) - streaming code
+       *   @param {Function} callbacks.onComplete(code, template) - called when all done
+       *   @param {Function} callbacks.onError(err) - called on failure
+       *   @param {Function} callbacks.getAborted - returns true if user cancelled
+       * @returns {{ abort: Function }}
+       */
+      function run(prompt, callbacks) {
+        callbacks = callbacks || {};
+        var aborted = false;
 
-    function isAborted() { return aborted || (typeof callbacks.getAborted === 'function' && callbacks.getAborted()); }
-    function log(msg, type) { if (typeof callbacks.onStepLog === 'function') callbacks.onStepLog(msg, type); }
-    function stepStart(name) { if (typeof callbacks.onStepStart === 'function') callbacks.onStepStart(name); }
-    function stepDone(name) { if (typeof callbacks.onStepDone === 'function') callbacks.onStepDone(name); }
+        function isAborted() { return aborted || (typeof callbacks.getAborted === 'function' && callbacks.getAborted()); }
+        function log(msg, type) { if (typeof callbacks.onStepLog === 'function') callbacks.onStepLog(msg, type); }
+        function stepStart(name) { if (typeof callbacks.onStepStart === 'function') callbacks.onStepStart(name); }
+        function stepDone(name) { if (typeof callbacks.onStepDone === 'function') callbacks.onStepDone(name); }
 
-    var templateKey = detectTemplate(prompt);
-    var template = TEMPLATES[templateKey];
+        var templateKey = detectTemplate(prompt);
+        var template = TEMPLATES[templateKey];
 
-    // Delay helper
-    function wait(ms) {
-      return new Promise(function (resolve) {
-        setTimeout(resolve, ms);
-      });
-    }
+        // Delay helper
+        function wait(ms) {
+          return new Promise(function (resolve) {
+            setTimeout(resolve, ms);
+          });
+        }
 
-    async function pipeline() {
-      try {
+        async function pipeline() {
+          try {
 
-        /* ══════════════════════════════════════════════════
-           LIVE API MODE — runs when user has an API key set
-           ══════════════════════════════════════════════════ */
-        var useLiveAPI = window.SettingsManager && window.SettingsManager.hasApiKey();
+            /* ══════════════════════════════════════════════════
+               LIVE API MODE — runs when user has an API key set
+               ══════════════════════════════════════════════════ */
+            var useLiveAPI = window.SettingsManager && window.SettingsManager.hasApiKey();
+            var currentProvider = window.SettingsManager ? window.SettingsManager.get('provider') : 'claude';
 
-        if (useLiveAPI) {
-          var provider = window.SettingsManager.get('provider') || 'openai';
-          var apiKey   = window.SettingsManager.getApiKey();
+            if (currentProvider === 'none') {
+              stepStart('planner');
+              log('No AI provider selected. Using simulation mode.', 'warn');
+              log('Please select an AI provider in Settings to enable live API mode.', 'info');
+              await wait(500);
+              stepDone('planner');
+              useLiveAPI = false;
+            }
 
-          /* ── PLANNER (live) ── */
-          stepStart('planner');
-          log('🤖 Live API Mode — ' + provider.toUpperCase() + ' connected', 'info');
-          await wait(300);
-          log('Planner Agent analyzing your prompt…', 'info');
+            if (useLiveAPI) {
+              var provider = window.SettingsManager.get('provider') || 'openai';
+              var apiKey   = window.SettingsManager.getApiKey();
+
+              /* ── PLANNER (live) ── */
+              stepStart('planner');
+              var providerLabel = provider === 'claude' ? 'CLAUDE' : (provider === 'openai' ? 'OPENAI' : (provider === 'nvidia' ? 'NVIDIA' : 'UNKNOWN'));
+              log('🤖 Live API Mode — ' + providerLabel + ' connected', 'info');
+              await wait(300);
+              log('Planner Agent analyzing your prompt…', 'info');
 
           var planSteps;
           try {

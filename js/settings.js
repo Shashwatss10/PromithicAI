@@ -12,10 +12,12 @@
     provider: 'claude',
     claudeKey: '',
     openaiKey: '',
-    claudeConnected: false,    // explicit connect/disconnect per provider
+    nvidiaKey: '',
+    claudeConnected: false,
     openaiConnected: false,
+    nvidiaConnected: false,
     theme: 'dark',
-    agentMode: 'full',        // 'full' | 'simple'
+    agentMode: 'full',
     streamingEnabled: true,
     showConsole: true,
     autoPreview: true,
@@ -71,8 +73,10 @@
     getApiKey: function () {
       var settings = safeGet();
       var provider = settings.provider;
+      if (provider === 'none') return '';
       if (provider === 'claude') return settings.claudeKey || '';
       if (provider === 'openai') return settings.openaiKey || '';
+      if (provider === 'nvidia') return settings.nvidiaKey || '';
       return '';
     },
 
@@ -80,14 +84,17 @@
     hasApiKey: function () {
       var settings = safeGet();
       var provider = settings.provider;
+      if (provider === 'none') return false;
       if (provider === 'claude')  return (settings.claudeKey  || '').length > 10 && !!settings.claudeConnected;
       if (provider === 'openai')  return (settings.openaiKey  || '').length > 10 && !!settings.openaiConnected;
+      if (provider === 'nvidia')  return (settings.nvidiaKey  || '').length > 10 && !!settings.nvidiaConnected;
       return false;
     },
 
     /** Connect a specific provider (marks it active for live API use) */
     connectProvider: function (provider) {
-      var key = provider === 'claude' ? 'claudeConnected' : 'openaiConnected';
+      if (provider === 'none') return;
+      var key = provider === 'claude' ? 'claudeConnected' : (provider === 'openai' ? 'openaiConnected' : 'nvidiaConnected');
       this.set(key, true);
       // Also switch the active provider to the one being connected
       this.set('provider', provider);
@@ -95,15 +102,15 @@
 
     /** Disconnect a specific provider (keeps key saved, just disables live mode) */
     disconnectProvider: function (provider) {
-      var key = provider === 'claude' ? 'claudeConnected' : 'openaiConnected';
+      var key = provider === 'claude' ? 'claudeConnected' : (provider === 'openai' ? 'openaiConnected' : 'nvidiaConnected');
       this.set(key, false);
     },
 
     /** Returns 'connected' | 'disconnected' | 'no-key' for a given provider */
     getConnectionStatus: function (provider) {
       var settings = safeGet();
-      var key = provider === 'claude' ? settings.claudeKey : settings.openaiKey;
-      var connected = provider === 'claude' ? settings.claudeConnected : settings.openaiConnected;
+      var key = provider === 'claude' ? settings.claudeKey : (provider === 'openai' ? settings.openaiKey : settings.nvidiaKey);
+      var connected = provider === 'claude' ? settings.claudeConnected : (provider === 'openai' ? settings.openaiConnected : settings.nvidiaConnected);
       if (!key || key.length <= 10) return 'no-key';
       return connected ? 'connected' : 'disconnected';
     },
@@ -117,6 +124,12 @@
     providerCards.forEach(function (card) {
       card.addEventListener('click', function () {
         var provider = card.dataset.provider;
+        // When "None" is selected, disconnect all providers
+        if (provider === 'none') {
+          SettingsManager.set('claudeConnected', false);
+          SettingsManager.set('openaiConnected', false);
+          SettingsManager.set('nvidiaConnected', false);
+        }
         SettingsManager.set('provider', provider);
         providerCards.forEach(function (c) { c.classList.remove('selected'); });
         card.classList.add('selected');
@@ -131,6 +144,7 @@
     // API key inputs
     var claudeKeyInput = document.getElementById('claude-key-input');
     var openaiKeyInput = document.getElementById('openai-key-input');
+    var nvidiaKeyInput = document.getElementById('nvidia-key-input');
 
     if (claudeKeyInput) {
       claudeKeyInput.value = SettingsManager.get('claudeKey');
@@ -143,6 +157,13 @@
       openaiKeyInput.value = SettingsManager.get('openaiKey');
       openaiKeyInput.addEventListener('input', function () {
         SettingsManager.set('openaiKey', openaiKeyInput.value.trim());
+      });
+    }
+
+    if (nvidiaKeyInput) {
+      nvidiaKeyInput.value = SettingsManager.get('nvidiaKey');
+      nvidiaKeyInput.addEventListener('input', function () {
+        SettingsManager.set('nvidiaKey', nvidiaKeyInput.value.trim());
       });
     }
 

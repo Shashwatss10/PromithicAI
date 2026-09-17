@@ -12,13 +12,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/variables.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/settings.css" />
-  <link rel="stylesheet" href="css/fx.css" />
-  <link rel="stylesheet" href="css/polish.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/settings.css" />
+  <link rel="stylesheet" href="../css/fx.css" />
+  <link rel="stylesheet" href="../css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
@@ -138,6 +138,26 @@
                     <div class="provider-card-name">OpenAI API</div>
                     <div class="provider-card-model">gpt-4o</div>
                   </div>
+
+                  <!-- NVIDIA AI Card -->
+                  <div class="provider-card" data-provider="nvidia">
+                    <div class="provider-card-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="provider-card-logo text-green">NVIDIA AI</div>
+                    <div class="provider-card-name">NVIDIA NIM</div>
+                    <div class="provider-card-model">nemotron-3-ultra</div>
+                  </div>
+
+                  <!-- None / No Provider Card -->
+                  <div class="provider-card" data-provider="none">
+                    <div class="provider-card-check">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="provider-card-logo text-muted">None</div>
+                    <div class="provider-card-name">No Provider</div>
+                    <div class="provider-card-model">Simulation only</div>
+                  </div>
                 </div>
 
                 <div class="divider"></div>
@@ -191,6 +211,31 @@
                     </button>
                   </div>
                   <p id="openai-key-hint" style="font-size:.72rem;margin-top:5px;min-height:16px;"></p>
+                </div>
+
+                <!-- ── NVIDIA AI API Key ── -->
+                <div class="api-key-block" id="nvidia-key-block">
+                  <div class="api-key-block-header">
+                    <label class="input-label" for="nvidia-key-input">NVIDIA AI API Key</label>
+                    <div class="api-connection-status" id="nvidia-status">
+                      <span class="api-status-dot" id="nvidia-status-dot"></span>
+                      <span class="api-status-text" id="nvidia-status-text">No key saved</span>
+                    </div>
+                  </div>
+                  <div class="api-key-input-row">
+                    <div class="input-password-wrapper" style="flex:1;">
+                      <input type="password" id="nvidia-key-input" class="input" placeholder="nvapi-...">
+                      <button type="button" class="password-toggle" data-target="nvidia-key-input" aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      </button>
+                    </div>
+                    <button type="button" id="nvidia-connect-btn" class="api-connect-btn" data-provider="nvidia" disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                      <span id="nvidia-connect-btn-text">Connect</span>
+                    </button>
+                  </div>
+                  <p id="nvidia-key-hint" style="font-size:.72rem;margin-top:5px;min-height:16px;"></p>
                 </div>
             </section>
 
@@ -410,11 +455,11 @@
   <div id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- Javascript -->
-  <script src="js/theme.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/firebase.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/settings.js"></script>
+  <script src="../js/theme.js"></script>
+  <script src="../js/router.js"></script>
+  <script src="../js/firebase.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/settings.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sidenavLinks = document.querySelectorAll('.settings-nav-item');
@@ -501,6 +546,8 @@
         var input = document.getElementById(provider + '-key-input');
         if (!btn || !input) return;
 
+        var providerLabel = provider === 'claude' ? 'Claude' : (provider === 'openai' ? 'OpenAI' : 'NVIDIA AI');
+
         // Enable button as soon as key has enough chars
         input.addEventListener('input', function () {
           refreshConnectionUI(provider);
@@ -518,10 +565,10 @@
           var currentStatus = window.SettingsManager.getConnectionStatus(provider);
           if (currentStatus === 'connected') {
             window.SettingsManager.disconnectProvider(provider);
-            showToast('\u26a0\ufe0f ' + (provider === 'claude' ? 'Claude' : 'OpenAI') + ' disconnected — simulation mode active', 'warn');
+            showToast('\u26a0\ufe0f ' + providerLabel + ' disconnected — simulation mode active', 'warn');
           } else {
             window.SettingsManager.connectProvider(provider);
-            showToast('\u26a1 ' + (provider === 'claude' ? 'Claude' : 'OpenAI') + ' connected — Live API mode active!', 'success');
+            showToast('\u26a1 ' + providerLabel + ' connected — Live API mode active!', 'success');
           }
           refreshConnectionUI(provider);
         });
@@ -546,8 +593,9 @@
 
       initConnectBtn('claude');
       initConnectBtn('openai');
+      initConnectBtn('nvidia');
     });
   </script>
-  <script src="js/fx.js"></script>
+  <script src="../js/fx.js"></script>
 </body>
 </html>

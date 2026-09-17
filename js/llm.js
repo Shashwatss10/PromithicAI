@@ -1,70 +1,95 @@
 /* ===================================================================
    LLM.JS — Live LLM Network Module
    PromithicAI v1.2 — "Bring Your Own Key" (BYOK)
-   Supports: OpenAI (gpt-4o-mini, gpt-4o) · Anthropic (claude-3-5-sonnet)
+   Supports: OpenAI (gpt-4o-mini, gpt-4o) · Anthropic (claude-3-5-sonnet) · NVIDIA (Nemotron, Llama)
    =================================================================== */
 
 (function () {
   'use strict';
 
-  /* ─────────────────────────────────────────
-     Provider Endpoints & Models
-     ───────────────────────────────────────── */
-  var PROVIDERS = {
-    openai: {
-      endpoint: 'https://api.openai.com/v1/chat/completions',
-      model: 'gpt-4o-mini',
-      authHeader: function (key) { return 'Bearer ' + key; },
-      buildBody: function (messages, stream) {
-        return JSON.stringify({ model: PROVIDERS.openai.model, messages: messages, stream: stream, max_tokens: 4096 });
-      },
-      parseChunk: function (line) {
-        if (!line.startsWith('data: ')) return null;
-        var data = line.slice(6).trim();
-        if (data === '[DONE]') return null;
-        try {
-          var parsed = JSON.parse(data);
-          return parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content
-            ? parsed.choices[0].delta.content
-            : null;
-        } catch (e) { return null; }
-      },
+/* ─────────────────────────────────────────
+   Provider Endpoints & Models
+   ───────────────────────────────────────── */
+var PROVIDERS = {
+  openai: {
+    endpoint: 'https://api.openai.com/v1/chat/completions',
+    model: 'gpt-4o-mini',
+    authHeader: function (key) { return 'Bearer ' + key; },
+    buildBody: function (messages, stream) {
+      return JSON.stringify({ model: PROVIDERS.openai.model, messages: messages, stream: stream, max_tokens: 4096 });
     },
-
-    claude: {
-      /* NOTE: Anthropic blocks direct browser fetch due to CORS policy.
-         We use a well-known public CORS proxy (allorigins.win) as a passthrough.
-         This is acceptable for a BYOK personal-use tool.
-         For production SaaS, replace with a backend proxy.                     */
-      endpoint: 'https://api.anthropic.com/v1/messages',
-      proxyEndpoint: 'https://corsproxy.io/?' + encodeURIComponent('https://api.anthropic.com/v1/messages'),
-      model: 'claude-3-5-sonnet-20241022',
-      authHeader: function (key) { return key; },
-      buildBody: function (messages, stream) {
-        return JSON.stringify({
-          model: PROVIDERS.claude.model,
-          max_tokens: 4096,
-          stream: stream,
-          messages: messages,
-        });
-      },
-      parseChunk: function (line) {
-        if (!line.startsWith('data: ')) return null;
-        var data = line.slice(6).trim();
-        try {
-          var parsed = JSON.parse(data);
-          if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
-            return parsed.delta.text;
-          }
-          return null;
-        } catch (e) { return null; }
-      },
+    parseChunk: function (line) {
+      if (!line.startsWith('data: ')) return null;
+      var data = line.slice(6).trim();
+      if (data === '[DONE]') return null;
+      try {
+        var parsed = JSON.parse(data);
+        return parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content
+          ? parsed.choices[0].delta.content
+          : null;
+      } catch (e) { return null; }
     },
-  };
+  },
 
-  /* ─────────────────────────────────────────
-     Core: Streaming fetch (SSE reader)
-     ───────────────────────────────────────── */
+  claude: {
+    /* NOTE: Anthropic blocks direct browser fetch due to CORS policy.
+       We use a well-known public CORS proxy (allorigins.win) as a passthrough.
+       This is acceptable for a BYOK personal-use tool.
+       For production SaaS, replace with a backend proxy.                     */
+    endpoint: 'https://api.anthropic.com/v1/messages',
+    proxyEndpoint: 'https://corsproxy.io/?' + encodeURIComponent('https://api.anthropic.com/v1/messages'),
+    model: 'claude-3-5-sonnet-20241022',
+    authHeader: function (key) { return key; },
+    buildBody: function (messages, stream) {
+      return JSON.stringify({
+        model: PROVIDERS.claude.model,
+        max_tokens: 4096,
+        stream: stream,
+        messages: messages,
+      });
+    },
+    parseChunk: function (line) {
+      if (!line.startsWith('data: ')) return null;
+      var data = line.slice(6).trim();
+      try {
+        var parsed = JSON.parse(data);
+        if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
+          return parsed.delta.text;
+        }
+        return null;
+      } catch (e) { return null; }
+    },
+  },
+
+  nvidia: {
+    /* NVIDIA NIM API — OpenAI-compatible endpoint
+       Base URL: https://integrate.api.nvidia.com/v1
+       Models: meta/llama-3.1-405b-instruct, meta/llama-3.1-70b-instruct, nvidia/nemotron-3-ultra, etc.
+       Auth: Bearer token with NVIDIA API key
+       For production, consider using a backend proxy to avoid CORS issues. */
+    endpoint: 'https://integrate.api.nvidia.com/v1/chat/completions',
+    model: 'meta/llama-3.1-70b-instruct',
+    authHeader: function (key) { return 'Bearer ' + key; },
+    buildBody: function (messages, stream) {
+      return JSON.stringify({ model: PROVIDERS.nvidia.model, messages: messages, stream: stream, max_tokens: 4096 });
+    },
+    parseChunk: function (line) {
+      if (!line.startsWith('data: ')) return null;
+      var data = line.slice(6).trim();
+      if (data === '[DONE]') return null;
+      try {
+        var parsed = JSON.parse(data);
+        return parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content
+          ? parsed.choices[0].delta.content
+          : null;
+      } catch (e) { return null; }
+    },
+  },
+};
+
+/* ─────────────────────────────────────────
+   Core: Streaming fetch (SSE reader)
+   ───────────────────────────────────────── */
   async function streamFetch(provider, apiKey, messages, onChunk) {
     var cfg = PROVIDERS[provider];
     if (!cfg) throw new Error('Unknown provider: ' + provider);
@@ -75,7 +100,7 @@
       'Content-Type': 'application/json',
     };
 
-    if (provider === 'openai') {
+    if (provider === 'openai' || provider === 'nvidia') {
       headers['Authorization'] = cfg.authHeader(apiKey);
     } else if (provider === 'claude') {
       headers['x-api-key'] = apiKey;
@@ -130,7 +155,7 @@
     var endpoint = (provider === 'claude') ? cfg.proxyEndpoint : cfg.endpoint;
 
     var headers = { 'Content-Type': 'application/json' };
-    if (provider === 'openai') {
+    if (provider === 'openai' || provider === 'nvidia') {
       headers['Authorization'] = cfg.authHeader(apiKey);
     } else if (provider === 'claude') {
       headers['x-api-key'] = apiKey;
@@ -151,7 +176,7 @@
 
     var json = await response.json();
 
-    if (provider === 'openai') {
+    if (provider === 'openai' || provider === 'nvidia') {
       return json.choices && json.choices[0].message && json.choices[0].message.content
         ? json.choices[0].message.content
         : '';

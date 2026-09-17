@@ -66,41 +66,43 @@ Planner ➔ Coder ➔ Reviewer
 
 ```text
 PromithicAI/
-├── index.html          # Marketing / Landing Page
-├── builder.html        # Main IDE Console Workspace
-├── settings.html       # API Configuration & Engine State
-├── login.html          # Firebase Authentication Flow
-├── signup.html         # User Onboarding & Signup Flow
-├── vercel.json         # Vercel Clean URL Redirects & Headers
-├── README.md           # Project Specification
-├── LICENSE             # MIT License
-├── .gitignore          # Version Control Filters
+├── html/                 # HTML Pages
+│   ├── index.html        # Marketing / Landing Page
+│   ├── builder.html      # Main IDE Console Workspace
+│   ├── settings.html     # API Configuration & Engine State
+│   ├── login.html        # Firebase Authentication Flow
+│   └── signup.html       # User Onboarding & Signup Flow
+├── index.html            # Root redirect to html/index.html
+├── vercel.json           # Vercel Clean URL Redirects & Headers
+├── README.md             # Project Specification
+├── LICENSE               # MIT License
+├── .gitignore            # Version Control Filters
 │
-├── css/                # Styling Architecture
+├── css/                  # Styling Architecture
 │   ├── base.css
-│   ├── variables.css   # Global Theme & Color Tokens
-│   ├── animations.css  # Core Layout Transitions
+│   ├── variables.css     # Global Theme & Color Tokens
+│   ├── animations.css    # Core Layout Transitions
 │   ├── components.css
 │   ├── landing.css
 │   ├── auth.css
 │   ├── settings.css
 │   ├── builder.css
-│   ├── brand-story.css # PromithicAI Brand Segment Styling
-│   ├── fx.css          # Cursor spotlight, magnetic, and dynamic glows
-│   └── polish.css      # v1.1 Micro-Interaction Polish
+│   ├── brand-story.css   # PromithicAI Brand Segment Styling
+│   ├── fx.css            # Cursor spotlight, magnetic, and dynamic glows
+│   └── polish.css        # v1.1 Micro-Interaction Polish
 │
-└── js/                 # Vanilla JS Logic Components
-    ├── theme.js        # Light/Dark Mode Persistence
-    ├── router.js       # Fade-In Client-Side Routing
-    ├── firebase.js     # Firebase SDK Wrapper
-    ├── supabase.js     # Supabase REST Client
-    ├── auth.js         # Session Detection & Navbar Badge Render
-    ├── llm.js          # API Client for OpenAI & Anthropic (BYOK)
-    ├── editor.js       # Monaco Editor & Fallback API
-    ├── streaming.js    # AI Token Output Simulation
-    ├── history.js      # Hybrid Local/Supabase Persistence Sync
-    ├── agent.js        # Multi-Agent Workflow Logic
-    └── fx.js           # Intersection Observers & Mouse FX
+└── js/                   # Vanilla JS Logic Components
+    ├── theme.js          # Light/Dark Mode Persistence
+    ├── router.js         # Fade-In Client-Side Routing
+    ├── firebase.js       # Firebase SDK Wrapper
+    ├── supabase.js       # Supabase REST Client
+    ├── auth.js           # Session Detection & Navbar Badge Render
+    ├── llm.js            # API Client for OpenAI & Anthropic (BYOK)
+    ├── editor.js         # Monaco Editor & Fallback API
+    ├── streaming.js      # AI Token Output Simulation
+    ├── history.js        # Hybrid Local/Supabase Persistence Sync
+    ├── agent.js          # Multi-Agent Workflow Logic
+    └── fx.js             # Intersection Observers & Mouse FX
 ```
 
 ### Workflow Overview
