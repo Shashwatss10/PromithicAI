@@ -2309,7 +2309,7 @@
 .workflow-progress {
   display: flex;
   align-items: center;
-  gap: 12px.
+  gap: 12px
 }
 
 .progress-track {
@@ -2317,7 +2317,7 @@
   height: 4px;
   background: var(--border);
   border-radius: var(--radius-full);
-  overflow: hidden.
+  overflow: hidden;
 }
 
 .progress-fill {

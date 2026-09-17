@@ -5,11 +5,11 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/builder",  "destination": "/html/builder.html" },
-    { "source": "/login",    "destination": "/html/login.html" },
-    { "source": "/signup",   "destination": "/html/signup.html" },
-    { "source": "/settings", "destination": "/html/settings.html" },
-    { "source": "/",         "destination": "/html/index.html" }
+    { "source": "/builder",  "destination": "builder.html" },
+    { "source": "/login",    "destination": "login.html" },
+    { "source": "/signup",   "destination": "signup.html" },
+    { "source": "/settings", "destination": "settings.html" },
+    { "source": "/",         "destination": "index.html" }
   ],
   "headers": [
     {

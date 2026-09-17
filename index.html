@@ -17,14 +17,14 @@
     rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/base.css" />
-  <link rel="stylesheet" href="../css/animations.css" />
-  <link rel="stylesheet" href="../css/components.css" />
-  <link rel="stylesheet" href="../css/landing.css" />
-  <link rel="stylesheet" href="../css/brand-story.css" />
-  <link rel="stylesheet" href="../css/fx.css" />
-  <link rel="stylesheet" href="../css/polish.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/brand-story.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
@@ -41,7 +41,7 @@
   <nav class="navbar" id="main-nav" role="navigation" aria-label="Main navigation">
     <div class="container navbar-inner">
       <!-- Logo -->
-      <a href="index.html" class="navbar-logo" aria-label="PromithicAI home">
+      <a href="/" class="navbar-logo" aria-label="PromithicAI home">
         <div class="navbar-logo-icon" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -76,7 +76,7 @@
           </svg>
           How it Works
         </a>
-        <a href="settings.html" class="nav-link">
+<a href="/settings" class="nav-link">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,8 +89,8 @@
 
       <!-- Actions -->
       <div class="navbar-actions">
-        <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
-        <a href="builder.html" class="btn btn-primary btn-sm">
+        <a href="/login" class="btn btn-ghost btn-sm">Log in</a>
+        <a href="/builder" class="btn btn-primary btn-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -132,9 +132,9 @@
     <a href="#features" class="nav-link" onclick="closeMobileNav()">Features</a>
     <a href="#pipeline" class="nav-link" onclick="closeMobileNav()">Pipeline</a>
     <a href="#how" class="nav-link" onclick="closeMobileNav()">How it Works</a>
-    <a href="settings.html" class="nav-link">Settings</a>
-    <a href="login.html" class="nav-link">Log in</a>
-    <a href="builder.html" class="btn btn-primary" style="margin-top:8px;">Start Building</a>
+    <a href="/settings" class="nav-link">Settings</a>
+    <a href="/login" class="nav-link">Log in</a>
+    <a href="/builder" class="btn btn-primary" style="margin-top:8px;">Start Building</a>
   </div>
 
   <!-- ═══════ MAIN CONTENT ═══════ -->
@@ -167,7 +167,7 @@
             </p>
 
             <div class="hero-ctas anim-fade-in-up delay-400">
-              <a href="builder.html" class="btn btn-primary btn-lg" id="cta-build">
+              <a href="/builder" class="btn btn-primary btn-lg" id="cta-build">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                   aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -379,7 +379,7 @@
             <div class="provider-action">
               <span class="provider-status" id="claude-status">
                 <span class="status-dot"></span>
-                <a href="settings.html" class="status-text configure-link">Configure in Settings</a>
+                <a href="/settings" class="status-text configure-link">Configure in Settings</a>
               </span>
             </div>
           </article>
@@ -407,7 +407,7 @@
             <div class="provider-action">
               <span class="provider-status" id="openai-status">
                 <span class="status-dot"></span>
-                <a href="settings.html" class="status-text configure-link">Configure in Settings</a>
+                <a href="/settings" class="status-text configure-link">Configure in Settings</a>
               </span>
             </div>
           </article>
@@ -434,7 +434,7 @@
             <div class="provider-action">
               <span class="provider-status" id="nvidia-status">
                 <span class="status-dot"></span>
-                <a href="settings.html" class="status-text configure-link">Configure in Settings</a>
+                <a href="/settings" class="status-text configure-link">Configure in Settings</a>
               </span>
             </div>
           </article>
@@ -734,7 +734,7 @@
       </div>
     </section>
 
-<!-- ═══ HOW IT WORKS ═══ -->
+    <!-- ═══ HOW IT WORKS ═══ -->
     <section class="how-section" id="how" aria-labelledby="how-title">
       <div class="container">
         <div class="section-header">
@@ -1180,10 +1180,10 @@
   <div id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- JS -->
-  <script src="../js/theme.js"></script>
-  <script src="../js/router.js"></script>
-  <script src="../js/firebase.js"></script>
-  <script src="../js/auth.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
   <script>
     // Navbar scroll shadow
     var nav = document.getElementById('main-nav');
@@ -1435,7 +1435,7 @@
       });
     }());
   </script>
-  <script src="../js/fx.js"></script>
+  <script src="js/fx.js"></script>
 </body>
 
 </html>

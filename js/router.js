@@ -7,21 +7,30 @@
   'use strict';
 
   /**
-   * Automatically sets active class on navigation links matching the current file
+   * Get current page slug from pathname
+   * e.g. '/builder' -> 'builder', '/' -> 'index', '/settings' -> 'settings'
+   */
+  function getCurrentPage() {
+    var path = window.location.pathname;
+    var page = path.split('/').filter(Boolean)[0] || 'index';
+    return page;
+  }
+
+  /**
+   * Automatically sets active class on navigation links matching the current page
    */
   function updateActiveNavLinks() {
-    var path = window.location.pathname;
-    var page = path.split('/').pop() || 'index.html';
+    var currentPage = getCurrentPage();
 
     var links = document.querySelectorAll('.navbar-nav .nav-link, .mobile-nav .nav-link');
     links.forEach(function (link) {
       var href = link.getAttribute('href');
       if (!href) return;
 
-      // Check if href starts with '#' for page anchor links
+      // Handle anchor links (same-page navigation)
       if (href.startsWith('#')) {
-        if (page === 'index.html' || page === '') {
-          // Keep normal anchor functionality
+        if (currentPage === 'index') {
+          // On landing page - smooth scroll to section
           link.addEventListener('click', function(e) {
             var target = document.querySelector(href);
             if (target) {
@@ -30,57 +39,29 @@
             }
           });
         } else {
-          // If on another page, rewrite anchor to point to index.html
-          link.setAttribute('href', 'index.html' + href);
+          // On other pages - rewrite to point to landing page
+          link.setAttribute('href', '/' + href);
         }
+        return;
+      }
+
+      // Handle cross-page links - extract page from href
+      // e.g. '/builder' -> 'builder', '/settings' -> 'settings'
+      var linkPage = href.split('/').filter(Boolean)[0] || 'index';
+      if (linkPage === currentPage) {
+        link.classList.add('active');
       } else {
-        // Direct page link comparison
-        var linkPage = href.split('/').pop();
-        if (linkPage === page) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
+        link.classList.remove('active');
       }
     });
   }
 
-  /**
-   * Helper to perform page transitions with a smooth fade
-   * @param {string} url - URL to navigate to
-   */
-  function navigateTo(url) {
-    var wrapper = document.querySelector('.page-wrapper, .builder-layout, .auth-page');
-    if (wrapper) {
-      wrapper.style.transition = 'opacity 0.25s ease';
-      wrapper.style.opacity = '0';
-      setTimeout(function () {
-        window.location.href = url;
-      }, 250);
-    } else {
-      window.location.href = url;
-    }
-  }
-
-  // Hook dynamic click actions for smoother transition feel
+  // Initialize on DOM ready - only update active states, don't intercept navigation
   document.addEventListener('DOMContentLoaded', function () {
     updateActiveNavLinks();
-
-    // Catch generic direct page navigations to animate them smoothly
-    document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not([target="_blank"])').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        var href = link.getAttribute('href');
-        // Ignore javascript void calls or empty links
-        if (href && href !== '#' && !href.startsWith('javascript:')) {
-          e.preventDefault();
-          navigateTo(href);
-        }
-      });
-    });
   });
 
   window.AppRouter = {
-    updateActiveNavLinks: updateActiveNavLinks,
-    navigateTo: navigateTo
+    updateActiveNavLinks: updateActiveNavLinks
   };
 })();

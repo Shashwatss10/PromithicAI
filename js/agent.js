@@ -5,28 +5,27 @@
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
   /* ─────────────────────────────────────────
      App Templates Library
      ───────────────────────────────────────── */
   var TEMPLATES = {
-
     pomodoro: {
-      name: 'Pomodoro Timer',
+      name: "Pomodoro Timer",
       planSteps: [
-        'Analyze: Pomodoro timer with 25min work / 5min break cycles',
-        'Feature list: countdown display, start/pause, reset, session counter',
-        'Architecture: vanilla JS timer with CSS animations',
-        'Audio: browser notification API for alerts',
-        'Design: minimalist, dark, circular progress ring',
+        "Analyze: Pomodoro timer with 25min work / 5min break cycles",
+        "Feature list: countdown display, start/pause, reset, session counter",
+        "Architecture: vanilla JS timer with CSS animations",
+        "Audio: browser notification API for alerts",
+        "Design: minimalist, dark, circular progress ring",
       ],
       reviewNotes: [
-        'Timer accuracy verified: using Date.now() delta instead of setInterval drift',
-        'Added keyboard shortcut Space to start/pause',
-        'Progress ring SVG stroke-dashoffset animation smooth ✓',
-        'Responsive on mobile ✓',
-        'No external dependencies ✓',
+        "Timer accuracy verified: using Date.now() delta instead of setInterval drift",
+        "Added keyboard shortcut Space to start/pause",
+        "Progress ring SVG stroke-dashoffset animation smooth ✓",
+        "Responsive on mobile ✓",
+        "No external dependencies ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -131,22 +130,22 @@ document.addEventListener('keydown',function(e){if(e.code==='Space'&&e.target===
 renderSessions();updateDisplay();updateRing();
 </script>
 </body>
-</html>`
+</html>`,
     },
 
     calculator: {
-      name: 'Calculator',
+      name: "Calculator",
       planSteps: [
-        'Analyze: scientific calculator with basic and advanced operations',
-        'Feature list: +,-,×,÷, parentheses, %, sqrt, power, history',
-        'Architecture: expression evaluator with safe eval using math parser',
-        'Design: dark glass, large display, grouped button layout',
+        "Analyze: scientific calculator with basic and advanced operations",
+        "Feature list: +,-,×,÷, parentheses, %, sqrt, power, history",
+        "Architecture: expression evaluator with safe eval using math parser",
+        "Design: dark glass, large display, grouped button layout",
       ],
       reviewNotes: [
-        'Division by zero handled gracefully ✓',
-        'Keyboard input supported ✓',
-        'Expression display scrolls correctly ✓',
-        'No eval() used — safe math parser implemented ✓',
+        "Division by zero handled gracefully ✓",
+        "Keyboard input supported ✓",
+        "Expression display scrolls correctly ✓",
+        "No eval() used — safe math parser implemented ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -225,22 +224,22 @@ document.addEventListener('keydown',function(e){
 });
 </script>
 </body>
-</html>`
+</html>`,
     },
 
     todo: {
-      name: 'Todo List',
+      name: "Todo List",
       planSteps: [
-        'Analyze: modern todo list with categories and priorities',
-        'Feature list: add/remove tasks, mark complete, filter (all/active/done), priority levels',
-        'Architecture: localStorage persistence, pure JS, no dependencies',
-        'Design: dark, animated checkboxes, drag-to-delete gesture hint',
+        "Analyze: modern todo list with categories and priorities",
+        "Feature list: add/remove tasks, mark complete, filter (all/active/done), priority levels",
+        "Architecture: localStorage persistence, pure JS, no dependencies",
+        "Design: dark, animated checkboxes, drag-to-delete gesture hint",
       ],
       reviewNotes: [
-        'localStorage persistence working on page refresh ✓',
-        'Enter key submits new task ✓',
-        'Empty task validation ✓',
-        'Task counter updates correctly ✓',
+        "localStorage persistence working on page refresh ✓",
+        "Enter key submits new task ✓",
+        "Empty task validation ✓",
+        "Task counter updates correctly ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -323,20 +322,20 @@ document.getElementById('add-input').addEventListener('keydown',function(e){if(e
 render();
 </script>
 </body>
-</html>`
+</html>`,
     },
 
     clock: {
-      name: 'Digital Clock',
+      name: "Digital Clock",
       planSteps: [
-        'Analyze: analog + digital clock with date display',
-        'Feature list: real-time ticking analog clock, digital display, date, timezone label',
-        'Design: dark glass, glowing hands, smooth second hand animation',
+        "Analyze: analog + digital clock with date display",
+        "Feature list: real-time ticking analog clock, digital display, date, timezone label",
+        "Design: dark glass, glowing hands, smooth second hand animation",
       ],
       reviewNotes: [
-        'Smooth CSS transform rotation for clock hands ✓',
-        'Updates every 100ms for smooth sub-second feel ✓',
-        'Date localization using Intl API ✓',
+        "Smooth CSS transform rotation for clock hands ✓",
+        "Updates every 100ms for smooth sub-second feel ✓",
+        "Date localization using Intl API ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -391,21 +390,21 @@ function update(){
 setInterval(update,50);update();
 </script>
 </body>
-</html>`
+</html>`,
     },
 
     weather: {
-      name: 'Weather Widget',
+      name: "Weather Widget",
       planSteps: [
-        'Analyze: weather display widget with mock data and animated UI',
-        'Feature list: temperature display, hourly forecast, weather icons, condition text',
-        'Note: Using mock data (real API requires backend for v1.0)',
-        'Design: glassmorphism card, gradient sky background, animated icons',
+        "Analyze: weather display widget with mock data and animated UI",
+        "Feature list: temperature display, hourly forecast, weather icons, condition text",
+        "Note: Using mock data (real API requires backend for v1.0)",
+        "Design: glassmorphism card, gradient sky background, animated icons",
       ],
       reviewNotes: [
-        'Mock data clearly labeled ✓',
-        'Animated weather icons using CSS ✓',
-        'Responsive card layout ✓',
+        "Mock data clearly labeled ✓",
+        "Animated weather icons using CSS ✓",
+        "Responsive card layout ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -468,21 +467,21 @@ var row=document.getElementById('hourly-row');
 forecast.forEach(function(f){row.innerHTML+='<div class="hour"><div class="hour-time">'+f.t+'</div><div class="hour-icon">'+f.i+'</div><div class="hour-temp">'+f.d+'°</div></div>';});
 </script>
 </body>
-</html>`
+</html>`,
     },
 
     default: {
-      name: 'Web App',
+      name: "Web App",
       planSteps: [
-        'Analyzing prompt for key features…',
-        'Designing component architecture',
-        'Planning responsive layout',
-        'Generating interactive JavaScript logic',
+        "Analyzing prompt for key features…",
+        "Designing component architecture",
+        "Planning responsive layout",
+        "Generating interactive JavaScript logic",
       ],
       reviewNotes: [
-        'Code quality verified ✓',
-        'No external dependencies ✓',
-        'Responsive design ✓',
+        "Code quality verified ✓",
+        "No external dependencies ✓",
+        "Responsive design ✓",
       ],
       code: `<!DOCTYPE html>
 <html lang="en">
@@ -511,165 +510,214 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
   <button class="btn" onclick="alert('Customize this app by refining your prompt!')">Get Started</button>
 </div>
 </body>
-</html>`
-    }
+</html>`,
+    },
   };
 
   /* ─────────────────────────────────────────
      Template Detection
      ───────────────────────────────────────── */
   function detectTemplate(prompt) {
-    var lower = (prompt || '').toLowerCase();
-    if (/pomodoro|tomato|focus\s?timer|25[\s-]?min/.test(lower)) return 'pomodoro';
-    if (/calc|calculat/.test(lower)) return 'calculator';
-    if (/todo|task\s?list|to-do|shopping\s?list|check\s?list/.test(lower)) return 'todo';
-    if (/clock|time|watch|stopwatch|countdown/.test(lower)) return 'clock';
-    if (/weather|forecast|temperature|rain/.test(lower)) return 'weather';
-    return 'default';
+    var lower = (prompt || "").toLowerCase();
+    if (/pomodoro|tomato|focus\s?timer|25[\s-]?min/.test(lower))
+      return "pomodoro";
+    if (/calc|calculat/.test(lower)) return "calculator";
+    if (/todo|task\s?list|to-do|shopping\s?list|check\s?list/.test(lower))
+      return "todo";
+    if (/clock|time|watch|stopwatch|countdown/.test(lower)) return "clock";
+    if (/weather|forecast|temperature|rain/.test(lower)) return "weather";
+    return "default";
   }
 
   /* ─────────────────────────────────────────
      Agent Pipeline
      ───────────────────────────────────────── */
 
-/**
-       * Run the full multi-agent pipeline
-       * @param {string} prompt
-       * @param {object} callbacks
-       *   @param {Function} callbacks.onStepStart(stepName) - called when a step starts
-       *   @param {Function} callbacks.onStepLog(msg, type) - called for log messages
-       *   @param {Function} callbacks.onStepDone(stepName) - called when a step completes
-       *   @param {Function} callbacks.onCodeToken(cumulative, progress, total) - streaming code
-       *   @param {Function} callbacks.onComplete(code, template) - called when all done
-       *   @param {Function} callbacks.onError(err) - called on failure
-       *   @param {Function} callbacks.getAborted - returns true if user cancelled
-       * @returns {{ abort: Function }}
-       */
-      function run(prompt, callbacks) {
-        callbacks = callbacks || {};
-        var aborted = false;
+  /**
+   * Run the full multi-agent pipeline
+   * @param {string} prompt
+   * @param {object} callbacks
+   *   @param {Function} callbacks.onStepStart(stepName) - called when a step starts
+   *   @param {Function} callbacks.onStepLog(msg, type) - called for log messages
+   *   @param {Function} callbacks.onStepDone(stepName) - called when a step completes
+   *   @param {Function} callbacks.onCodeToken(cumulative, progress, total) - streaming code
+   *   @param {Function} callbacks.onComplete(code, template) - called when all done
+   *   @param {Function} callbacks.onError(err) - called on failure
+   *   @param {Function} callbacks.getAborted - returns true if user cancelled
+   * @returns {{ abort: Function }}
+   */
+  function run(prompt, callbacks) {
+    callbacks = callbacks || {};
+    var aborted = false;
 
-        function isAborted() { return aborted || (typeof callbacks.getAborted === 'function' && callbacks.getAborted()); }
-        function log(msg, type) { if (typeof callbacks.onStepLog === 'function') callbacks.onStepLog(msg, type); }
-        function stepStart(name) { if (typeof callbacks.onStepStart === 'function') callbacks.onStepStart(name); }
-        function stepDone(name) { if (typeof callbacks.onStepDone === 'function') callbacks.onStepDone(name); }
+    function isAborted() {
+      return (
+        aborted ||
+        (typeof callbacks.getAborted === "function" && callbacks.getAborted())
+      );
+    }
+    function log(msg, type) {
+      if (typeof callbacks.onStepLog === "function")
+        callbacks.onStepLog(msg, type);
+    }
+    function stepStart(name) {
+      if (typeof callbacks.onStepStart === "function")
+        callbacks.onStepStart(name);
+    }
+    function stepDone(name) {
+      if (typeof callbacks.onStepDone === "function")
+        callbacks.onStepDone(name);
+    }
 
-        var templateKey = detectTemplate(prompt);
-        var template = TEMPLATES[templateKey];
+    var templateKey = detectTemplate(prompt);
+    var template = TEMPLATES[templateKey];
 
-        // Delay helper
-        function wait(ms) {
-          return new Promise(function (resolve) {
-            setTimeout(resolve, ms);
-          });
-        }
+    // Delay helper
+    function wait(ms) {
+      return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+      });
+    }
 
-        async function pipeline() {
-          try {
-
-            /* ══════════════════════════════════════════════════
+    async function pipeline() {
+      try {
+        /* ══════════════════════════════════════════════════
                LIVE API MODE — runs when user has an API key set
                ══════════════════════════════════════════════════ */
-            var useLiveAPI = window.SettingsManager && window.SettingsManager.hasApiKey();
-            var currentProvider = window.SettingsManager ? window.SettingsManager.get('provider') : 'claude';
+        var useLiveAPI =
+          window.SettingsManager && window.SettingsManager.hasApiKey();
+        var currentProvider =
+          window.SettingsManager ?
+            window.SettingsManager.get("provider")
+          : "claude";
 
-            if (currentProvider === 'none') {
-              stepStart('planner');
-              log('No AI provider selected. Using simulation mode.', 'warn');
-              log('Please select an AI provider in Settings to enable live API mode.', 'info');
-              await wait(500);
-              stepDone('planner');
-              useLiveAPI = false;
-            }
+        if (currentProvider === "none") {
+          stepStart("planner");
+          log("No AI provider selected. Using simulation mode.", "warn");
+          log(
+            "Please select an AI provider in Settings to enable live API mode.",
+            "info",
+          );
+          await wait(500);
+          stepDone("planner");
+          useLiveAPI = false;
+        }
 
-            if (useLiveAPI) {
-              var provider = window.SettingsManager.get('provider') || 'openai';
-              var apiKey   = window.SettingsManager.getApiKey();
+        if (useLiveAPI) {
+          var provider = window.SettingsManager.get("provider") || "openai";
+          var apiKey = window.SettingsManager.getApiKey();
 
-              /* ── PLANNER (live) ── */
-              stepStart('planner');
-              var providerLabel = provider === 'claude' ? 'CLAUDE' : (provider === 'openai' ? 'OPENAI' : (provider === 'nvidia' ? 'NVIDIA' : 'UNKNOWN'));
-              log('🤖 Live API Mode — ' + providerLabel + ' connected', 'info');
-              await wait(300);
-              log('Planner Agent analyzing your prompt…', 'info');
+          /* ── PLANNER (live) ── */
+          stepStart("planner");
+          var providerLabel =
+            provider === "claude" ? "CLAUDE"
+            : provider === "openai" ? "OPENAI"
+            : provider === "nvidia" ? "NVIDIA"
+            : "UNKNOWN";
+          log("🤖 Live API Mode — " + providerLabel + " connected", "info");
+          await wait(300);
+          log("Planner Agent analyzing your prompt…", "info");
 
           var planSteps;
           try {
             planSteps = await window.LLM.generatePlan(prompt, provider, apiKey);
           } catch (e) {
-            log('Planner API error: ' + e.message, 'error');
+            log("Planner API error: " + e.message, "error");
             throw e;
           }
 
           for (var pi = 0; pi < planSteps.length; pi++) {
             if (isAborted()) return;
             await wait(200 + Math.random() * 150);
-            log(planSteps[pi], 'info');
+            log(planSteps[pi], "info");
           }
 
-          log('Plan complete. Passing to Coder Agent…', 'success');
+          log("Plan complete. Passing to Coder Agent…", "success");
           await wait(300);
-          stepDone('planner');
+          stepDone("planner");
 
           if (isAborted()) return;
 
           /* ── CODER (live streaming) ── */
-          stepStart('coder');
-          log('Coder Agent generating your app with AI…', 'info');
+          stepStart("coder");
+          log("Coder Agent generating your app with AI…", "info");
           await wait(200);
 
-          var liveCode = '';
+          var liveCode = "";
           var charCount = 0;
 
           try {
-            await window.LLM.generateCodeStream(prompt, planSteps, provider, apiKey, function (chunk) {
-              if (isAborted()) return;
-              liveCode += chunk;
-              charCount += chunk.length;
-              if (typeof callbacks.onCodeToken === 'function') {
-                // Pass cumulative code; progress/total are approximated
-                callbacks.onCodeToken(liveCode, charCount, Math.max(charCount + 500, 8000));
-              }
-            });
+            await window.LLM.generateCodeStream(
+              prompt,
+              planSteps,
+              provider,
+              apiKey,
+              function (chunk) {
+                if (isAborted()) return;
+                liveCode += chunk;
+                charCount += chunk.length;
+                if (typeof callbacks.onCodeToken === "function") {
+                  // Pass cumulative code; progress/total are approximated
+                  callbacks.onCodeToken(
+                    liveCode,
+                    charCount,
+                    Math.max(charCount + 500, 8000),
+                  );
+                }
+              },
+            );
           } catch (e) {
-            log('Coder API error: ' + e.message, 'error');
+            log("Coder API error: " + e.message, "error");
             throw e;
           }
 
           if (isAborted()) return;
 
           // Strip any accidental markdown fences from the AI output
-          liveCode = liveCode.replace(/^```html?\s*/i, '').replace(/```\s*$/, '').trim();
+          liveCode = liveCode
+            .replace(/^```html?\s*/i, "")
+            .replace(/```\s*$/, "")
+            .trim();
 
-          log('Code generation complete (' + liveCode.length + ' chars) ✓', 'success');
+          log(
+            "Code generation complete (" + liveCode.length + " chars) ✓",
+            "success",
+          );
           await wait(200);
-          stepDone('coder');
+          stepDone("coder");
 
           /* ── REVIEWER (live) ── */
-          stepStart('reviewer');
-          log('Reviewer Agent analyzing code quality…', 'info');
+          stepStart("reviewer");
+          log("Reviewer Agent analyzing code quality…", "info");
           await wait(300);
 
           var reviewNotes;
           try {
-            reviewNotes = await window.LLM.generateReview(liveCode, provider, apiKey);
+            reviewNotes = await window.LLM.generateReview(
+              liveCode,
+              provider,
+              apiKey,
+            );
           } catch (e) {
             // Review errors are non-fatal — use a generic note
-            reviewNotes = ['Code quality looks good ✓', 'App generated successfully ✓'];
+            reviewNotes = [
+              "Code quality looks good ✓",
+              "App generated successfully ✓",
+            ];
           }
 
           for (var ri = 0; ri < reviewNotes.length; ri++) {
             if (isAborted()) return;
             await wait(250 + Math.random() * 100);
-            log(reviewNotes[ri], 'success');
+            log(reviewNotes[ri], "success");
           }
 
-          log('Review passed. App ready! 🚀', 'success');
+          log("Review passed. App ready! 🚀", "success");
           await wait(200);
-          stepDone('reviewer');
+          stepDone("reviewer");
 
-          if (typeof callbacks.onComplete === 'function') {
-            callbacks.onComplete(liveCode, 'custom');
+          if (typeof callbacks.onComplete === "function") {
+            callbacks.onComplete(liveCode, "custom");
           }
           return; // ← exit; don't fall through to simulation
         }
@@ -679,27 +727,27 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
            ══════════════════════════════════════════════════ */
 
         /* ── PLANNER ── */
-        stepStart('planner');
-        log('Initializing Planner Agent…', 'info');
+        stepStart("planner");
+        log("Initializing Planner Agent…", "info");
         await wait(500);
 
         for (var i = 0; i < template.planSteps.length; i++) {
           if (isAborted()) return;
           await wait(350 + Math.random() * 200);
-          log(template.planSteps[i], 'info');
+          log(template.planSteps[i], "info");
         }
 
-        log('Plan complete. Passing to Coder Agent…', 'success');
+        log("Plan complete. Passing to Coder Agent…", "success");
         await wait(400);
-        stepDone('planner');
+        stepDone("planner");
 
         if (isAborted()) return;
 
         /* ── CODER ── */
-        stepStart('coder');
-        log('Coder Agent initializing code generation…', 'info');
+        stepStart("coder");
+        log("Coder Agent initializing code generation…", "info");
         await wait(300);
-        log('Generating: ' + template.name, 'info');
+        log("Generating: " + template.name, "info");
         await wait(200);
 
         // Stream code
@@ -711,11 +759,18 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
         await new Promise(function (resolve) {
           var stopped = false;
           function tick() {
-            if (stopped || isAborted()) { resolve(); return; }
+            if (stopped || isAborted()) {
+              resolve();
+              return;
+            }
             var end = Math.min(streamed + chunkSize, totalChars);
             streamed = end;
-            if (typeof callbacks.onCodeToken === 'function') {
-              callbacks.onCodeToken(code.substring(0, streamed), streamed, totalChars);
+            if (typeof callbacks.onCodeToken === "function") {
+              callbacks.onCodeToken(
+                code.substring(0, streamed),
+                streamed,
+                totalChars,
+              );
             }
             if (streamed >= totalChars) {
               stopped = true;
@@ -728,30 +783,30 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
         });
 
         if (isAborted()) return;
-        log('Code generation complete (' + totalChars + ' chars)', 'success');
+        log("Code generation complete (" + totalChars + " chars)", "success");
         await wait(300);
-        stepDone('coder');
+        stepDone("coder");
 
         /* ── REVIEWER ── */
-        stepStart('reviewer');
-        log('Reviewer Agent analyzing code quality…', 'info');
+        stepStart("reviewer");
+        log("Reviewer Agent analyzing code quality…", "info");
         await wait(400);
 
         for (var j = 0; j < template.reviewNotes.length; j++) {
           if (isAborted()) return;
           await wait(300 + Math.random() * 150);
-          log(template.reviewNotes[j], 'success');
+          log(template.reviewNotes[j], "success");
         }
 
-        log('Review passed. App ready! 🚀', 'success');
+        log("Review passed. App ready! 🚀", "success");
         await wait(300);
-        stepDone('reviewer');
+        stepDone("reviewer");
 
-        if (typeof callbacks.onComplete === 'function') {
+        if (typeof callbacks.onComplete === "function") {
           callbacks.onComplete(code, templateKey);
         }
       } catch (err) {
-        if (typeof callbacks.onError === 'function') {
+        if (typeof callbacks.onError === "function") {
           callbacks.onError(err);
         }
       }
@@ -760,7 +815,9 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
     pipeline();
 
     return {
-      abort: function () { aborted = true; }
+      abort: function () {
+        aborted = true;
+      },
     };
   }
 

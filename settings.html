@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PromithicAI — Manage your API keys, theme settings, and view the upgrade roadmap." />
+  <meta name="description"
+    content="PromithicAI — Manage your API keys, theme settings, and view the upgrade roadmap." />
   <title>PromithicAI — Settings & Roadmap</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/base.css" />
-  <link rel="stylesheet" href="../css/animations.css" />
-  <link rel="stylesheet" href="../css/components.css" />
-  <link rel="stylesheet" href="../css/settings.css" />
-  <link rel="stylesheet" href="../css/fx.css" />
-  <link rel="stylesheet" href="../css/polish.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
-    (function(){var t=localStorage.getItem('aiwab-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
+    (function () { var t = localStorage.getItem('aiwab-theme'); if (t === 'light') document.documentElement.setAttribute('data-theme', 'light'); })();
   </script>
 
   <!-- Firebase SDK (Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
+
 <body>
 
   <!-- ═══════ NAVBAR ═══════ -->
@@ -36,34 +41,61 @@
     <div class="container navbar-inner">
       <a href="index.html" class="navbar-logo">
         <div class="navbar-logo-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
         </div>
         <span class="navbar-logo-text">Promithic<span>AI</span></span>
       </a>
       <span class="version-badge">v1.2</span>
 
       <nav class="navbar-nav">
-        <a href="index.html" class="nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <a href="/" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
           Home
         </a>
-        <a href="builder.html" class="nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        <a href="/builder" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
           Builder Console
         </a>
         <a href="settings.html" class="nav-link active">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
           Settings
         </a>
       </nav>
 
       <div class="navbar-actions">
         <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light mode" data-theme-toggle>
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
         </button>
-        <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
-        <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+        <a href="/login" class="btn btn-ghost btn-sm">Log in</a>
+        <a href="/signup" class="btn btn-primary btn-sm">Sign Up</a>
       </div>
     </div>
   </nav>
@@ -82,23 +114,38 @@
           <!-- Sidenav -->
           <nav class="settings-sidenav" aria-label="Settings Categories">
             <a href="#ai-provider" class="settings-nav-item active">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
               AI Provider
             </a>
             <a href="#appearance" class="settings-nav-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+              </svg>
               Appearance
             </a>
             <a href="#preferences" class="settings-nav-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
               Preferences
             </a>
             <a href="#roadmap" class="settings-nav-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
               Roadmap
             </a>
             <a href="#version" class="settings-nav-item">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               About Engine
             </a>
           </nav>
@@ -110,11 +157,15 @@
             <section class="settings-card" id="ai-provider" aria-labelledby="title-ai-provider">
               <div class="settings-card-header">
                 <div class="settings-card-icon cyan">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-ai-provider">AI Provider Settings</h2>
-                  <p class="settings-card-desc">Select which language model engine generates code, and save your API keys locally.</p>
+                  <p class="settings-card-desc">Select which language model engine generates code, and save your API
+                    keys locally.</p>
                 </div>
               </div>
               <div class="settings-card-body">
@@ -122,7 +173,10 @@
                   <!-- Claude Card -->
                   <div class="provider-card" data-provider="claude">
                     <div class="provider-card-check">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     </div>
                     <div class="provider-card-logo text-cyan">Claude</div>
                     <div class="provider-card-name">Anthropic</div>
@@ -132,7 +186,10 @@
                   <!-- OpenAI Card -->
                   <div class="provider-card" data-provider="openai">
                     <div class="provider-card-check">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     </div>
                     <div class="provider-card-logo text-violet">OpenAI</div>
                     <div class="provider-card-name">OpenAI API</div>
@@ -142,7 +199,10 @@
                   <!-- NVIDIA AI Card -->
                   <div class="provider-card" data-provider="nvidia">
                     <div class="provider-card-check">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     </div>
                     <div class="provider-card-logo text-green">NVIDIA AI</div>
                     <div class="provider-card-name">NVIDIA NIM</div>
@@ -152,7 +212,10 @@
                   <!-- None / No Provider Card -->
                   <div class="provider-card" data-provider="none">
                     <div class="provider-card-check">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="3">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
                     </div>
                     <div class="provider-card-logo text-muted">None</div>
                     <div class="provider-card-name">No Provider</div>
@@ -175,13 +238,28 @@
                   <div class="api-key-input-row">
                     <div class="input-password-wrapper" style="flex:1;">
                       <input type="password" id="claude-key-input" class="input" placeholder="sk-ant-...">
-                      <button type="button" class="password-toggle" data-target="claude-key-input" aria-label="Toggle password visibility">
-                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      <button type="button" class="password-toggle" data-target="claude-key-input"
+                        aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" style="display:none;">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                        </svg>
                       </button>
                     </div>
-                    <button type="button" id="claude-connect-btn" class="api-connect-btn" data-provider="claude" disabled>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <button type="button" id="claude-connect-btn" class="api-connect-btn" data-provider="claude"
+                      disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
                       <span id="claude-connect-btn-text">Connect</span>
                     </button>
                   </div>
@@ -200,13 +278,28 @@
                   <div class="api-key-input-row">
                     <div class="input-password-wrapper" style="flex:1;">
                       <input type="password" id="openai-key-input" class="input" placeholder="sk-proj-...">
-                      <button type="button" class="password-toggle" data-target="openai-key-input" aria-label="Toggle password visibility">
-                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      <button type="button" class="password-toggle" data-target="openai-key-input"
+                        aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" style="display:none;">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                        </svg>
                       </button>
                     </div>
-                    <button type="button" id="openai-connect-btn" class="api-connect-btn" data-provider="openai" disabled>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <button type="button" id="openai-connect-btn" class="api-connect-btn" data-provider="openai"
+                      disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
                       <span id="openai-connect-btn-text">Connect</span>
                     </button>
                   </div>
@@ -225,13 +318,28 @@
                   <div class="api-key-input-row">
                     <div class="input-password-wrapper" style="flex:1;">
                       <input type="password" id="nvidia-key-input" class="input" placeholder="nvapi-...">
-                      <button type="button" class="password-toggle" data-target="nvidia-key-input" aria-label="Toggle password visibility">
-                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display:none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                      <button type="button" class="password-toggle" data-target="nvidia-key-input"
+                        aria-label="Toggle password visibility">
+                        <svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" style="display:none;">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                        </svg>
                       </button>
                     </div>
-                    <button type="button" id="nvidia-connect-btn" class="api-connect-btn" data-provider="nvidia" disabled>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <button type="button" id="nvidia-connect-btn" class="api-connect-btn" data-provider="nvidia"
+                      disabled>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
                       <span id="nvidia-connect-btn-text">Connect</span>
                     </button>
                   </div>
@@ -243,11 +351,15 @@
             <section class="settings-card" id="appearance" aria-labelledby="title-appearance">
               <div class="settings-card-header">
                 <div class="settings-card-icon violet">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-appearance">Appearance</h2>
-                  <p class="settings-card-desc">Personalize colors, layouts, and typography across the builder console.</p>
+                  <p class="settings-card-desc">Personalize colors, layouts, and typography across the builder console.
+                  </p>
                 </div>
               </div>
               <div class="settings-card-body">
@@ -277,7 +389,10 @@
             <section class="settings-card" id="preferences" aria-labelledby="title-preferences">
               <div class="settings-card-header">
                 <div class="settings-card-icon green">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-preferences">Preferences</h2>
@@ -289,7 +404,8 @@
                 <div class="setting-row">
                   <div class="setting-row-info">
                     <div class="setting-row-label">Token Streaming Animation</div>
-                    <div class="setting-row-desc">Generates code line-by-line using a streaming simulation instead of instant dump.</div>
+                    <div class="setting-row-desc">Generates code line-by-line using a streaming simulation instead of
+                      instant dump.</div>
                   </div>
                   <div class="setting-row-control">
                     <label class="toggle-wrapper" data-setting-toggle="streamingEnabled">
@@ -304,7 +420,8 @@
                 <div class="setting-row">
                   <div class="setting-row-info">
                     <div class="setting-row-label">Show Agent Log Console</div>
-                    <div class="setting-row-desc">Renders the logs panel displaying agents communication under the preview block.</div>
+                    <div class="setting-row-desc">Renders the logs panel displaying agents communication under the
+                      preview block.</div>
                   </div>
                   <div class="setting-row-control">
                     <label class="toggle-wrapper" data-setting-toggle="showConsole">
@@ -319,7 +436,8 @@
                 <div class="setting-row">
                   <div class="setting-row-info">
                     <div class="setting-row-label">Auto Preview Sandbox</div>
-                    <div class="setting-row-desc">Automatically mounts the code inside the live preview sandbox upon code generation complete.</div>
+                    <div class="setting-row-desc">Automatically mounts the code inside the live preview sandbox upon
+                      code generation complete.</div>
                   </div>
                   <div class="setting-row-control">
                     <label class="toggle-wrapper" data-setting-toggle="autoPreview">
@@ -334,7 +452,8 @@
                 <div class="setting-row" style="border-bottom: none;">
                   <div class="setting-row-info">
                     <div class="setting-row-label">Multi-Agent Mode</div>
-                    <div class="setting-row-desc">Planner → Coder → Reviewer full cycle vs a faster Single-Agent code completion.</div>
+                    <div class="setting-row-desc">Planner → Coder → Reviewer full cycle vs a faster Single-Agent code
+                      completion.</div>
                   </div>
                   <div class="setting-row-control">
                     <div class="tabs">
@@ -350,11 +469,15 @@
             <section class="settings-card" id="roadmap" aria-labelledby="title-roadmap">
               <div class="settings-card-header">
                 <div class="settings-card-icon orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-roadmap">Development Roadmap</h2>
-                  <p class="settings-card-desc">Check out the planned upgrades and feature releases for the PromithicAI engine.</p>
+                  <p class="settings-card-desc">Check out the planned upgrades and feature releases for the PromithicAI
+                    engine.</p>
                 </div>
               </div>
               <div class="settings-card-body">
@@ -364,7 +487,8 @@
                     <span class="roadmap-ver">v1.0</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">First Stable Release</div>
-                      <div class="roadmap-desc">Multi-agent simulation pipeline, code viewer (Monaco), theme toggle, and localStorage history.</div>
+                      <div class="roadmap-desc">Multi-agent simulation pipeline, code viewer (Monaco), theme toggle, and
+                        localStorage history.</div>
                     </div>
                     <span class="roadmap-status done">Completed</span>
                   </div>
@@ -373,7 +497,8 @@
                     <span class="roadmap-ver">v1.1</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">Supabase Database & Firebase Auth</div>
-                      <div class="roadmap-desc">Integrate database persistence for history sync, user login credentials, and user profiles.</div>
+                      <div class="roadmap-desc">Integrate database persistence for history sync, user login credentials,
+                        and user profiles.</div>
                     </div>
                     <span class="roadmap-status done">Active</span>
                   </div>
@@ -382,7 +507,8 @@
                     <span class="roadmap-ver">v1.2</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">Custom LLM Keys Integration</div>
-                      <div class="roadmap-desc">Allows sending API queries directly using user API keys for Claude and OpenAI engines. Includes Connect/Disconnect toggle per provider.</div>
+                      <div class="roadmap-desc">Allows sending API queries directly using user API keys for Claude and
+                        OpenAI engines. Includes Connect/Disconnect toggle per provider.</div>
                     </div>
                     <span class="roadmap-status done">Active</span>
                   </div>
@@ -391,7 +517,8 @@
                     <span class="roadmap-ver">v2.0</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">LangGraph Orchestration & FastAPI</div>
-                      <div class="roadmap-desc">Move the simulation to a true Python backend graph model using stateful LangGraph agents.</div>
+                      <div class="roadmap-desc">Move the simulation to a true Python backend graph model using stateful
+                        LangGraph agents.</div>
                     </div>
                     <span class="roadmap-status soon">Q3 2026</span>
                   </div>
@@ -400,7 +527,8 @@
                     <span class="roadmap-ver">v2.1</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">MCP Sandbox Servers</div>
-                      <div class="roadmap-desc">Secure execution sandbox to enable filesystem commands, dependency installs and custom code previews.</div>
+                      <div class="roadmap-desc">Secure execution sandbox to enable filesystem commands, dependency
+                        installs and custom code previews.</div>
                     </div>
                     <span class="roadmap-status future">Q4 2026</span>
                   </div>
@@ -409,7 +537,8 @@
                     <span class="roadmap-ver">v2.2</span>
                     <div class="roadmap-info">
                       <div class="roadmap-title">GitHub Sync & Deployments</div>
-                      <div class="roadmap-desc">Connect repository workspace, push commits automatically, and deploy one-click previews via Vercel.</div>
+                      <div class="roadmap-desc">Connect repository workspace, push commits automatically, and deploy
+                        one-click previews via Vercel.</div>
                     </div>
                     <span class="roadmap-status future">Future</span>
                   </div>
@@ -421,7 +550,10 @@
             <section class="settings-card" id="version" aria-labelledby="title-about">
               <div class="settings-card-header">
                 <div class="settings-card-icon cyan">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
                 <div class="settings-card-info">
                   <h2 class="settings-card-title" id="title-about">About PromithicAI</h2>
@@ -431,11 +563,15 @@
               <div class="settings-card-body">
                 <div class="version-info-box">
                   <div class="version-info-icon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
                   <div class="version-info-text">
                     <h3>Engine version 1.2.0</h3>
-                    <p>Live LLM API integration (BYOK). Connect/Disconnect per provider. Simulation fallback when no key active.</p>
+                    <p>Live LLM API integration (BYOK). Connect/Disconnect per provider. Simulation fallback when no key
+                      active.</p>
                   </div>
                   <div class="version-info-badge">
                     <span class="badge badge-green"><span class="dot"></span>Stable</span>
@@ -455,11 +591,11 @@
   <div id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- Javascript -->
-  <script src="../js/theme.js"></script>
-  <script src="../js/router.js"></script>
-  <script src="../js/firebase.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/settings.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/settings.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sidenavLinks = document.querySelectorAll('.settings-nav-item');
@@ -480,8 +616,8 @@
       // ── API key format validation hints ──
       var claudeInput = document.getElementById('claude-key-input');
       var openaiInput = document.getElementById('openai-key-input');
-      var claudeHint  = document.getElementById('claude-key-hint');
-      var openaiHint  = document.getElementById('openai-key-hint');
+      var claudeHint = document.getElementById('claude-key-hint');
+      var openaiHint = document.getElementById('openai-key-hint');
 
       function validateKey(input, hint, prefix, label) {
         if (!input || !hint) return;
@@ -503,38 +639,38 @@
       }
 
       validateKey(claudeInput, claudeHint, 'sk-ant-', 'Claude');
-      validateKey(openaiInput, openaiHint, 'sk-',     'OpenAI');
+      validateKey(openaiInput, openaiHint, 'sk-', 'OpenAI');
 
       // ── Connect / Disconnect logic ──
       function refreshConnectionUI(provider) {
         var status = window.SettingsManager ? window.SettingsManager.getConnectionStatus(provider) : 'no-key';
-        var dot     = document.getElementById(provider + '-status-dot');
-        var text    = document.getElementById(provider + '-status-text');
-        var btn     = document.getElementById(provider + '-connect-btn');
+        var dot = document.getElementById(provider + '-status-dot');
+        var text = document.getElementById(provider + '-status-text');
+        var btn = document.getElementById(provider + '-connect-btn');
         var btnText = document.getElementById(provider + '-connect-btn-text');
-        var block   = document.getElementById(provider + '-key-block');
+        var block = document.getElementById(provider + '-key-block');
         if (!dot || !btn) return;
 
         // Remove all state classes
-        dot.className   = 'api-status-dot';
+        dot.className = 'api-status-dot';
         block.className = 'api-key-block';
-        btn.className   = 'api-connect-btn';
+        btn.className = 'api-connect-btn';
 
         if (status === 'no-key') {
           dot.classList.add('no-key');
-          text.textContent   = 'No key saved';
+          text.textContent = 'No key saved';
           btnText.textContent = 'Connect';
           btn.disabled = true;
         } else if (status === 'connected') {
           dot.classList.add('connected');
-          text.textContent   = 'Connected';
+          text.textContent = 'Connected';
           btnText.textContent = 'Disconnect';
           btn.classList.add('disconnect');
           block.classList.add('is-connected');
           btn.disabled = false;
         } else {
           dot.classList.add('disconnected');
-          text.textContent   = 'Saved · Disconnected';
+          text.textContent = 'Saved · Disconnected';
           btnText.textContent = 'Connect';
           btn.classList.add('connect');
           btn.disabled = false;
@@ -588,7 +724,7 @@
         t.textContent = msg;
         tc.appendChild(t);
         setTimeout(function () { t.classList.add('show'); }, 10);
-        setTimeout(function () { t.classList.remove('show'); setTimeout(function(){ tc.removeChild(t); }, 400); }, 3200);
+        setTimeout(function () { t.classList.remove('show'); setTimeout(function () { tc.removeChild(t); }, 400); }, 3200);
       }
 
       initConnectBtn('claude');
@@ -596,6 +732,7 @@
       initConnectBtn('nvidia');
     });
   </script>
-  <script src="../js/fx.js"></script>
+  <script src="js/fx.js"></script>
 </body>
+
 </html>

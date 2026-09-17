@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="PromithicAI — Build web apps interactively using the multi-agent orchestration console. Turning prompts into powerful creations." />
+  <meta name="description"
+    content="PromithicAI — Build web apps interactively using the multi-agent orchestration console. Turning prompts into powerful creations." />
   <title>PromithicAI — Builder Studio</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/base.css" />
-  <link rel="stylesheet" href="../css/animations.css" />
-  <link rel="stylesheet" href="../css/components.css" />
-  <link rel="stylesheet" href="../css/builder.css" />
-  <link rel="stylesheet" href="../css/fx.css" />
-  <link rel="stylesheet" href="../css/polish.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/builder.css" />
+  <link rel="stylesheet" href="css/fx.css" />
+  <link rel="stylesheet" href="css/polish.css" />
 
   <!-- Theme: apply early to prevent flash -->
   <script>
-    (function(){var t=localStorage.getItem('aiwab-theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
+    (function () { var t = localStorage.getItem('aiwab-theme'); if (t === 'light') document.documentElement.setAttribute('data-theme', 'light'); })();
   </script>
 
   <!-- Firebase SDK (Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
+
 <body class="builder-page">
 
   <!-- ═══════ NAVBAR ═══════ -->
@@ -36,34 +41,61 @@
     <div class="container navbar-inner">
       <a href="index.html" class="navbar-logo">
         <div class="navbar-logo-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
         </div>
         <span class="navbar-logo-text">Promithic<span>AI</span></span>
       </a>
       <span class="version-badge">v1.2</span>
 
       <nav class="navbar-nav">
-        <a href="index.html" class="nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <a href="/" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
           Home
         </a>
         <a href="builder.html" class="nav-link active">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
           Builder Console
         </a>
-        <a href="settings.html" class="nav-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+        <a href="/settings" class="nav-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
           Settings
         </a>
       </nav>
 
       <div class="navbar-actions">
         <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light mode" data-theme-toggle>
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
         </button>
-        <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
-        <a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a>
+        <a href="/login" class="btn btn-ghost btn-sm">Log in</a>
+        <a href="/signup" class="btn btn-primary btn-sm">Sign Up</a>
       </div>
     </div>
   </nav>
@@ -78,15 +110,21 @@
       <div class="chat-panel-header">
         <div class="chat-panel-brand">
           <div class="chat-brand-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
           </div>
           <div class="chat-brand-meta">
             <span class="chat-brand-name">Builder Studio</span>
             <span class="badge badge-cyan chat-provider-badge" id="provider-badge">CLAUDE</span>
           </div>
         </div>
-        <button class="btn btn-icon btn-sm btn-ghost" id="clear-history-btn" title="Clear all history" aria-label="Clear history">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <button class="btn btn-icon btn-sm btn-ghost" id="clear-history-btn" title="Clear all history"
+          aria-label="Clear history">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
         </button>
       </div>
 
@@ -103,8 +141,12 @@
         <div class="agent-progress-header">
           <span class="agent-progress-title">Multi-Agent Workflow</span>
           <span class="agent-current-msg" id="agent-status-text">Ready to launch...</span>
-          <button class="workflow-minimize-btn" id="workflow-minimize-btn" title="Toggle workflow" aria-label="Minimize workflow panel" aria-expanded="true">
-            <svg id="workflow-chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          <button class="workflow-minimize-btn" id="workflow-minimize-btn" title="Toggle workflow"
+            aria-label="Minimize workflow panel" aria-expanded="true">
+            <svg id="workflow-chevron-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" width="14" height="14">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
           </button>
         </div>
         <div class="agent-pipeline">
@@ -112,7 +154,10 @@
           <div class="agent-step pending" id="step-planner">
             <div class="agent-step-info">
               <div class="agent-step-bubble">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
               </div>
               <span class="agent-step-label">Planner</span>
             </div>
@@ -124,7 +169,10 @@
           <div class="agent-step pending" id="step-coder">
             <div class="agent-step-info">
               <div class="agent-step-bubble">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
               </div>
               <span class="agent-step-label">Coder</span>
             </div>
@@ -136,7 +184,10 @@
           <div class="agent-step pending" id="step-reviewer">
             <div class="agent-step-info">
               <div class="agent-step-bubble">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
               <span class="agent-step-label">Reviewer</span>
             </div>
@@ -148,26 +199,33 @@
       <div class="chat-input-footer">
         <!-- Quick Templates -->
         <div class="prompt-templates" aria-label="Quick prompt templates">
-          <span class="template-chip" data-prompt="build me a Pomodoro timer with smooth circular animations">⏳ Pomodoro</span>
-          <span class="template-chip" data-prompt="create a Todo List app with categories and priorities and localStorage sync">📋 Todo List</span>
-          <span class="template-chip" data-prompt="build a clean modern Calculator with scientific functions and theme switcher">🧮 Calculator</span>
-          <span class="template-chip" data-prompt="create an interactive analog and digital clock with timezone selector">🕒 Clock</span>
-          <span class="template-chip" data-prompt="build a weather forecast widget showing daily temperatures and animated status icons">☀️ Weather App</span>
+          <span class="template-chip" data-prompt="build me a Pomodoro timer with smooth circular animations">⏳
+            Pomodoro</span>
+          <span class="template-chip"
+            data-prompt="create a Todo List app with categories and priorities and localStorage sync">📋 Todo
+            List</span>
+          <span class="template-chip"
+            data-prompt="build a clean modern Calculator with scientific functions and theme switcher">🧮
+            Calculator</span>
+          <span class="template-chip"
+            data-prompt="create an interactive analog and digital clock with timezone selector">🕒 Clock</span>
+          <span class="template-chip"
+            data-prompt="build a weather forecast widget showing daily temperatures and animated status icons">☀️
+            Weather App</span>
         </div>
 
         <!-- Prompt Input -->
         <div class="prompt-input-wrapper" id="prompt-input-wrapper">
-          <textarea
-            class="prompt-textarea"
-            id="prompt-input"
-            placeholder="Describe what you want to build..."
-            rows="1"
-            aria-label="Prompt input"
-          ></textarea>
+          <textarea class="prompt-textarea" id="prompt-input" placeholder="Describe what you want to build..." rows="1"
+            aria-label="Prompt input"></textarea>
           <div class="chat-input-controls">
-            <button class="btn btn-ghost btn-sm" id="cancel-btn" disabled style="display:none;" aria-label="Cancel generation">Cancel</button>
+            <button class="btn btn-ghost btn-sm" id="cancel-btn" disabled style="display:none;"
+              aria-label="Cancel generation">Cancel</button>
             <button class="prompt-send" id="generate-btn" aria-label="Send prompt">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg>
             </button>
           </div>
         </div>
@@ -176,7 +234,9 @@
 
     <!-- Sidebar Collapse Toggle (outside panel so it's always visible) -->
     <button class="sidebar-toggle" id="sidebar-toggle-btn" aria-label="Toggle sidebar" aria-expanded="true">
-      <svg id="toggle-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      <svg id="toggle-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
     </button>
 
     <!-- ══ RIGHT: Studio Panel ══ -->
@@ -186,30 +246,50 @@
       <div class="output-tabs-bar" aria-label="Output View Controls">
         <div class="output-tabs">
           <button class="output-tab active" data-tab="preview">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
             Preview
           </button>
           <button class="output-tab" data-tab="code">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
             Code
           </button>
           <button class="output-tab" data-tab="split">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
             Split View
           </button>
         </div>
 
         <div class="output-tab-actions" id="output-actions-container" style="display:none;">
           <button class="btn btn-secondary btn-sm" id="copy-code-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
             Copy
           </button>
           <button class="btn btn-secondary btn-sm" id="download-code-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
             Download .html
           </button>
           <button class="btn btn-primary btn-sm" id="deploy-code-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
             Deploy
           </button>
         </div>
@@ -223,18 +303,29 @@
           <div class="preview-panel">
             <div class="preview-toolbar">
               <div class="preview-url-bar">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11.57V3m0 0L4.5 7.5M9 3v2m9.803 2.081A12.001 12.001 0 0118 11.75M18 12.5a5.5 5.5 0 11-11 0V12"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11.57V3m0 0L4.5 7.5M9 3v2m9.803 2.081A12.001 12.001 0 0118 11.75M18 12.5a5.5 5.5 0 11-11 0V12" />
+                </svg>
                 <span id="preview-url-text">http://sandbox.local/index.html</span>
               </div>
-              <button class="btn btn-icon btn-sm btn-ghost" id="refresh-preview-btn" title="Refresh Sandbox" aria-label="Refresh preview">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18"/></svg>
+              <button class="btn btn-icon btn-sm btn-ghost" id="refresh-preview-btn" title="Refresh Sandbox"
+                aria-label="Refresh preview">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89H18" />
+                </svg>
               </button>
             </div>
             <div style="background:#fff;position:relative;flex:1;display:flex;flex-direction:column;min-height:0;">
-              <iframe class="preview-iframe" id="sandbox-iframe" sandbox="allow-scripts" title="Sandbox Live Preview"></iframe>
+              <iframe class="preview-iframe" id="sandbox-iframe" sandbox="allow-scripts"
+                title="Sandbox Live Preview"></iframe>
               <div class="preview-empty" id="preview-empty-state">
                 <div class="preview-empty-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
                 <h3>Live App Preview</h3>
                 <p>Describe your app on the left and hit generate to watch it run here.</p>
@@ -277,15 +368,24 @@
           <div class="status-bar-item">
             <span class="status-dot online pulse"></span>
             Agent Status: <span id="status-mode-label" class="text-cyan" style="margin-right: 10px;">Idle</span>
-            <button class="btn btn-ghost btn-sm" id="toggle-console-btn" style="padding: 2px 8px; font-size: 11px; height: auto; display: inline-flex; align-items: center; gap: 4px;" title="Toggle logs visibility">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 12px; height: 12px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <button class="btn btn-ghost btn-sm" id="toggle-console-btn"
+              style="padding: 2px 8px; font-size: 11px; height: auto; display: inline-flex; align-items: center; gap: 4px;"
+              title="Toggle logs visibility">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                style="width: 12px; height: 12px;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
               <span id="toggle-console-text">Show Logs</span>
             </button>
           </div>
         </div>
         <div class="status-bar-right">
           <div class="status-bar-item">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
             Sandbox Secure
           </div>
           <div class="status-bar-item">
@@ -302,66 +402,66 @@
   <div id="toast-container" role="alert" aria-live="polite"></div>
 
   <!-- Javascript -->
-  <script src="../js/theme.js"></script>
-  <script src="../js/router.js"></script>
-  <script src="../js/firebase.js"></script>
-  <script src="../js/supabase.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/settings.js"></script>
-  <script src="../js/history.js"></script>
-  <script src="../js/streaming.js"></script>
-  <script src="../js/editor.js"></script>
-  <script src="../js/llm.js"></script>
-  <script src="../js/agent.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/streaming.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/llm.js"></script>
+  <script src="js/agent.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       'use strict';
 
       // ── Element References ──
-      var sidebar       = document.getElementById('history-sidebar');
-      var toggleBtn     = document.getElementById('sidebar-toggle-btn');
-      var toggleArrow   = document.getElementById('toggle-arrow');
-      var promptInput   = document.getElementById('prompt-input');
-      var generateBtn   = document.getElementById('generate-btn');
-      var cancelBtn     = document.getElementById('cancel-btn');
-      var historyContainer  = document.getElementById('history-container');
-      var clearHistoryBtn   = document.getElementById('clear-history-btn');
-      var providerBadge     = document.getElementById('provider-badge');
+      var sidebar = document.getElementById('history-sidebar');
+      var toggleBtn = document.getElementById('sidebar-toggle-btn');
+      var toggleArrow = document.getElementById('toggle-arrow');
+      var promptInput = document.getElementById('prompt-input');
+      var generateBtn = document.getElementById('generate-btn');
+      var cancelBtn = document.getElementById('cancel-btn');
+      var historyContainer = document.getElementById('history-container');
+      var clearHistoryBtn = document.getElementById('clear-history-btn');
+      var providerBadge = document.getElementById('provider-badge');
 
       var progressContainer = document.getElementById('agent-progress-container');
-      var agentStatusText   = document.getElementById('agent-status-text');
-      var statusModeLabel   = document.getElementById('status-mode-label');
-      var agentConsole      = document.getElementById('agent-console');
+      var agentStatusText = document.getElementById('agent-status-text');
+      var statusModeLabel = document.getElementById('status-mode-label');
+      var agentConsole = document.getElementById('agent-console');
 
-      var stepPlanner       = document.getElementById('step-planner');
-      var stepCoder         = document.getElementById('step-coder');
-      var stepReviewer      = document.getElementById('step-reviewer');
-      var connPlannerCoder  = document.getElementById('connector-planner-coder');
+      var stepPlanner = document.getElementById('step-planner');
+      var stepCoder = document.getElementById('step-coder');
+      var stepReviewer = document.getElementById('step-reviewer');
+      var connPlannerCoder = document.getElementById('connector-planner-coder');
       var connCoderReviewer = document.getElementById('connector-coder-reviewer');
 
       var previewTab = document.querySelector('[data-tab="preview"]');
-      var codeTab    = document.querySelector('[data-tab="code"]');
-      var splitTab   = document.querySelector('[data-tab="split"]');
+      var codeTab = document.querySelector('[data-tab="code"]');
+      var splitTab = document.querySelector('[data-tab="split"]');
 
       var panePreview = document.getElementById('pane-preview');
-      var paneCode    = document.getElementById('pane-code');
-      var paneSplit   = document.getElementById('pane-split');
+      var paneCode = document.getElementById('pane-code');
+      var paneSplit = document.getElementById('pane-split');
 
       var previewEmptyState = document.getElementById('preview-empty-state');
-      var sandboxIframe     = document.getElementById('sandbox-iframe');
+      var sandboxIframe = document.getElementById('sandbox-iframe');
       var refreshPreviewBtn = document.getElementById('refresh-preview-btn');
 
-      var outputActions  = document.getElementById('output-actions-container');
-      var copyCodeBtn    = document.getElementById('copy-code-btn');
+      var outputActions = document.getElementById('output-actions-container');
+      var copyCodeBtn = document.getElementById('copy-code-btn');
       var downloadCodeBtn = document.getElementById('download-code-btn');
-      var deployCodeBtn  = document.getElementById('deploy-code-btn');
+      var deployCodeBtn = document.getElementById('deploy-code-btn');
 
       // ── State ──
-      var activeTab      = 'preview';
-      var isGenerating   = false;
+      var activeTab = 'preview';
+      var isGenerating = false;
       var activePipeline = null;
-      var currentCode    = '';
+      var currentCode = '';
 
       // ── Workflow Minimize Toggle ──
       (function () {
@@ -452,7 +552,7 @@
 
       // ── Tab Switching ──
       var previewPanel = document.querySelector('.preview-panel');
-      var codePanel    = document.querySelector('.code-panel');
+      var codePanel = document.querySelector('.code-panel');
 
       function switchTab(tab) {
         activeTab = tab;
@@ -505,9 +605,9 @@
         var code = window.EditorManager.getCode();
         if (!code) return;
         var blob = new Blob([code], { type: 'text/html' });
-        var url  = URL.createObjectURL(blob);
-        var a    = document.createElement('a');
-        a.href   = url;
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
         a.download = 'generated-app.html';
         document.body.appendChild(a);
         a.click();
@@ -531,7 +631,7 @@
       });
 
       function resetGeneratorUI() {
-        isGenerating   = false;
+        isGenerating = false;
         activePipeline = null;
         generateBtn.disabled = false;
         generateBtn.classList.remove('loading');
@@ -539,7 +639,7 @@
         cancelBtn.disabled = true;
         promptInput.disabled = false;
         statusModeLabel.textContent = 'Idle';
-        statusModeLabel.className   = 'text-cyan';
+        statusModeLabel.className = 'text-cyan';
       }
 
       // ── Generate ──
@@ -565,11 +665,11 @@
         progressContainer.style.display = 'block';
         agentConsole.style.display = 'block';
         if (toggleConsoleText) toggleConsoleText.textContent = 'Hide Logs';
-        if (toggleConsoleBtn)  toggleConsoleBtn.classList.remove('active');
+        if (toggleConsoleBtn) toggleConsoleBtn.classList.remove('active');
         agentConsole.innerHTML = '';
-        agentStatusText.textContent  = 'Planner initializing...';
-        statusModeLabel.textContent  = 'Planner Active';
-        statusModeLabel.className    = 'text-cyan';
+        agentStatusText.textContent = 'Planner initializing...';
+        statusModeLabel.textContent = 'Planner Active';
+        statusModeLabel.className = 'text-cyan';
 
         resetSteps();
 
@@ -584,22 +684,22 @@
             if (step === 'planner') {
               agentStatusText.textContent = 'Planner Agent analyzing prompt...';
               statusModeLabel.textContent = 'Planning App';
-              statusModeLabel.className   = 'text-cyan';
+              statusModeLabel.className = 'text-cyan';
             } else if (step === 'coder') {
               agentStatusText.textContent = 'Coder Agent generating script...';
               statusModeLabel.textContent = 'Coding App';
-              statusModeLabel.className   = 'text-violet';
+              statusModeLabel.className = 'text-violet';
             } else if (step === 'reviewer') {
               agentStatusText.textContent = 'Reviewer Agent reviewing code...';
               statusModeLabel.textContent = 'Reviewing Code';
-              statusModeLabel.className   = 'text-green';
+              statusModeLabel.className = 'text-green';
             }
           },
-          onStepLog:  function (msg, type) { appendConsoleLog(msg, type); },
+          onStepLog: function (msg, type) { appendConsoleLog(msg, type); },
           onStepDone: function (step) {
             updateStepUI(step, 'done');
-            if (step === 'planner')  connPlannerCoder.classList.add('flowing');
-            if (step === 'coder')    connCoderReviewer.classList.add('flowing');
+            if (step === 'planner') connPlannerCoder.classList.add('flowing');
+            if (step === 'coder') connCoderReviewer.classList.add('flowing');
           },
           onCodeToken: function (codeToken) {
             window.EditorManager.setCode(codeToken);
@@ -612,8 +712,8 @@
             agentStatusText.textContent = 'Deployment Ready!';
 
             window.HistoryManager.add({
-              prompt:   prompt,
-              code:     finalCode,
+              prompt: prompt,
+              code: finalCode,
               template: templateKey,
               provider: window.SettingsManager.get('provider') || 'Claude'
             });
@@ -633,8 +733,8 @@
       });
 
       function resetSteps() {
-        stepPlanner.className  = 'agent-step pending';
-        stepCoder.className    = 'agent-step pending';
+        stepPlanner.className = 'agent-step pending';
+        stepCoder.className = 'agent-step pending';
         stepReviewer.className = 'agent-step pending';
         connPlannerCoder.classList.remove('flowing');
         connCoderReviewer.classList.remove('flowing');
@@ -649,10 +749,10 @@
         var line = document.createElement('span');
         line.className = 'console-line ' + (type || 'info');
         var prefix = '[SYSTEM] ';
-        if (type === 'info')    prefix = '[PLANNER] ';
+        if (type === 'info') prefix = '[PLANNER] ';
         if (type === 'success') prefix = '[SUCCESS] ';
-        if (type === 'warn')    prefix = '[WARN] ';
-        if (type === 'error')   prefix = '[ERR] ';
+        if (type === 'warn') prefix = '[WARN] ';
+        if (type === 'error') prefix = '[ERR] ';
         line.innerHTML = '<span class="console-prefix">' + prefix + '</span>' + escapeHtml(text);
         agentConsole.appendChild(line);
         agentConsole.scrollTop = agentConsole.scrollHeight;
@@ -673,9 +773,9 @@
         toast.className = 'toast ' + (type || 'info');
         var icons = {
           success: '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
-          error:   '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>',
+          error: '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>',
           warning: '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>',
-          info:    '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
+          info: '<svg class="toast-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
         };
         toast.innerHTML = (icons[type] || icons.info) +
           '<div class="toast-body"><div class="toast-title">' + (type ? type.toUpperCase() : 'INFO') + '</div><div class="toast-msg">' + msg + '</div></div>' +
@@ -688,13 +788,13 @@
       }
 
       // ── Console Toggle ──
-      var toggleConsoleBtn  = document.getElementById('toggle-console-btn');
+      var toggleConsoleBtn = document.getElementById('toggle-console-btn');
       var toggleConsoleText = document.getElementById('toggle-console-text');
 
       function setConsoleVisibility(visible) {
         agentConsole.style.display = visible ? 'block' : 'none';
         if (toggleConsoleText) toggleConsoleText.textContent = visible ? 'Hide Logs' : 'Show Logs';
-        if (toggleConsoleBtn)  toggleConsoleBtn.classList.toggle('active', !visible);
+        if (toggleConsoleBtn) toggleConsoleBtn.classList.toggle('active', !visible);
       }
 
       if (toggleConsoleBtn) {
@@ -704,6 +804,7 @@
       }
     });
   </script>
-  <script src="../js/fx.js"></script>
+  <script src="js/fx.js"></script>
 </body>
+
 </html>
