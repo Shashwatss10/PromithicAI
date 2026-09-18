@@ -184,8 +184,9 @@
         ],
       },
       nvidia: {
-        default_model: "meta/llama-3.1-70b-instruct",
+        default_model: "nvidia/nemotron-3-ultra-550b-a55b",
         models: [
+          { id: "nvidia/nemotron-3-ultra-550b-a55b", display: "Nemotron 3 Ultra (550B)" },
           { id: "meta/llama-3.1-70b-instruct", display: "Llama 3.1 70B" },
           { id: "nvidia/nemotron-4-340b-instruct", display: "Nemotron 4 340B" },
           { id: "meta/llama-3.1-405b-instruct", display: "Llama 3.1 405B" },

@@ -584,12 +584,15 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
         /* ══════════════════════════════════════════════════
                LIVE API MODE — runs when user has an API key set
                ══════════════════════════════════════════════════ */
-        var useLiveAPI =
-          window.SettingsManager && window.SettingsManager.hasApiKey();
         var currentProvider =
           window.SettingsManager ?
             window.SettingsManager.get("provider")
-          : "claude";
+          : "nvidia";
+
+        var useLiveAPI =
+          currentProvider !== "none" &&
+          (Boolean(window.SettingsManager && window.SettingsManager.hasApiKey()) ||
+           Boolean(window.LLM && typeof window.LLM.generateBackendStream === "function"));
 
         if (currentProvider === "none") {
           stepStart("planner");
