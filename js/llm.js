@@ -13,7 +13,7 @@
   var BACKEND_URL =
     window.PromithicConfig && window.PromithicConfig.BACKEND_URL ?
       window.PromithicConfig.BACKEND_URL
-    : "http://127.0.0.1:8000";
+    : "https://promithicai-production.up.railway.app";
 
   async function getFirebaseToken() {
     try {
