@@ -5,11 +5,10 @@
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/badge/version-v1.2-cyan.svg">
+<img src="https://img.shields.io/badge/version-v2.0-cyan.svg">
 <img src="https://img.shields.io/badge/license-MIT-purple.svg">
-<img src="https://img.shields.io/badge/JavaScript-ES6-yellow">
-<img src="https://img.shields.io/badge/HTML5-5-orange.svg" alt="HTML5">
-<img src="https://img.shields.io/badge/CSS3-3-blue.svg" alt="CSS3">
+<img src="https://img.shields.io/badge/FastAPI-Python_3.11+-blue">
+<img src="https://img.shields.io/badge/LangGraph-Multi--Agent-orange">
 <img src="https://img.shields.io/badge/Firebase-Auth-red">
 <img src="https://img.shields.io/badge/Supabase-PostgreSQL-green">
 <img src="https://img.shields.io/badge/Monaco-Editor-skyblue">
@@ -66,43 +65,37 @@ Planner ➔ Coder ➔ Reviewer
 
 ```text
 PromithicAI/
-├── html/                 # HTML Pages
-│   ├── index.html        # Marketing / Landing Page
-│   ├── builder.html      # Main IDE Console Workspace
-│   ├── settings.html     # API Configuration & Engine State
-│   ├── login.html        # Firebase Authentication Flow
-│   └── signup.html       # User Onboarding & Signup Flow
-├── index.html            # Root redirect to html/index.html
-├── vercel.json           # Vercel Clean URL Redirects & Headers
-├── README.md             # Project Specification
-├── LICENSE               # MIT License
+├── assets/               # Images and branding assets
+├── backend/              # Python FastAPI & LangGraph Orchestration
+│   ├── main.py           # FastAPI Application Entry Point
+│   ├── Procfile          # Deployment Instructions (Heroku/Render)
+│   ├── requirements.txt  # Python Dependencies 
+│   ├── .env.example      # Environment variables template
+│   │
+│   ├── agents/           # LangGraph Nodes & State Graph
+│   │   ├── graph.py      # Core LangGraph orchestration flow
+│   │   ├── planner.py    # Architecture & Requirements logic
+│   │   ├── coder.py      # Code generation logic
+│   │   └── reviewer.py   # Code verification logic
+│   │
+│   ├── api/              # FastAPI Routes & Endpoints
+│   ├── middleware/       # Security & Interceptors
+│   ├── models/           # Pydantic Schemas & State Types
+│   └── providers/        # LLM Integrations (Factory Pattern)
+│
+├── css/                  # Styling Architecture (polish, animations, etc.)
+├── js/                   # Client-Side Logic (Firebase, Editor, UI FX)
+├── screenshots/          # Project screenshots for documentation
+│
 ├── .gitignore            # Version Control Filters
-│
-├── css/                  # Styling Architecture
-│   ├── base.css
-│   ├── variables.css     # Global Theme & Color Tokens
-│   ├── animations.css    # Core Layout Transitions
-│   ├── components.css
-│   ├── landing.css
-│   ├── auth.css
-│   ├── settings.css
-│   ├── builder.css
-│   ├── brand-story.css   # PromithicAI Brand Segment Styling
-│   ├── fx.css            # Cursor spotlight, magnetic, and dynamic glows
-│   └── polish.css        # v1.1 Micro-Interaction Polish
-│
-└── js/                   # Vanilla JS Logic Components
-    ├── theme.js          # Light/Dark Mode Persistence
-    ├── router.js         # Fade-In Client-Side Routing
-    ├── firebase.js       # Firebase SDK Wrapper
-    ├── supabase.js       # Supabase REST Client
-    ├── auth.js           # Session Detection & Navbar Badge Render
-    ├── llm.js            # API Client for OpenAI & Anthropic (BYOK)
-    ├── editor.js         # Monaco Editor & Fallback API
-    ├── streaming.js      # AI Token Output Simulation
-    ├── history.js        # Hybrid Local/Supabase Persistence Sync
-    ├── agent.js          # Multi-Agent Workflow Logic
-    └── fx.js             # Intersection Observers & Mouse FX
+├── builder.html          # Main IDE Console Workspace
+├── index.html            # Marketing / Landing Page
+├── LICENSE               # MIT License
+├── login.html            # Firebase Authentication Flow
+├── README.md             # Project Specification
+├── settings.html         # API Configuration & Engine State
+├── signup.html           # User Onboarding & Signup Flow
+└── vercel.json           # Vercel Frontend Deployment Config
 ```
 
 ### Workflow Overview
@@ -154,26 +147,21 @@ Building a stateful agent system purely on the client-side using Vanilla JavaScr
 
 ---
 
-## 🚀 What's New in v1.2 Release
-
-- **Firebase Authentication Integration:** Integrated native authentication flows supporting traditional Email/Password credentials and Google OAuth Single-Sign-On (SSO) popup windows.
-- **Supabase Cloud Sync DB:** Engineered a lightweight REST-based database synchronization protocol sending and loading builds directly using Supabase PostgreSQL databases, resolving the single-device 5MB local limits.
-- **Visual Micro-Interaction Polish:** Created a comprehensive `polish.css` system including:
-  - Gradient logo text transitions and pulsing glow mechanics on brand badges.
-  - Non-intrusive sweeping light beams animating versioning stickers.
-  - Interactive tactile key compression scales (`scale(0.97)`) on click/touch actions.
-  - Staggered structural layout transitions for loaded sidebar history blocks.
-  - Fluid error panel animations sliding down on authentication failure.
-- **Brand Rebirth:** Cleaned all instances of "AI Web App Builder" and converted them to **PromithicAI**.
+## 🚀 What's New in v2.0 Release
+- **FastAPI & LangGraph Multi-Agent Backend:** Moved the core AI workflow server-side into real stateful agents: Planner ➔ Coder ➔ Reviewer with bounded automatic retry loops.
+- **Multi-Provider & Dynamic Model Selection:** Integrated Claude (Anthropic), GPT (OpenAI), and NVIDIA NIM with server-authoritative model validation and dynamic Settings dropdown.
+- **Real-time SSE Streaming:** Live token streaming directly from LLMs into Monaco Editor and live preview sandbox.
+- **Firebase Auth Gated API & Supabase Persistence:** Verified ID token middleware and automatic database storage of generated applications.
+- **Hybrid BYOK & Simulation Fallbacks:** Full client-side fallback resilience if the backend is offline.
 
 ---
 
-## 🔮 Upcoming Features (v1.2+)
+## 🔮 Upcoming Features (v2.0+)
 
 | Version | Planned Feature | Status |
 |:---|:---|:---|
-| **v1.2** | Custom API Keys - BYOK (Claude + OpenAI), Connect/Disconnect toggle per provider, live streaming code generation with simulation fallback | ✅ Released |
-| **v2.0** | LangGraph Orchestration & Python FastAPI Backend | *Planned* |
+| **v1.2** | Custom API Keys - BYOK (Claude + OpenAI), Connect/Disconnect toggle per provider | ✅ Released |
+| **v2.0** | Python FastAPI Backend, LangGraph Multi-Agent Orchestration, NVIDIA NIM, Dynamic Model Selection | ✅ Released |
 | **v2.1** | MCP Sandboxed local execution capabilities | *Planned* |
 | **v2.2** | Push to GitHub & deploy directly from the IDE | *Planned* |
 | **v3.0** | Voice-to-App live streaming | *Planned* |

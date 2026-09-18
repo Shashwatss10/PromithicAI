@@ -88,7 +88,7 @@
     </div>
 
     <div class="auth-brand-bottom">
-      <span>PromithicAI Engine v1.2.0</span>
+      <span>PromithicAI Engine v2.0.0</span>
     </div>
   </aside>
 
@@ -216,7 +216,10 @@
 
       // ── Redirect if already logged in ──
       FirebaseAuth.onAuthStateChanged(function (user) {
-        if (user) { window.location.replace('/builder'); }
+        if (user) {
+          var target = window.AppRouter ? window.AppRouter.resolveTarget('/builder') : 'builder.html';
+          window.location.replace(target);
+        }
       });
 
       var signupForm = document.getElementById('signup-form');
@@ -311,7 +314,8 @@
 
         FirebaseAuth.signUp(email, password, displayName)
           .then(function () {
-            window.location.href = '/builder';
+            var target = window.AppRouter ? window.AppRouter.resolveTarget('/builder') : 'builder.html';
+            window.location.href = target;
           })
           .catch(function (err) {
             setLoading(false);
@@ -329,7 +333,8 @@
 
           FirebaseAuth.signInWithGoogle()
             .then(function () {
-              window.location.href = '/builder';
+              var target = window.AppRouter ? window.AppRouter.resolveTarget('/builder') : 'builder.html';
+              window.location.href = target;
             })
             .catch(function (err) {
               googleBtn.disabled = false;

@@ -1,127 +1,192 @@
 /* ===================================================================
    LLM.JS — Live LLM Network Module
-   PromithicAI v1.2 — "Bring Your Own Key" (BYOK)
+   PromithicAI v2.0 — "Bring Your Own Key" (BYOK)
    Supports: OpenAI (gpt-4o-mini, gpt-4o) · Anthropic (claude-3-5-sonnet) · NVIDIA (Nemotron, Llama)
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
-/* ─────────────────────────────────────────
+  /* ─────────────────────────────────────────
+     Backend URL & Firebase Token
+     ───────────────────────────────────────── */
+  var BACKEND_URL =
+    window.PromithicConfig && window.PromithicConfig.BACKEND_URL ?
+      window.PromithicConfig.BACKEND_URL
+    : "http://127.0.0.1:8000";
+
+  async function getFirebaseToken() {
+    try {
+      if (
+        window.FirebaseAuth &&
+        typeof window.FirebaseAuth.getCurrentUser === "function"
+      ) {
+        var user = window.FirebaseAuth.getCurrentUser();
+        if (user && typeof user.getIdToken === "function") {
+          return await user.getIdToken(false);
+        }
+      }
+    } catch (e) {
+      console.warn("[LLM] Could not retrieve Firebase ID token:", e);
+    }
+    return null;
+  }
+
+  /* ─────────────────────────────────────────
    Provider Endpoints & Models
    ───────────────────────────────────────── */
-var PROVIDERS = {
-  openai: {
-    endpoint: 'https://api.openai.com/v1/chat/completions',
-    model: 'gpt-4o-mini',
-    authHeader: function (key) { return 'Bearer ' + key; },
-    buildBody: function (messages, stream) {
-      return JSON.stringify({ model: PROVIDERS.openai.model, messages: messages, stream: stream, max_tokens: 4096 });
+  var PROVIDERS = {
+    openai: {
+      endpoint: "https://api.openai.com/v1/chat/completions",
+      model: "gpt-4o-mini",
+      authHeader: function (key) {
+        return "Bearer " + key;
+      },
+      buildBody: function (messages, stream) {
+        return JSON.stringify({
+          model: PROVIDERS.openai.model,
+          messages: messages,
+          stream: stream,
+          max_tokens: 4096,
+        });
+      },
+      parseChunk: function (line) {
+        if (!line.startsWith("data: ")) return null;
+        var data = line.slice(6).trim();
+        if (data === "[DONE]") return null;
+        try {
+          var parsed = JSON.parse(data);
+          return (
+              parsed.choices &&
+                parsed.choices[0].delta &&
+                parsed.choices[0].delta.content
+            ) ?
+              parsed.choices[0].delta.content
+            : null;
+        } catch (e) {
+          return null;
+        }
+      },
     },
-    parseChunk: function (line) {
-      if (!line.startsWith('data: ')) return null;
-      var data = line.slice(6).trim();
-      if (data === '[DONE]') return null;
-      try {
-        var parsed = JSON.parse(data);
-        return parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content
-          ? parsed.choices[0].delta.content
-          : null;
-      } catch (e) { return null; }
-    },
-  },
 
-  claude: {
-    /* NOTE: Anthropic blocks direct browser fetch due to CORS policy.
+    claude: {
+      /* NOTE: Anthropic blocks direct browser fetch due to CORS policy.
        We use a well-known public CORS proxy (allorigins.win) as a passthrough.
        This is acceptable for a BYOK personal-use tool.
        For production SaaS, replace with a backend proxy.                     */
-    endpoint: 'https://api.anthropic.com/v1/messages',
-    proxyEndpoint: 'https://corsproxy.io/?' + encodeURIComponent('https://api.anthropic.com/v1/messages'),
-    model: 'claude-3-5-sonnet-20241022',
-    authHeader: function (key) { return key; },
-    buildBody: function (messages, stream) {
-      return JSON.stringify({
-        model: PROVIDERS.claude.model,
-        max_tokens: 4096,
-        stream: stream,
-        messages: messages,
-      });
-    },
-    parseChunk: function (line) {
-      if (!line.startsWith('data: ')) return null;
-      var data = line.slice(6).trim();
-      try {
-        var parsed = JSON.parse(data);
-        if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
-          return parsed.delta.text;
+      endpoint: "https://api.anthropic.com/v1/messages",
+      proxyEndpoint:
+        "https://corsproxy.io/?" +
+        encodeURIComponent("https://api.anthropic.com/v1/messages"),
+      model: "claude-3-5-sonnet-20241022",
+      authHeader: function (key) {
+        return key;
+      },
+      buildBody: function (messages, stream) {
+        return JSON.stringify({
+          model: PROVIDERS.claude.model,
+          max_tokens: 4096,
+          stream: stream,
+          messages: messages,
+        });
+      },
+      parseChunk: function (line) {
+        if (!line.startsWith("data: ")) return null;
+        var data = line.slice(6).trim();
+        try {
+          var parsed = JSON.parse(data);
+          if (
+            parsed.type === "content_block_delta" &&
+            parsed.delta &&
+            parsed.delta.text
+          ) {
+            return parsed.delta.text;
+          }
+          return null;
+        } catch (e) {
+          return null;
         }
-        return null;
-      } catch (e) { return null; }
+      },
     },
-  },
 
-  nvidia: {
-    /* NVIDIA NIM API — OpenAI-compatible endpoint
+    nvidia: {
+      /* NVIDIA NIM API — OpenAI-compatible endpoint
        Base URL: https://integrate.api.nvidia.com/v1
        Models: meta/llama-3.1-405b-instruct, meta/llama-3.1-70b-instruct, nvidia/nemotron-3-ultra, etc.
        Auth: Bearer token with NVIDIA API key
        For production, consider using a backend proxy to avoid CORS issues. */
-    endpoint: 'https://integrate.api.nvidia.com/v1/chat/completions',
-    model: 'meta/llama-3.1-70b-instruct',
-    authHeader: function (key) { return 'Bearer ' + key; },
-    buildBody: function (messages, stream) {
-      return JSON.stringify({ model: PROVIDERS.nvidia.model, messages: messages, stream: stream, max_tokens: 4096 });
+      endpoint: "https://integrate.api.nvidia.com/v1/chat/completions",
+      model: "meta/llama-3.1-70b-instruct",
+      authHeader: function (key) {
+        return "Bearer " + key;
+      },
+      buildBody: function (messages, stream) {
+        return JSON.stringify({
+          model: PROVIDERS.nvidia.model,
+          messages: messages,
+          stream: stream,
+          max_tokens: 4096,
+        });
+      },
+      parseChunk: function (line) {
+        if (!line.startsWith("data: ")) return null;
+        var data = line.slice(6).trim();
+        if (data === "[DONE]") return null;
+        try {
+          var parsed = JSON.parse(data);
+          return (
+              parsed.choices &&
+                parsed.choices[0].delta &&
+                parsed.choices[0].delta.content
+            ) ?
+              parsed.choices[0].delta.content
+            : null;
+        } catch (e) {
+          return null;
+        }
+      },
     },
-    parseChunk: function (line) {
-      if (!line.startsWith('data: ')) return null;
-      var data = line.slice(6).trim();
-      if (data === '[DONE]') return null;
-      try {
-        var parsed = JSON.parse(data);
-        return parsed.choices && parsed.choices[0].delta && parsed.choices[0].delta.content
-          ? parsed.choices[0].delta.content
-          : null;
-      } catch (e) { return null; }
-    },
-  },
-};
+  };
 
-/* ─────────────────────────────────────────
+  /* ─────────────────────────────────────────
    Core: Streaming fetch (SSE reader)
    ───────────────────────────────────────── */
   async function streamFetch(provider, apiKey, messages, onChunk) {
     var cfg = PROVIDERS[provider];
-    if (!cfg) throw new Error('Unknown provider: ' + provider);
+    if (!cfg) throw new Error("Unknown provider: " + provider);
 
-    var endpoint = (provider === 'claude') ? cfg.proxyEndpoint : cfg.endpoint;
+    var endpoint = provider === "claude" ? cfg.proxyEndpoint : cfg.endpoint;
 
     var headers = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
-    if (provider === 'openai' || provider === 'nvidia') {
-      headers['Authorization'] = cfg.authHeader(apiKey);
-    } else if (provider === 'claude') {
-      headers['x-api-key'] = apiKey;
-      headers['anthropic-version'] = '2023-06-01';
+    if (provider === "openai" || provider === "nvidia") {
+      headers["Authorization"] = cfg.authHeader(apiKey);
+    } else if (provider === "claude") {
+      headers["x-api-key"] = apiKey;
+      headers["anthropic-version"] = "2023-06-01";
     }
 
     var response = await fetch(endpoint, {
-      method: 'POST',
+      method: "POST",
       headers: headers,
       body: cfg.buildBody(messages, true),
     });
 
     if (!response.ok) {
-      var errBody = '';
-      try { errBody = await response.text(); } catch (e) {}
-      throw new Error('API Error ' + response.status + ': ' + errBody.slice(0, 200));
+      var errBody = "";
+      try {
+        errBody = await response.text();
+      } catch (e) {}
+      throw new Error(
+        "API Error " + response.status + ": " + errBody.slice(0, 200),
+      );
     }
 
     var reader = response.body.getReader();
     var decoder = new TextDecoder();
-    var buffer = '';
+    var buffer = "";
 
     while (true) {
       var _ref = await reader.read();
@@ -129,13 +194,13 @@ var PROVIDERS = {
       var value = _ref.value;
       if (done) break;
       buffer += decoder.decode(value, { stream: true });
-      var lines = buffer.split('\n');
+      var lines = buffer.split("\n");
       buffer = lines.pop(); // keep incomplete line in buffer
       for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trim();
         if (!line) continue;
         var token = cfg.parseChunk(line);
-        if (token && typeof onChunk === 'function') {
+        if (token && typeof onChunk === "function") {
           onChunk(token);
         }
       }
@@ -143,7 +208,7 @@ var PROVIDERS = {
     // flush remaining buffer
     if (buffer.trim()) {
       var token = cfg.parseChunk(buffer.trim());
-      if (token && typeof onChunk === 'function') onChunk(token);
+      if (token && typeof onChunk === "function") onChunk(token);
     }
   }
 
@@ -152,40 +217,48 @@ var PROVIDERS = {
      ───────────────────────────────────────── */
   async function simpleFetch(provider, apiKey, messages) {
     var cfg = PROVIDERS[provider];
-    var endpoint = (provider === 'claude') ? cfg.proxyEndpoint : cfg.endpoint;
+    var endpoint = provider === "claude" ? cfg.proxyEndpoint : cfg.endpoint;
 
-    var headers = { 'Content-Type': 'application/json' };
-    if (provider === 'openai' || provider === 'nvidia') {
-      headers['Authorization'] = cfg.authHeader(apiKey);
-    } else if (provider === 'claude') {
-      headers['x-api-key'] = apiKey;
-      headers['anthropic-version'] = '2023-06-01';
+    var headers = { "Content-Type": "application/json" };
+    if (provider === "openai" || provider === "nvidia") {
+      headers["Authorization"] = cfg.authHeader(apiKey);
+    } else if (provider === "claude") {
+      headers["x-api-key"] = apiKey;
+      headers["anthropic-version"] = "2023-06-01";
     }
 
     var response = await fetch(endpoint, {
-      method: 'POST',
+      method: "POST",
       headers: headers,
       body: cfg.buildBody(messages, false),
     });
 
     if (!response.ok) {
-      var errBody = '';
-      try { errBody = await response.text(); } catch (e) {}
-      throw new Error('API Error ' + response.status + ': ' + errBody.slice(0, 200));
+      var errBody = "";
+      try {
+        errBody = await response.text();
+      } catch (e) {}
+      throw new Error(
+        "API Error " + response.status + ": " + errBody.slice(0, 200),
+      );
     }
 
     var json = await response.json();
 
-    if (provider === 'openai' || provider === 'nvidia') {
-      return json.choices && json.choices[0].message && json.choices[0].message.content
-        ? json.choices[0].message.content
-        : '';
-    } else if (provider === 'claude') {
-      return json.content && json.content[0] && json.content[0].text
-        ? json.content[0].text
-        : '';
+    if (provider === "openai" || provider === "nvidia") {
+      return (
+          json.choices &&
+            json.choices[0].message &&
+            json.choices[0].message.content
+        ) ?
+          json.choices[0].message.content
+        : "";
+    } else if (provider === "claude") {
+      return json.content && json.content[0] && json.content[0].text ?
+          json.content[0].text
+        : "";
     }
-    return '';
+    return "";
   }
 
   /* ─────────────────────────────────────────
@@ -198,23 +271,33 @@ var PROVIDERS = {
    */
   async function generatePlan(prompt, provider, apiKey) {
     var systemPrompt =
-      'You are a senior software architect. The user will give you a prompt for a web app they want to build. ' +
-      'Break it down into exactly 4 concise bullet points (no more, no less). ' +
-      'Each bullet should be a single short sentence describing one planning step. ' +
+      "You are a senior software architect. The user will give you a prompt for a web app they want to build. " +
+      "Break it down into exactly 4 concise bullet points (no more, no less). " +
+      "Each bullet should be a single short sentence describing one planning step. " +
       'Output ONLY the 4 bullets, one per line, starting with "- ". No intro text, no conclusion.';
 
     var messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: 'Web app prompt: ' + prompt },
+      { role: "system", content: systemPrompt },
+      { role: "user", content: "Web app prompt: " + prompt },
     ];
 
     // Claude uses user-only messages style for simplicity
-    if (provider === 'claude') {
-      messages = [{ role: 'user', content: systemPrompt + '\n\nWeb app prompt: ' + prompt }];
+    if (provider === "claude") {
+      messages = [
+        {
+          role: "user",
+          content: systemPrompt + "\n\nWeb app prompt: " + prompt,
+        },
+      ];
     }
 
     var raw = await simpleFetch(provider, apiKey, messages);
-    var lines = raw.split('\n').map(function (l) { return l.replace(/^[-*•]\s*/, '').trim(); }).filter(Boolean);
+    var lines = raw
+      .split("\n")
+      .map(function (l) {
+        return l.replace(/^[-*•]\s*/, "").trim();
+      })
+      .filter(Boolean);
     return lines.slice(0, 5);
   }
 
@@ -223,25 +306,30 @@ var PROVIDERS = {
    * @param {Function} onChunk - called with each streamed text token.
    */
   async function generateCodeStream(prompt, plan, provider, apiKey, onChunk) {
-    var planText = plan.join('\n');
+    var planText = plan.join("\n");
     var systemPrompt =
-      'You are an expert full-stack web developer. Build a complete, beautiful, self-contained single-file web app. ' +
-      'OUTPUT ONLY valid HTML — starting with <!DOCTYPE html> and nothing else before it. ' +
-      'No markdown code fences, no explanation, no intro text. Just the raw HTML file. ' +
-      'Use modern CSS (dark theme, gradient accents), embedded <style> and <script> tags. ' +
-      'Make it fully functional and visually impressive.';
+      "You are an expert full-stack web developer. Build a complete, beautiful, self-contained single-file web app. " +
+      "OUTPUT ONLY valid HTML — starting with <!DOCTYPE html> and nothing else before it. " +
+      "No markdown code fences, no explanation, no intro text. Just the raw HTML file. " +
+      "Use modern CSS (dark theme, gradient accents), embedded <style> and <script> tags. " +
+      "Make it fully functional and visually impressive.";
 
     var userContent =
-      'User wants: ' + prompt + '\n\nArchitectural plan:\n' + planText +
-      '\n\nNow generate the complete single-file HTML app:';
+      "User wants: " +
+      prompt +
+      "\n\nArchitectural plan:\n" +
+      planText +
+      "\n\nNow generate the complete single-file HTML app:";
 
     var messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userContent },
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userContent },
     ];
 
-    if (provider === 'claude') {
-      messages = [{ role: 'user', content: systemPrompt + '\n\n' + userContent }];
+    if (provider === "claude") {
+      messages = [
+        { role: "user", content: systemPrompt + "\n\n" + userContent },
+      ];
     }
 
     await streamFetch(provider, apiKey, messages, onChunk);
@@ -253,23 +341,128 @@ var PROVIDERS = {
    */
   async function generateReview(code, provider, apiKey) {
     var systemPrompt =
-      'You are a senior code reviewer. Review the following web app code and provide exactly 4 short review notes. ' +
-      'Each note should confirm something works correctly or suggest a minor quality observation. ' +
+      "You are a senior code reviewer. Review the following web app code and provide exactly 4 short review notes. " +
+      "Each note should confirm something works correctly or suggest a minor quality observation. " +
       'Be positive and concise. Output ONLY the 4 bullets, one per line, starting with "✓ ". No intro text.';
 
     var codeSnippet = code.substring(0, 2000); // only send first 2k chars to save tokens
     var messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: 'Review this code:\n\n' + codeSnippet },
+      { role: "system", content: systemPrompt },
+      { role: "user", content: "Review this code:\n\n" + codeSnippet },
     ];
 
-    if (provider === 'claude') {
-      messages = [{ role: 'user', content: systemPrompt + '\n\nReview this code:\n\n' + codeSnippet }];
+    if (provider === "claude") {
+      messages = [
+        {
+          role: "user",
+          content: systemPrompt + "\n\nReview this code:\n\n" + codeSnippet,
+        },
+      ];
     }
 
     var raw = await simpleFetch(provider, apiKey, messages);
-    var lines = raw.split('\n').map(function (l) { return l.replace(/^[✓*•-]\s*/, '').trim(); }).filter(Boolean);
+    var lines = raw
+      .split("\n")
+      .map(function (l) {
+        return l.replace(/^[✓*•-]\s*/, "").trim();
+      })
+      .filter(Boolean);
     return lines.slice(0, 5);
+  }
+
+  /**
+   * BACKEND PIPELINE — Streams Planner -> Coder -> Reviewer events from Python FastAPI backend.
+   * @param {string} prompt
+   * @param {string} provider
+   * @param {string} model
+   * @param {string} apiKey
+   * @param {object} callbacks - { onStepStart, onLog, onCodeToken, onStepDone, onComplete, onError }
+   */
+  async function generateBackendStream(
+    prompt,
+    provider,
+    model,
+    apiKey,
+    callbacks,
+  ) {
+    var token = await getFirebaseToken();
+    var headers = {
+      "Content-Type": "application/json",
+    };
+
+    if (token) {
+      headers["Authorization"] = "Bearer " + token;
+    }
+
+    var bodyPayload = {
+      prompt: prompt,
+      provider: provider,
+      model: model || (PROVIDERS[provider] ? PROVIDERS[provider].model : ""),
+    };
+
+    if (apiKey && apiKey.trim().length > 10) {
+      bodyPayload.api_key = apiKey.trim();
+    }
+
+    var response = await fetch(BACKEND_URL + "/api/generate", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(bodyPayload),
+    });
+
+    if (!response.ok) {
+      var errTxt = "";
+      try {
+        errTxt = await response.text();
+      } catch (e) {}
+      throw new Error("Backend error (" + response.status + "): " + errTxt);
+    }
+
+    var reader = response.body.getReader();
+    var decoder = new TextDecoder();
+    var buffer = "";
+
+    while (true) {
+      var ref = await reader.read();
+      if (ref.done) break;
+      buffer += decoder.decode(ref.value, { stream: true });
+      var lines = buffer.split("\n");
+      buffer = lines.pop();
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line || !line.startsWith("data: ")) continue;
+        var jsonStr = line.slice(6).trim();
+        try {
+          var evt = JSON.parse(jsonStr);
+          if (evt.type === "step_start" && callbacks.onStepStart) {
+            callbacks.onStepStart(evt.step);
+          } else if (evt.type === "log" && callbacks.onLog) {
+            callbacks.onLog(evt.msg, evt.step);
+          } else if (evt.type === "code_token" && callbacks.onCodeToken) {
+            callbacks.onCodeToken(evt.token);
+          } else if (evt.type === "step_done" && callbacks.onStepDone) {
+            callbacks.onStepDone(evt.step);
+          } else if (evt.type === "complete" && callbacks.onComplete) {
+            callbacks.onComplete(evt.code);
+          } else if (evt.type === "error") {
+            throw new Error(evt.msg || "Backend generation error");
+          }
+        } catch (e) {
+          if (e.message && e.message.indexOf("Backend generation error") !== -1)
+            throw e;
+        }
+      }
+    }
+
+    if (buffer.trim() && buffer.trim().startsWith("data: ")) {
+      try {
+        var lastEvt = JSON.parse(buffer.trim().slice(6).trim());
+        if (lastEvt.type === "complete" && callbacks.onComplete) {
+          callbacks.onComplete(lastEvt.code);
+        }
+      } catch (e) {}
+    }
   }
 
   /* ─────────────────────────────────────────
@@ -279,6 +472,6 @@ var PROVIDERS = {
     generatePlan: generatePlan,
     generateCodeStream: generateCodeStream,
     generateReview: generateReview,
+    generateBackendStream: generateBackendStream,
   };
-
 })();

@@ -1,7 +1,7 @@
 /* ===================================================================
    AGENT.JS — Multi-Agent Pipeline (Simulation + Live API)
    Planner → Coder → Reviewer
-   PromithicAI v1.2 — BYOK (Bring Your Own Key)
+   PromithicAI v2.0 — BYOK (Bring Your Own Key)
    =================================================================== */
 
 (function () {
@@ -606,14 +606,88 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
         if (useLiveAPI) {
           var provider = window.SettingsManager.get("provider") || "openai";
           var apiKey = window.SettingsManager.getApiKey();
+          var selectedModel =
+            window.SettingsManager.getSelectedModel ?
+              window.SettingsManager.getSelectedModel()
+            : "";
 
-          /* ── PLANNER (live) ── */
-          stepStart("planner");
           var providerLabel =
             provider === "claude" ? "CLAUDE"
             : provider === "openai" ? "OPENAI"
             : provider === "nvidia" ? "NVIDIA"
             : "UNKNOWN";
+
+          // Try FastAPI LangGraph backend streaming first
+          var backendSuccess = false;
+          if (
+            window.LLM &&
+            typeof window.LLM.generateBackendStream === "function"
+          ) {
+            try {
+              var liveCodeFromBackend = "";
+              var charCountFromBackend = 0;
+
+              await window.LLM.generateBackendStream(
+                prompt,
+                provider,
+                selectedModel,
+                apiKey,
+                {
+                  onStepStart: function (step) {
+                    stepStart(step);
+                    if (step === "coder") {
+                      log("Coder Agent generating your app with AI…", "info");
+                    }
+                  },
+                  onLog: function (msg, step) {
+                    log(msg, "info");
+                  },
+                  onCodeToken: function (token) {
+                    if (isAborted()) return;
+                    liveCodeFromBackend += token;
+                    charCountFromBackend += token.length;
+                    if (typeof callbacks.onCodeToken === "function") {
+                      callbacks.onCodeToken(
+                        liveCodeFromBackend,
+                        charCountFromBackend,
+                        Math.max(charCountFromBackend + 500, 8000),
+                      );
+                    }
+                  },
+                  onStepDone: function (step) {
+                    stepDone(step);
+                  },
+                  onComplete: function (finalCode) {
+                    liveCodeFromBackend = finalCode;
+                  },
+                },
+              );
+
+              if (liveCodeFromBackend && liveCodeFromBackend.length > 50) {
+                backendSuccess = true;
+                log("Review passed. App ready! 🚀", "success");
+                await wait(200);
+                stepDone("reviewer");
+                if (typeof callbacks.onComplete === "function") {
+                  callbacks.onComplete(liveCodeFromBackend, "custom");
+                }
+                return;
+              }
+            } catch (backendErr) {
+              console.warn(
+                "[AgentPipeline] Backend stream attempt failed, falling back to direct client BYOK:",
+                backendErr,
+              );
+              log(
+                "Backend offline or unreachable, switching to direct client BYOK…",
+                "warn",
+              );
+            }
+          }
+
+          /* ── CLIENT-SIDE BYOK FALLBACK ── */
+          /* ── PLANNER (live) ── */
+          stepStart("planner");
           log("🤖 Live API Mode — " + providerLabel + " connected", "info");
           await wait(300);
           log("Planner Agent analyzing your prompt…", "info");

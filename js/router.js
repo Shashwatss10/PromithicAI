@@ -1,67 +1,144 @@
 /* ===================================================================
    ROUTER.JS — Navigation Helper & Link State Manager
-   PromithicAI v1.2
+   PromithicAI v2.0 — Dual Environment Universal Router
+   Supports Vercel Clean URLs & Local Live Server / File environments
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
+
+  var isLocalDev =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.protocol === "file:";
+
+  var ROUTE_MAP = {
+    "/": "index.html",
+    "/builder": "builder.html",
+    "/settings": "settings.html",
+    "/login": "login.html",
+    "/signup": "signup.html",
+  };
 
   /**
    * Get current page slug from pathname
-   * e.g. '/builder' -> 'builder', '/' -> 'index', '/settings' -> 'settings'
+   * e.g. '/builder' or 'builder.html' -> 'builder'
    */
   function getCurrentPage() {
     var path = window.location.pathname;
-    var page = path.split('/').filter(Boolean)[0] || 'index';
-    return page;
+    var filename = path.split("/").filter(Boolean).pop() || "index";
+    return filename.replace(".html", "");
+  }
+
+  /**
+   * Determine the current directory base path
+   * On Vercel: ""
+   * On Live Server in subfolder: "/Projects/PromithicAI/"
+   */
+  function getBasePath() {
+    if (!isLocalDev) return "";
+    var pathname = window.location.pathname;
+    var lastSlashIndex = pathname.lastIndexOf("/");
+    if (lastSlashIndex >= 0) {
+      return pathname.substring(0, lastSlashIndex + 1);
+    }
+    return "";
+  }
+
+  /**
+   * Resolves a target path based on local dev vs Vercel environment
+   */
+  function resolveTarget(href) {
+    if (!href) return href;
+    var cleanHref = href.split("?")[0].split("#")[0];
+    if (isLocalDev && ROUTE_MAP[cleanHref]) {
+      var suffix = href.slice(cleanHref.length);
+      var basePath = getBasePath();
+      return basePath + ROUTE_MAP[cleanHref] + suffix;
+    }
+    return href;
   }
 
   /**
    * Automatically sets active class on navigation links matching the current page
+   * and intercepts link clicks to prevent local 404 "Cannot GET" errors
    */
-  function updateActiveNavLinks() {
+  function setupNavigation() {
     var currentPage = getCurrentPage();
 
-    var links = document.querySelectorAll('.navbar-nav .nav-link, .mobile-nav .nav-link');
+    // 1. Process all links across navbar, mobile nav, buttons, and footer
+    var links = document.querySelectorAll("a[href]");
     links.forEach(function (link) {
-      var href = link.getAttribute('href');
+      var href = link.getAttribute("href");
       if (!href) return;
 
-      // Handle anchor links (same-page navigation)
-      if (href.startsWith('#')) {
-        if (currentPage === 'index') {
-          // On landing page - smooth scroll to section
-          link.addEventListener('click', function(e) {
+      // Ignore external or protocol links
+      if (
+        href.startsWith("http://") ||
+        href.startsWith("https://") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("javascript:")
+      ) {
+        return;
+      }
+
+      // Handle placeholder links (#)
+      if (href === "#") {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+        });
+        return;
+      }
+
+      // Handle in-page anchor links (#features, #pipeline, etc.)
+      if (href.startsWith("#")) {
+        if (currentPage === "index") {
+          link.addEventListener("click", function (e) {
             var target = document.querySelector(href);
             if (target) {
               e.preventDefault();
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
             }
           });
         } else {
-          // On other pages - rewrite to point to landing page
-          link.setAttribute('href', '/' + href);
+          // On non-index pages, redirect to landing page anchor
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            var targetHome = isLocalDev ? getBasePath() + "index.html" : "/";
+            window.location.href = targetHome + href;
+          });
         }
         return;
       }
 
-      // Handle cross-page links - extract page from href
-      // e.g. '/builder' -> 'builder', '/settings' -> 'settings'
-      var linkPage = href.split('/').filter(Boolean)[0] || 'index';
-      if (linkPage === currentPage) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
+      // Handle routing links (/builder, /settings, /login, /signup, etc.)
+      var targetClean = href.split("?")[0].split("#")[0];
+      var linkSlug =
+        targetClean.replace("/", "").replace(".html", "") || "index";
+
+      if (linkSlug === currentPage) {
+        link.classList.add("active");
+      }
+
+      // If running locally, intercept click to route to .html counterpart smoothly
+      if (isLocalDev && ROUTE_MAP[targetClean]) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          var resolved = resolveTarget(href);
+          window.location.href = resolved;
+        });
       }
     });
   }
 
-  // Initialize on DOM ready - only update active states, don't intercept navigation
-  document.addEventListener('DOMContentLoaded', function () {
-    updateActiveNavLinks();
+  // Initialize on DOM ready
+  document.addEventListener("DOMContentLoaded", function () {
+    setupNavigation();
   });
 
   window.AppRouter = {
-    updateActiveNavLinks: updateActiveNavLinks
+    getCurrentPage: getCurrentPage,
+    resolveTarget: resolveTarget,
+    setupNavigation: setupNavigation,
   };
 })();

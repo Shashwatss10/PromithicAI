@@ -1,10 +1,10 @@
 /* ===================================================================
    STREAMING.JS — Token-by-Token Text Streamer
-   PromithicAI v1.2
+   PromithicAI v2.0
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
   /**
    * Stream text into a target element character by character
@@ -21,16 +21,16 @@
    */
   function streamText(text, target, options) {
     options = options || {};
-    var delay = typeof options.delay === 'number' ? options.delay : 12;
+    var delay = typeof options.delay === "number" ? options.delay : 12;
     var append = options.append !== false;
-    var className = options.className || '';
+    var className = options.className || "";
 
     if (!target) {
       return { stop: function () {}, promise: Promise.resolve() };
     }
 
     if (!append) {
-      target.textContent = '';
+      target.textContent = "";
     }
 
     var stopped = false;
@@ -43,13 +43,13 @@
 
     function typeNext() {
       if (stopped || index >= text.length) {
-        if (typeof options.onDone === 'function') options.onDone();
+        if (typeof options.onDone === "function") options.onDone();
         if (resolvePromise) resolvePromise();
         return;
       }
 
       // Check external abort signal
-      if (typeof options.getAbort === 'function' && options.getAbort()) {
+      if (typeof options.getAbort === "function" && options.getAbort()) {
         stopped = true;
         if (resolvePromise) resolvePromise();
         return;
@@ -59,7 +59,7 @@
       index++;
 
       if (className) {
-        var span = document.createElement('span');
+        var span = document.createElement("span");
         if (className) span.className = className;
         span.textContent = char;
         target.appendChild(span);
@@ -67,12 +67,14 @@
         target.textContent += char;
       }
 
-      if (typeof options.onChar === 'function') {
+      if (typeof options.onChar === "function") {
         options.onChar(char, index);
       }
 
       // Auto-scroll target's parent if needed
-      var scrollParent = target.closest('.streaming-console, .code-content, [data-scroll]');
+      var scrollParent = target.closest(
+        ".streaming-console, .code-content, [data-scroll]",
+      );
       if (scrollParent) {
         scrollParent.scrollTop = scrollParent.scrollHeight;
       }
@@ -83,8 +85,10 @@
     typeNext();
 
     return {
-      stop: function () { stopped = true; },
-      promise: promise
+      stop: function () {
+        stopped = true;
+      },
+      promise: promise,
     };
   }
 
@@ -98,7 +102,8 @@
    */
   function streamLines(lines, container, options) {
     options = options || {};
-    var lineDelay = typeof options.lineDelay === 'number' ? options.lineDelay : 180;
+    var lineDelay =
+      typeof options.lineDelay === "number" ? options.lineDelay : 180;
 
     var stopped = false;
     var index = 0;
@@ -110,7 +115,7 @@
 
     function addLine() {
       if (stopped || index >= lines.length) {
-        if (typeof options.onDone === 'function') options.onDone();
+        if (typeof options.onDone === "function") options.onDone();
         if (resolvePromise) resolvePromise();
         return;
       }
@@ -118,16 +123,21 @@
       var lineData = lines[index];
       index++;
 
-      var span = document.createElement('span');
-      span.className = 'console-line' + (lineData.type ? ' ' + lineData.type : '');
+      var span = document.createElement("span");
+      span.className =
+        "console-line" + (lineData.type ? " " + lineData.type : "");
 
-      var prefix = '';
-      if (lineData.type === 'info')    prefix = '[INFO] ';
-      else if (lineData.type === 'success') prefix = '[DONE] ';
-      else if (lineData.type === 'warn')    prefix = '[WARN] ';
-      else if (lineData.type === 'error')   prefix = '[ERR]  ';
+      var prefix = "";
+      if (lineData.type === "info") prefix = "[INFO] ";
+      else if (lineData.type === "success") prefix = "[DONE] ";
+      else if (lineData.type === "warn") prefix = "[WARN] ";
+      else if (lineData.type === "error") prefix = "[ERR]  ";
 
-      span.innerHTML = '<span class="console-prefix">' + prefix + '</span>' + escapeHtml(lineData.text || lineData);
+      span.innerHTML =
+        '<span class="console-prefix">' +
+        prefix +
+        "</span>" +
+        escapeHtml(lineData.text || lineData);
       container.appendChild(span);
       container.scrollTop = container.scrollHeight;
 
@@ -137,8 +147,10 @@
     addLine();
 
     return {
-      stop: function () { stopped = true; },
-      promise: promise
+      stop: function () {
+        stopped = true;
+      },
+      promise: promise,
     };
   }
 
@@ -152,8 +164,8 @@
    */
   function streamCode(code, onToken, options) {
     options = options || {};
-    var chunkSize = options.chunkSize || 4;   // characters per tick
-    var delay = options.delay || 8;            // ms per tick
+    var chunkSize = options.chunkSize || 4; // characters per tick
+    var delay = options.delay || 8; // ms per tick
     var stopped = false;
     var index = 0;
     var resolvePromise;
@@ -164,12 +176,12 @@
 
     function tick() {
       if (stopped || index >= code.length) {
-        if (typeof options.onDone === 'function') options.onDone(code);
+        if (typeof options.onDone === "function") options.onDone(code);
         if (resolvePromise) resolvePromise(code);
         return;
       }
 
-      if (typeof options.getAbort === 'function' && options.getAbort()) {
+      if (typeof options.getAbort === "function" && options.getAbort()) {
         stopped = true;
         if (resolvePromise) resolvePromise(code.substring(0, index));
         return;
@@ -178,7 +190,7 @@
       var end = Math.min(index + chunkSize, code.length);
       index = end;
 
-      if (typeof onToken === 'function') {
+      if (typeof onToken === "function") {
         onToken(code.substring(0, index), index, code.length);
       }
 
@@ -188,8 +200,10 @@
     tick();
 
     return {
-      stop: function () { stopped = true; },
-      promise: promise
+      stop: function () {
+        stopped = true;
+      },
+      promise: promise,
     };
   }
 
@@ -240,9 +254,9 @@
 
   function escapeHtml(str) {
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
   }
 
   window.Streaming = {

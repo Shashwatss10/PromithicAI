@@ -1,23 +1,24 @@
 /* ===================================================================
    SETTINGS.JS — Settings & Configuration Manager
-   PromithicAI v1.2
+   PromithicAI v2.0
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
-  var STORAGE_KEY = 'aiwab-settings';
+  var STORAGE_KEY = "aiwab-settings";
 
   var DEFAULTS = {
-    provider: 'claude',
-    claudeKey: '',
-    openaiKey: '',
-    nvidiaKey: '',
+    provider: "claude",
+    claudeKey: "",
+    openaiKey: "",
+    nvidiaKey: "",
     claudeConnected: false,
     openaiConnected: false,
     nvidiaConnected: false,
-    theme: 'dark',
-    agentMode: 'full',
+    selectedModel: "",
+    theme: "dark",
+    agentMode: "full",
     streamingEnabled: true,
     showConsole: true,
     autoPreview: true,
@@ -27,7 +28,9 @@
   function safeGet() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? Object.assign({}, DEFAULTS, JSON.parse(raw)) : Object.assign({}, DEFAULTS);
+      return raw ?
+          Object.assign({}, DEFAULTS, JSON.parse(raw))
+        : Object.assign({}, DEFAULTS);
     } catch (e) {
       return Object.assign({}, DEFAULTS);
     }
@@ -36,7 +39,9 @@
   function safeSet(settings) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-    } catch (e) { /* ignore */ }
+    } catch (e) {
+      /* ignore */
+    }
   }
 
   var SettingsManager = {
@@ -49,192 +54,343 @@
       var settings = safeGet();
       settings[key] = value;
       safeSet(settings);
-      window.dispatchEvent(new CustomEvent('settingsChanged', {
-        detail: { key: key, value: value, settings: settings }
-      }));
+      window.dispatchEvent(
+        new CustomEvent("settingsChanged", {
+          detail: { key: key, value: value, settings: settings },
+        }),
+      );
     },
 
     setMany: function (obj) {
       var settings = safeGet();
       Object.assign(settings, obj);
       safeSet(settings);
-      window.dispatchEvent(new CustomEvent('settingsChanged', {
-        detail: { settings: settings }
-      }));
+      window.dispatchEvent(
+        new CustomEvent("settingsChanged", {
+          detail: { settings: settings },
+        }),
+      );
     },
 
     reset: function () {
       safeSet(Object.assign({}, DEFAULTS));
-      window.dispatchEvent(new CustomEvent('settingsChanged', {
-        detail: { settings: Object.assign({}, DEFAULTS) }
-      }));
+      window.dispatchEvent(
+        new CustomEvent("settingsChanged", {
+          detail: { settings: Object.assign({}, DEFAULTS) },
+        }),
+      );
     },
 
     getApiKey: function () {
       var settings = safeGet();
       var provider = settings.provider;
-      if (provider === 'none') return '';
-      if (provider === 'claude') return settings.claudeKey || '';
-      if (provider === 'openai') return settings.openaiKey || '';
-      if (provider === 'nvidia') return settings.nvidiaKey || '';
-      return '';
+      if (provider === "none") return "";
+      if (provider === "claude") return settings.claudeKey || "";
+      if (provider === "openai") return settings.openaiKey || "";
+      if (provider === "nvidia") return settings.nvidiaKey || "";
+      return "";
     },
 
     /** Returns true ONLY if the current provider has both a key saved AND is connected */
     hasApiKey: function () {
       var settings = safeGet();
       var provider = settings.provider;
-      if (provider === 'none') return false;
-      if (provider === 'claude')  return (settings.claudeKey  || '').length > 10 && !!settings.claudeConnected;
-      if (provider === 'openai')  return (settings.openaiKey  || '').length > 10 && !!settings.openaiConnected;
-      if (provider === 'nvidia')  return (settings.nvidiaKey  || '').length > 10 && !!settings.nvidiaConnected;
+      if (provider === "none") return false;
+      if (provider === "claude")
+        return (
+          (settings.claudeKey || "").length > 10 && !!settings.claudeConnected
+        );
+      if (provider === "openai")
+        return (
+          (settings.openaiKey || "").length > 10 && !!settings.openaiConnected
+        );
+      if (provider === "nvidia")
+        return (
+          (settings.nvidiaKey || "").length > 10 && !!settings.nvidiaConnected
+        );
       return false;
     },
 
     /** Connect a specific provider (marks it active for live API use) */
     connectProvider: function (provider) {
-      if (provider === 'none') return;
-      var key = provider === 'claude' ? 'claudeConnected' : (provider === 'openai' ? 'openaiConnected' : 'nvidiaConnected');
+      if (provider === "none") return;
+      var key =
+        provider === "claude" ? "claudeConnected"
+        : provider === "openai" ? "openaiConnected"
+        : "nvidiaConnected";
       this.set(key, true);
       // Also switch the active provider to the one being connected
-      this.set('provider', provider);
+      this.set("provider", provider);
     },
 
     /** Disconnect a specific provider (keeps key saved, just disables live mode) */
     disconnectProvider: function (provider) {
-      var key = provider === 'claude' ? 'claudeConnected' : (provider === 'openai' ? 'openaiConnected' : 'nvidiaConnected');
+      var key =
+        provider === "claude" ? "claudeConnected"
+        : provider === "openai" ? "openaiConnected"
+        : "nvidiaConnected";
       this.set(key, false);
     },
 
     /** Returns 'connected' | 'disconnected' | 'no-key' for a given provider */
     getConnectionStatus: function (provider) {
       var settings = safeGet();
-      var key = provider === 'claude' ? settings.claudeKey : (provider === 'openai' ? settings.openaiKey : settings.nvidiaKey);
-      var connected = provider === 'claude' ? settings.claudeConnected : (provider === 'openai' ? settings.openaiConnected : settings.nvidiaConnected);
-      if (!key || key.length <= 10) return 'no-key';
-      return connected ? 'connected' : 'disconnected';
+      var key =
+        provider === "claude" ? settings.claudeKey
+        : provider === "openai" ? settings.openaiKey
+        : settings.nvidiaKey;
+      var connected =
+        provider === "claude" ? settings.claudeConnected
+        : provider === "openai" ? settings.openaiConnected
+        : settings.nvidiaConnected;
+      if (!key || key.length <= 10) return "no-key";
+      return connected ? "connected" : "disconnected";
+    },
+
+    /** Gets the currently selected model for active provider */
+    getSelectedModel: function () {
+      var settings = safeGet();
+      return settings.selectedModel || "";
+    },
+
+    /** Sets the chosen model */
+    setSelectedModel: function (modelId) {
+      this.set("selectedModel", modelId);
     },
   };
 
-
   // ── Init settings UI on the settings page ──
   function initSettingsPage() {
+    // Model Dropdown container & select element
+    var modelContainer = document.getElementById("model-selection-container");
+    var modelSelect = document.getElementById("provider-model-select");
+
+    // Default fallback model dictionary in case backend is offline
+    var FALLBACK_MODELS = {
+      claude: {
+        default_model: "claude-3-5-sonnet-20241022",
+        models: [
+          { id: "claude-3-5-sonnet-20241022", display: "Claude 3.5 Sonnet" },
+          { id: "claude-3-5-haiku-20241022", display: "Claude 3.5 Haiku" },
+          { id: "claude-3-opus-20240229", display: "Claude 3 Opus" },
+        ],
+      },
+      openai: {
+        default_model: "gpt-4o-mini",
+        models: [
+          { id: "gpt-4o-mini", display: "GPT-4o Mini" },
+          { id: "gpt-4o", display: "GPT-4o" },
+          { id: "gpt-4-turbo", display: "GPT-4 Turbo" },
+        ],
+      },
+      nvidia: {
+        default_model: "meta/llama-3.1-70b-instruct",
+        models: [
+          { id: "meta/llama-3.1-70b-instruct", display: "Llama 3.1 70B" },
+          { id: "nvidia/nemotron-4-340b-instruct", display: "Nemotron 4 340B" },
+          { id: "meta/llama-3.1-405b-instruct", display: "Llama 3.1 405B" },
+          { id: "mistralai/mixtral-8x22b-instruct", display: "Mixtral 8x22B" },
+        ],
+      },
+    };
+
+    var serverModelsConfig = null;
+
+    // Fetch dynamic models list from backend
+    var BACKEND_URL =
+      window.PromithicConfig && window.PromithicConfig.BACKEND_URL ?
+        window.PromithicConfig.BACKEND_URL
+      : "http://127.0.0.1:8000";
+
+    fetch(BACKEND_URL + "/api/models")
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (data) {
+        if (data && data.providers) {
+          serverModelsConfig = data.providers;
+          updateModelDropdown(SettingsManager.get("provider"));
+        }
+      })
+      .catch(function () {
+        // Backend offline — use local fallback models
+        updateModelDropdown(SettingsManager.get("provider"));
+      });
+
+    function updateModelDropdown(provider) {
+      if (!modelContainer || !modelSelect) return;
+      if (provider === "none" || !provider) {
+        modelContainer.style.display = "none";
+        return;
+      }
+
+      modelContainer.style.display = "block";
+      modelSelect.innerHTML = "";
+
+      var conf =
+        (serverModelsConfig && serverModelsConfig[provider]) ||
+        FALLBACK_MODELS[provider];
+      if (!conf || !conf.models) {
+        modelContainer.style.display = "none";
+        return;
+      }
+
+      var savedModel = SettingsManager.getSelectedModel();
+      var defaultModel = conf.default_model;
+      var hasSavedModel = false;
+
+      conf.models.forEach(function (m) {
+        var opt = document.createElement("option");
+        opt.value = m.id;
+        opt.textContent =
+          m.display + (m.id === defaultModel ? " (Default)" : "");
+        if (m.id === savedModel) hasSavedModel = true;
+        modelSelect.appendChild(opt);
+      });
+
+      // Automatically select saved model if still supported, else default model
+      var activeModel = hasSavedModel ? savedModel : defaultModel;
+      modelSelect.value = activeModel;
+      SettingsManager.setSelectedModel(activeModel);
+    }
+
+    if (modelSelect) {
+      modelSelect.addEventListener("change", function () {
+        SettingsManager.setSelectedModel(modelSelect.value);
+      });
+    }
+
     // Provider cards
-    var providerCards = document.querySelectorAll('.provider-card');
+    var providerCards = document.querySelectorAll(".provider-card");
     providerCards.forEach(function (card) {
-      card.addEventListener('click', function () {
+      card.addEventListener("click", function () {
         var provider = card.dataset.provider;
         // When "None" is selected, disconnect all providers
-        if (provider === 'none') {
-          SettingsManager.set('claudeConnected', false);
-          SettingsManager.set('openaiConnected', false);
-          SettingsManager.set('nvidiaConnected', false);
+        if (provider === "none") {
+          SettingsManager.set("claudeConnected", false);
+          SettingsManager.set("openaiConnected", false);
+          SettingsManager.set("nvidiaConnected", false);
         }
-        SettingsManager.set('provider', provider);
-        providerCards.forEach(function (c) { c.classList.remove('selected'); });
-        card.classList.add('selected');
+        SettingsManager.set("provider", provider);
+        providerCards.forEach(function (c) {
+          c.classList.remove("selected");
+        });
+        card.classList.add("selected");
+
+        // Refresh dynamic model options
+        updateModelDropdown(provider);
       });
 
       // Mark current
-      if (card.dataset.provider === SettingsManager.get('provider')) {
-        card.classList.add('selected');
+      if (card.dataset.provider === SettingsManager.get("provider")) {
+        card.classList.add("selected");
       }
     });
 
+    // Initial render for model dropdown
+    updateModelDropdown(SettingsManager.get("provider"));
+
     // API key inputs
-    var claudeKeyInput = document.getElementById('claude-key-input');
-    var openaiKeyInput = document.getElementById('openai-key-input');
-    var nvidiaKeyInput = document.getElementById('nvidia-key-input');
+    var claudeKeyInput = document.getElementById("claude-key-input");
+    var openaiKeyInput = document.getElementById("openai-key-input");
+    var nvidiaKeyInput = document.getElementById("nvidia-key-input");
 
     if (claudeKeyInput) {
-      claudeKeyInput.value = SettingsManager.get('claudeKey');
-      claudeKeyInput.addEventListener('input', function () {
-        SettingsManager.set('claudeKey', claudeKeyInput.value.trim());
+      claudeKeyInput.value = SettingsManager.get("claudeKey");
+      claudeKeyInput.addEventListener("input", function () {
+        SettingsManager.set("claudeKey", claudeKeyInput.value.trim());
       });
     }
 
     if (openaiKeyInput) {
-      openaiKeyInput.value = SettingsManager.get('openaiKey');
-      openaiKeyInput.addEventListener('input', function () {
-        SettingsManager.set('openaiKey', openaiKeyInput.value.trim());
+      openaiKeyInput.value = SettingsManager.get("openaiKey");
+      openaiKeyInput.addEventListener("input", function () {
+        SettingsManager.set("openaiKey", openaiKeyInput.value.trim());
       });
     }
 
     if (nvidiaKeyInput) {
-      nvidiaKeyInput.value = SettingsManager.get('nvidiaKey');
-      nvidiaKeyInput.addEventListener('input', function () {
-        SettingsManager.set('nvidiaKey', nvidiaKeyInput.value.trim());
+      nvidiaKeyInput.value = SettingsManager.get("nvidiaKey");
+      nvidiaKeyInput.addEventListener("input", function () {
+        SettingsManager.set("nvidiaKey", nvidiaKeyInput.value.trim());
       });
     }
 
     // Password toggles for API keys
-    document.querySelectorAll('.password-toggle').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+    document.querySelectorAll(".password-toggle").forEach(function (btn) {
+      btn.addEventListener("click", function () {
         var targetId = btn.dataset.target;
         var input = document.getElementById(targetId);
         if (!input) return;
-        var isHidden = input.type === 'password';
-        input.type = isHidden ? 'text' : 'password';
-        var eyeIcon = btn.querySelector('.eye-icon');
-        var eyeOffIcon = btn.querySelector('.eye-off-icon');
-        if (eyeIcon) eyeIcon.style.display = isHidden ? 'none' : '';
-        if (eyeOffIcon) eyeOffIcon.style.display = isHidden ? '' : 'none';
+        var isHidden = input.type === "password";
+        input.type = isHidden ? "text" : "password";
+        var eyeIcon = btn.querySelector(".eye-icon");
+        var eyeOffIcon = btn.querySelector(".eye-off-icon");
+        if (eyeIcon) eyeIcon.style.display = isHidden ? "none" : "";
+        if (eyeOffIcon) eyeOffIcon.style.display = isHidden ? "" : "none";
       });
     });
 
     // Theme options
-    var themeOptions = document.querySelectorAll('.theme-option');
+    var themeOptions = document.querySelectorAll(".theme-option");
     themeOptions.forEach(function (opt) {
-      opt.addEventListener('click', function () {
+      opt.addEventListener("click", function () {
         var theme = opt.dataset.theme;
-        SettingsManager.set('theme', theme);
+        SettingsManager.set("theme", theme);
         if (window.ThemeManager) window.ThemeManager.set(theme);
       });
     });
 
     // Toggle settings
-    document.querySelectorAll('[data-setting-toggle]').forEach(function (toggle) {
-      var key = toggle.dataset.settingToggle;
-      var input = toggle.querySelector('input[type="checkbox"]');
-      if (input) {
-        input.checked = SettingsManager.get(key) !== false;
-        input.addEventListener('change', function () {
-          SettingsManager.set(key, input.checked);
-        });
-      }
-    });
+    document
+      .querySelectorAll("[data-setting-toggle]")
+      .forEach(function (toggle) {
+        var key = toggle.dataset.settingToggle;
+        var input = toggle.querySelector('input[type="checkbox"]');
+        if (input) {
+          input.checked = SettingsManager.get(key) !== false;
+          input.addEventListener("change", function () {
+            SettingsManager.set(key, input.checked);
+          });
+        }
+      });
 
     // Agent mode radio
-    document.querySelectorAll('[data-agent-mode]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+    document.querySelectorAll("[data-agent-mode]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
         var mode = btn.dataset.agentMode;
-        SettingsManager.set('agentMode', mode);
-        document.querySelectorAll('[data-agent-mode]').forEach(function (b) {
-          b.classList.toggle('active', b.dataset.agentMode === mode);
+        SettingsManager.set("agentMode", mode);
+        document.querySelectorAll("[data-agent-mode]").forEach(function (b) {
+          b.classList.toggle("active", b.dataset.agentMode === mode);
         });
       });
-      btn.classList.toggle('active', btn.dataset.agentMode === SettingsManager.get('agentMode'));
+      btn.classList.toggle(
+        "active",
+        btn.dataset.agentMode === SettingsManager.get("agentMode"),
+      );
     });
 
     // Sidebar nav smooth scroll
-    document.querySelectorAll('.settings-nav-item[href]').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        var target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        document.querySelectorAll('.settings-nav-item').forEach(function (l) {
-          l.classList.remove('active');
+    document
+      .querySelectorAll(".settings-nav-item[href]")
+      .forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          var target = document.querySelector(link.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          document.querySelectorAll(".settings-nav-item").forEach(function (l) {
+            l.classList.remove("active");
+          });
+          link.classList.add("active");
         });
-        link.classList.add('active');
       });
-    });
   }
 
   // Auto-init settings page if elements are found
-  document.addEventListener('DOMContentLoaded', function () {
-    if (document.querySelector('.settings-page')) {
+  document.addEventListener("DOMContentLoaded", function () {
+    if (document.querySelector(".settings-page")) {
       initSettingsPage();
     }
   });

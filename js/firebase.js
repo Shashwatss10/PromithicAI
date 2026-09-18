@@ -1,19 +1,19 @@
 /* ===================================================================
    FIREBASE.JS — Firebase Auth Wrapper
-   PromithicAI v1.2
+   PromithicAI v2.0
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
   /* ── Firebase Configuration ──────────────────────────────────────── */
   var FIREBASE_CONFIG = {
-    apiKey:            'AIzaSyAFRf6mO_EYk1f4J8LR6A0Crs8J8OGih7c',
-    authDomain:        'promithicai-a1.firebaseapp.com',
-    projectId:         'promithicai-a1',
-    storageBucket:     'promithicai-a1.firebasestorage.app',
-    messagingSenderId: '536621318388',
-    appId:             '1:536621318388:web:c92f417c1d38de58c51ea1'
+    apiKey: "AIzaSyAFRf6mO_EYk1f4J8LR6A0Crs8J8OGih7c",
+    authDomain: "promithicai-a1.firebaseapp.com",
+    projectId: "promithicai-a1",
+    storageBucket: "promithicai-a1.firebasestorage.app",
+    messagingSenderId: "536621318388",
+    appId: "1:536621318388:web:c92f417c1d38de58c51ea1",
   };
 
   /* ── Initialize Firebase (guard against double-init) ─────────────── */
@@ -26,23 +26,22 @@
   /* ── Helper: map Firebase error codes to friendly messages ──────── */
   function friendlyError(code) {
     var map = {
-      'auth/email-already-in-use':   'An account with this email already exists.',
-      'auth/invalid-email':          'Please enter a valid email address.',
-      'auth/weak-password':          'Password must be at least 6 characters.',
-      'auth/user-not-found':         'No account found with this email.',
-      'auth/wrong-password':         'Incorrect password. Please try again.',
-      'auth/invalid-credential':     'Incorrect email or password.',
-      'auth/too-many-requests':      'Too many attempts. Please wait a moment.',
-      'auth/network-request-failed': 'Network error. Check your connection.',
-      'auth/popup-closed-by-user':   'Google sign-in was cancelled.',
-      'auth/popup-blocked':          'Popup was blocked. Please allow popups.',
+      "auth/email-already-in-use": "An account with this email already exists.",
+      "auth/invalid-email": "Please enter a valid email address.",
+      "auth/weak-password": "Password must be at least 6 characters.",
+      "auth/user-not-found": "No account found with this email.",
+      "auth/wrong-password": "Incorrect password. Please try again.",
+      "auth/invalid-credential": "Incorrect email or password.",
+      "auth/too-many-requests": "Too many attempts. Please wait a moment.",
+      "auth/network-request-failed": "Network error. Check your connection.",
+      "auth/popup-closed-by-user": "Google sign-in was cancelled.",
+      "auth/popup-blocked": "Popup was blocked. Please allow popups.",
     };
-    return map[code] || 'An unexpected error occurred. Please try again.';
+    return map[code] || "An unexpected error occurred. Please try again.";
   }
 
   /* ── Public Auth API ─────────────────────────────────────────────── */
   var FirebaseAuth = {
-
     /**
      * Sign up a new user with email + password.
      * @param {string} email
@@ -51,11 +50,15 @@
      * @returns {Promise<firebase.auth.UserCredential>}
      */
     signUp: function (email, password, displayName) {
-      return auth.createUserWithEmailAndPassword(email, password)
+      return auth
+        .createUserWithEmailAndPassword(email, password)
         .then(function (cred) {
           if (displayName) {
-            return cred.user.updateProfile({ displayName: displayName.trim() })
-              .then(function () { return cred; });
+            return cred.user
+              .updateProfile({ displayName: displayName.trim() })
+              .then(function () {
+                return cred;
+              });
           }
           return cred;
         });
@@ -75,7 +78,7 @@
      */
     signInWithGoogle: function () {
       var provider = new firebase.auth.GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: 'select_account' });
+      provider.setCustomParameters({ prompt: "select_account" });
       return auth.signInWithPopup(provider);
     },
 
@@ -107,9 +110,8 @@
     /**
      * Translate Firebase error code to a user-friendly string.
      */
-    getErrorMessage: friendlyError
+    getErrorMessage: friendlyError,
   };
 
   window.FirebaseAuth = FirebaseAuth;
-
 })();

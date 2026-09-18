@@ -5,15 +5,15 @@
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
   /* ── Bail out for reduced motion or no canvas support ── */
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var canvas = document.getElementById('agent-canvas');
+  var canvas = document.getElementById("agent-canvas");
   if (!canvas) return;
 
-  var ctx = canvas.getContext('2d', { alpha: true, antialias: true });
+  var ctx = canvas.getContext("2d", { alpha: true, antialias: true });
   if (!ctx) return;
 
   /* ── Configuration ── */
@@ -21,54 +21,54 @@
     core: {
       radius: 40,
       pulseSpeed: 0.8,
-      pulseAmount: 0.15
+      pulseAmount: 0.15,
     },
     agents: [
       {
-        id: 'planner',
-        name: 'Planner',
-        color: '#00d4ff',
-        glow: 'rgba(0, 212, 255, 0.6)',
+        id: "planner",
+        name: "Planner",
+        color: "#00d4ff",
+        glow: "rgba(0, 212, 255, 0.6)",
         orbitRadius: 160,
         orbitSpeed: 0.00035,
         angleOffset: 0,
         size: 14,
-        pulsePhase: 0
+        pulsePhase: 0,
       },
       {
-        id: 'coder',
-        name: 'Coder',
-        color: '#7c3aed',
-        glow: 'rgba(124, 58, 237, 0.6)',
+        id: "coder",
+        name: "Coder",
+        color: "#7c3aed",
+        glow: "rgba(124, 58, 237, 0.6)",
         orbitRadius: 160,
         orbitSpeed: 0.00055,
         angleOffset: 2.094, // 120°
         size: 14,
-        pulsePhase: 2.094
+        pulsePhase: 2.094,
       },
       {
-        id: 'reviewer',
-        name: 'Reviewer',
-        color: '#10b981',
-        glow: 'rgba(16, 185, 129, 0.6)',
+        id: "reviewer",
+        name: "Reviewer",
+        color: "#10b981",
+        glow: "rgba(16, 185, 129, 0.6)",
         orbitRadius: 160,
         orbitSpeed: 0.00045,
         angleOffset: 4.188, // 240°
         size: 14,
-        pulsePhase: 4.188
-      }
+        pulsePhase: 4.188,
+      },
     ],
     connections: {
       maxDistance: 280,
       baseOpacity: 0.15,
-      pulseOpacity: 0.4
+      pulseOpacity: 0.4,
     },
     particles: {
       count: 60,
       maxSize: 2,
       minSize: 0.5,
-      speed: 0.0002
-    }
+      speed: 0.0002,
+    },
   };
 
   /* ── State ── */
@@ -98,8 +98,8 @@
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
 
     ctx.scale(dpr, dpr);
 
@@ -125,9 +125,15 @@
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * CONFIG.particles.speed * width,
         vy: (Math.random() - 0.5) * CONFIG.particles.speed * height,
-        size: Math.random() * (CONFIG.particles.maxSize - CONFIG.particles.minSize) + CONFIG.particles.minSize,
+        size:
+          Math.random() *
+            (CONFIG.particles.maxSize - CONFIG.particles.minSize) +
+          CONFIG.particles.minSize,
         opacity: Math.random() * 0.4 + 0.1,
-        color: Math.random() > 0.6 ? '#00d4ff' : (Math.random() > 0.3 ? '#7c3aed' : '#10b981')
+        color:
+          Math.random() > 0.6 ? "#00d4ff"
+          : Math.random() > 0.3 ? "#7c3aed"
+          : "#10b981",
       });
     }
   }
@@ -143,7 +149,7 @@
       var dy = centerY - p.y;
       var dist = Math.sqrt(dx * dx + dy * dy);
       if (dist > 0) {
-        var force = 0.00001 * maxDim / (dist * dist);
+        var force = (0.00001 * maxDim) / (dist * dist);
         p.vx += dx * force * deltaTime;
         p.vy += dy * force * deltaTime;
       }
@@ -169,16 +175,17 @@
 
   /* ── Core Drawing ── */
   function drawCore(t) {
-    var pulse = Math.sin(t * CONFIG.core.pulseSpeed) * CONFIG.core.pulseAmount + 1;
+    var pulse =
+      Math.sin(t * CONFIG.core.pulseSpeed) * CONFIG.core.pulseAmount + 1;
     var radius = CONFIG.core.radius * pulse;
 
     /* Outer glow rings */
     for (var i = 3; i >= 0; i--) {
       var ringRadius = radius + i * 12;
-      var opacity = 0.03 * (4 - i) / 4;
+      var opacity = (0.03 * (4 - i)) / 4;
       ctx.beginPath();
       ctx.arc(centerX, centerY, ringRadius * pulse, 0, Math.PI * 2);
-      ctx.strokeStyle = '#00d4ff';
+      ctx.strokeStyle = "#00d4ff";
       ctx.globalAlpha = opacity;
       ctx.lineWidth = 1;
       ctx.stroke();
@@ -186,12 +193,16 @@
 
     /* Core body */
     var gradient = ctx.createRadialGradient(
-      centerX, centerY, 0,
-      centerX, centerY, radius
+      centerX,
+      centerY,
+      0,
+      centerX,
+      centerY,
+      radius,
     );
-    gradient.addColorStop(0, 'rgba(10, 14, 26, 1)');
-    gradient.addColorStop(0.5, 'rgba(0, 212, 255, 0.15)');
-    gradient.addColorStop(1, 'rgba(0, 212, 255, 0.05)');
+    gradient.addColorStop(0, "rgba(10, 14, 26, 1)");
+    gradient.addColorStop(0.5, "rgba(0, 212, 255, 0.15)");
+    gradient.addColorStop(1, "rgba(0, 212, 255, 0.05)");
 
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
@@ -201,14 +212,20 @@
     /* Core border */
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(0, 212, 255, 0.4)';
+    ctx.strokeStyle = "rgba(0, 212, 255, 0.4)";
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
     /* Inner highlight */
     ctx.beginPath();
-    ctx.arc(centerX - radius * 0.2, centerY - radius * 0.2, radius * 0.3, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0, 212, 255, 0.1)';
+    ctx.arc(
+      centerX - radius * 0.2,
+      centerY - radius * 0.2,
+      radius * 0.3,
+      0,
+      Math.PI * 2,
+    );
+    ctx.fillStyle = "rgba(0, 212, 255, 0.1)";
     ctx.fill();
   }
 
@@ -245,9 +262,16 @@
 
     /* Agent glow */
     var glowRadius = size * 4;
-    var glowGrad = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, glowRadius);
+    var glowGrad = ctx.createRadialGradient(
+      pos.x,
+      pos.y,
+      0,
+      pos.x,
+      pos.y,
+      glowRadius,
+    );
     glowGrad.addColorStop(0, agent.glow);
-    glowGrad.addColorStop(1, 'transparent');
+    glowGrad.addColorStop(1, "transparent");
 
     ctx.beginPath();
     ctx.arc(pos.x, pos.y, glowRadius, 0, Math.PI * 2);
@@ -257,12 +281,16 @@
 
     /* Agent body */
     var agentGrad = ctx.createRadialGradient(
-      pos.x - size * 0.3, pos.y - size * 0.3, 0,
-      pos.x, pos.y, size
+      pos.x - size * 0.3,
+      pos.y - size * 0.3,
+      0,
+      pos.x,
+      pos.y,
+      size,
     );
-    agentGrad.addColorStop(0, '#ffffff');
+    agentGrad.addColorStop(0, "#ffffff");
     agentGrad.addColorStop(0.5, agent.color);
-    agentGrad.addColorStop(1, agent.color + 'cc');
+    agentGrad.addColorStop(1, agent.color + "cc");
 
     ctx.beginPath();
     ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
@@ -273,7 +301,7 @@
     /* Agent border */
     ctx.beginPath();
     ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = "#ffffff";
     ctx.globalAlpha = 0.4;
     ctx.lineWidth = 1.5;
     ctx.stroke();
@@ -302,13 +330,14 @@
         var dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < CONFIG.connections.maxDistance) {
-          var opacity = CONFIG.connections.baseOpacity +
+          var opacity =
+            CONFIG.connections.baseOpacity +
             Math.sin(t * 1.5 + i + j) * CONFIG.connections.pulseOpacity;
           opacity = Math.max(0.05, Math.min(0.5, opacity));
 
           var grad = ctx.createLinearGradient(pos1.x, pos1.y, pos2.x, pos2.y);
           grad.addColorStop(0, agents[i].color);
-          grad.addColorStop(0.5, '#ffffff');
+          grad.addColorStop(0.5, "#ffffff");
           grad.addColorStop(1, agents[j].color);
 
           ctx.beginPath();
@@ -338,7 +367,7 @@
       progress: 0,
       color: fromAgent.color,
       size: 3,
-      life: 1
+      life: 1,
     });
   }
 
@@ -378,7 +407,7 @@
   }
 
   /* ── Mouse Interaction ── */
-  document.addEventListener('mousemove', function (e) {
+  document.addEventListener("mousemove", function (e) {
     var rect = canvas.getBoundingClientRect();
     targetMouseX = e.clientX - rect.left;
     targetMouseY = e.clientY - rect.top;
@@ -436,15 +465,18 @@
   }
 
   /* ── Visibility Detection ── */
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !animationId) {
-        lastTime = performance.now();
-        render(lastTime);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '100px' });
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animationId) {
+          lastTime = performance.now();
+          render(lastTime);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "100px" },
+  );
 
   observer.observe(canvas);
 
@@ -452,7 +484,7 @@
   function init() {
     resize();
     initParticles();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     /* Start render loop */
     lastTime = performance.now();
@@ -460,23 +492,28 @@
   }
 
   /* ── Cleanup on page unload ── */
-  window.addEventListener('beforeunload', function () {
+  window.addEventListener("beforeunload", function () {
     if (animationId) cancelAnimationFrame(animationId);
-    window.removeEventListener('resize', resize);
+    window.removeEventListener("resize", resize);
   });
 
   /* Run when DOM ready */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
   } else {
     init();
   }
 
   /* ── Expose for debugging ── */
   window.Hero3D = {
-    pause: function () { isVisible = false; },
-    resume: function () { isVisible = true; },
-    getConfig: function () { return CONFIG; }
+    pause: function () {
+      isVisible = false;
+    },
+    resume: function () {
+      isVisible = true;
+    },
+    getConfig: function () {
+      return CONFIG;
+    },
   };
-
 })();

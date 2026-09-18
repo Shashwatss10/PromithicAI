@@ -1,14 +1,14 @@
 /* ===================================================================
    THEME.JS — Dark/Light Mode Manager
-   PromithicAI v1.2
+   PromithicAI v2.0
    =================================================================== */
 
 (function () {
-  'use strict';
+  "use strict";
 
-  const STORAGE_KEY = 'aiwab-theme';
-  const DARK = 'dark';
-  const LIGHT = 'light';
+  const STORAGE_KEY = "aiwab-theme";
+  const DARK = "dark";
+  const LIGHT = "light";
 
   /**
    * Get the saved theme or system preference
@@ -26,21 +26,30 @@
   function applyTheme(theme) {
     const html = document.documentElement;
     if (theme === LIGHT) {
-      html.setAttribute('data-theme', 'light');
+      html.setAttribute("data-theme", "light");
     } else {
-      html.removeAttribute('data-theme');
+      html.removeAttribute("data-theme");
     }
     // Persist
-    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) { /* ignore */ }
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {
+      /* ignore */
+    }
     // Dispatch event for any listeners
-    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
+    window.dispatchEvent(
+      new CustomEvent("themeChanged", { detail: { theme } }),
+    );
   }
 
   /**
    * Toggle between dark and light
    */
   function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme') === 'light' ? LIGHT : DARK;
+    const current =
+      document.documentElement.getAttribute("data-theme") === "light" ?
+        LIGHT
+      : DARK;
     applyTheme(current === DARK ? LIGHT : DARK);
   }
 
@@ -48,7 +57,9 @@
    * Get current theme
    */
   function getTheme() {
-    return document.documentElement.getAttribute('data-theme') === 'light' ? LIGHT : DARK;
+    return document.documentElement.getAttribute("data-theme") === "light" ?
+        LIGHT
+      : DARK;
   }
 
   /**
@@ -59,10 +70,12 @@
     applyTheme(getPreferredTheme());
 
     // Attach toggle buttons once DOM is ready
-    document.addEventListener('DOMContentLoaded', function () {
-      const toggleBtns = document.querySelectorAll('.theme-toggle, [data-theme-toggle]');
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtns = document.querySelectorAll(
+        ".theme-toggle, [data-theme-toggle]",
+      );
       toggleBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
+        btn.addEventListener("click", function () {
           toggleTheme();
         });
       });
@@ -71,7 +84,7 @@
       updateThemeOptions();
 
       // Listen for theme changes
-      window.addEventListener('themeChanged', function (e) {
+      window.addEventListener("themeChanged", function (e) {
         updateThemeOptions();
         updateMonacoTheme(e.detail.theme);
       });
@@ -83,10 +96,10 @@
    */
   function updateThemeOptions() {
     const current = getTheme();
-    const options = document.querySelectorAll('.theme-option');
+    const options = document.querySelectorAll(".theme-option");
     options.forEach(function (opt) {
       const optTheme = opt.dataset.theme;
-      opt.classList.toggle('selected', optTheme === current);
+      opt.classList.toggle("selected", optTheme === current);
     });
   }
 
@@ -96,8 +109,10 @@
   function updateMonacoTheme(theme) {
     if (window.monaco) {
       try {
-        window.monaco.editor.setTheme(theme === LIGHT ? 'vs' : 'vs-dark');
-      } catch (e) { /* ignore */ }
+        window.monaco.editor.setTheme(theme === LIGHT ? "vs" : "vs-dark");
+      } catch (e) {
+        /* ignore */
+      }
     }
   }
 
