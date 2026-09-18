@@ -679,7 +679,7 @@ p{color:#8b9ab4;font-size:.95rem;line-height:1.7;margin-bottom:24px}
                 backendErr,
               );
               log(
-                "Backend offline or unreachable, switching to direct client BYOK…",
+                "Backend error: " + (backendErr.message || backendErr),
                 "warn",
               );
             }

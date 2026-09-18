@@ -193,6 +193,9 @@ async def pipeline_generator(body: GenerateRequest, user_id: str):
     except asyncio.CancelledError:
         return
     except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"[Generate Error] Pipeline failed: {e}", flush=True)
         yield sse("error", {"msg": f"Pipeline error: {str(e)}"})
 
 
