@@ -47,18 +47,20 @@ app = FastAPI(
 )
 
 # -- CORS ---------------------------------------------------
+# -- CORS ---------------------------------------------------
 raw_origins = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5500,http://127.0.0.1:5500"
+    "http://localhost:5500,http://127.0.0.1:5500,https://promithic-ai.vercel.app"
 )
 origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins if origins else ["*"],
+    allow_origin_regex=r"https://.*\.vercel\.app|http://localhost:.*|http://127\.0\.0\.1:.*",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Authorization", "Content-Type"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # -- Routers ------------------------------------------------

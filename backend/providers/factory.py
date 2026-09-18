@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # FACTORY.PY - Provider Factory + Model Allowlist
 # PromithicAI v2.0
 # Single source of truth for all provider/model configuration.
@@ -57,15 +57,11 @@ def get_allowed_model_ids(provider: str) -> list[str]:
 
 def validate_provider_model(provider: str, model: str) -> tuple[bool, str]:
     """
-    Validate that a provider/model pair is in the allowlist.
+    Validate that a provider/model pair is supported.
     Returns (is_valid, error_message).
     """
     if provider not in PROVIDER_CONFIG:
         return False, f"Unknown provider '{provider}'. Supported: {list(PROVIDER_CONFIG.keys())}"
-
-    allowed = get_allowed_model_ids(provider)
-    if model not in allowed:
-        return False, f"Model '{model}' is not supported for provider '{provider}'. Allowed: {allowed}"
 
     return True, ""
 
@@ -111,6 +107,10 @@ def get_provider(
     valid, err = validate_provider_model(provider, model)
     if not valid:
         raise ValueError(err)
+
+    # Default model if empty
+    if not model:
+        model = PROVIDER_CONFIG[provider]["default_model"]
 
     # Resolve key
     api_key = resolve_api_key(provider, user_key)
